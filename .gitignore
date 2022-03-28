@@ -1,3 +1,5 @@
+#@author: Geru
+
 # Prerequisites
 *.d
 
@@ -50,3 +52,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+#Config files.
+.DS_Store
+.idea
