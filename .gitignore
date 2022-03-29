@@ -44,6 +44,10 @@
 *.idb
 *.pdb
 
+# NDS and ARM related output files
+*.nds
+*.arm*
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
@@ -56,3 +60,6 @@ dkms.conf
 #Config files.
 .DS_Store
 .idea
+
+#Build folders
+/build/

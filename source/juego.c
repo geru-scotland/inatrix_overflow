@@ -42,11 +42,11 @@ void juego()
 	// Establecer las rutinas de atención a interrupciones
 	//******************************************************************************//
 
-
 	while(1)
 	{
+        // Geru: Testing purposes. Todo: remove this.
         if(TeclaDetectada()){
-            iprintf("\x1b[16;00H TECLADO EN ESPERA");
+            iprintf("\x1b[16;00H TECLA PULSADA: %i", TeclaPulsada());
             visualizarPuerta();
             ESTADO = CERRADA;
         }
