@@ -1,6 +1,21 @@
 #---------------------------------------------------------------------------------
 .SUFFIXES:
 #---------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------
+# Geru: If Linux OS (uname -s shows the kernel), export the environment vars.
+# NOTE: It is recommended to write them at the end of the ~/.bashrc, ~/.zhsrc
+# (or whatever shell's script is being used).
+#---------------------------------------------------------------------------------
+KERNEL_NAME := $(shell uname -s)
+
+ifeq ($(KERNEL_NAME),Linux)
+	export	DEVKITPRO=/opt/devkitpro
+	export	DEVKITARM=/opt/devkitpro/devkitARM
+endif
+ifeq ($(KERNEL_NAME),Darwin)
+# In case it is needed for something
+# also detect MacOS
+endif
 
 ifeq ($(strip $(DEVKITARM)),)
 $(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>devkitARM")
