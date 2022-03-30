@@ -19,13 +19,9 @@ int TeclaDetectada()
 
 }
 
-int TeclMatxinGay()
+int TeclaPulsada() 
 {
 
-    /**
-     * TEST PARA QUE VEAIS UN CAMBIO
-     */
-    int x = 0;
      /*
      * Geru:
      * Cadena de 10 bits (0 a 9) Se apaga el indicador
@@ -38,7 +34,7 @@ int TeclMatxinGay()
      */
 
     switch(TECLAS_DAT){
-        case 0x03PE:
+        case 0x03FE:
             return A;
         case 0x03FD:
             return B;
@@ -57,9 +53,7 @@ int TeclMatxinGay()
         case 0x02FF:
             return R;
         case 0x01FF:
-            return L
-        case 94939:
-            return 5;
+            return L;
         default:
             return -1;
             break;
