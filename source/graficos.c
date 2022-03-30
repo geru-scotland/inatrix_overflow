@@ -67,7 +67,7 @@ void inicializarFondos() {
 
 /*******************************************************************************************/
     /*  Definir el estado del fondo 3 de la pantalla principal. */
-    /*  Cambiar lo siguiente si el grafiko se quiere establecer en otro lugar. */
+    /*  Cambiar lo siguiente si el grafico se quiere establecer en otro lugar. */
     REG_BG2X = -(SCREEN_WIDTH / 2 - 32) << 8;
     REG_BG2Y = -32 << 8;
 /*******************************************************************************************/
