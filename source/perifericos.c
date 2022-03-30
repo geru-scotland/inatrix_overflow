@@ -13,6 +13,7 @@ int tecla; //variable para guardar la tecla pulsada
 
 int TeclaDetectada() 
 {
+    // Geru: Hacer aquí que se comprueba por encuesta / interrupción.
 	//Devuelve TRUE si detecta que se ha pulsado alguna tecla.
 	if ((~TECLAS_DAT & 0x03ff)!=0) return 1;
 	else return 0;
