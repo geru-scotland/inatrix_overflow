@@ -127,6 +127,9 @@ export INCLUDE		:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 export LIBPATHS		:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 
 .PHONY: $(BUILD) clean
+# Geru: Clean before build, at least for now.
+	@echo clean ...
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds $(TARGET).arm9
 
 #---------------------------------------------------------------------------------
 $(BUILD):
