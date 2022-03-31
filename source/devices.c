@@ -31,6 +31,11 @@ int TeclaPulsada()
      * ARRIBA=6;ABAJO=7;R=8;L=9;
      */
 
+    /*
+     * Los registros de las teclas X e Y, al igual que los de la pantalla táctil, sólo son accesibles
+     * desde el procesador ARM7, por esa razón y puesto que en este caso tenemos disponibles
+     * el resto de las teclas, estas no las vamos a utilizar.
+     */
     switch(TECLAS_DAT){
         case 0x03FE:
             return A;
