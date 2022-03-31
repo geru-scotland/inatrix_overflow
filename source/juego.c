@@ -22,7 +22,6 @@ void juego()
 {	
 	//definiciones de variables
 	int i=12;
-	int tecla=0;;
 
 	ESTADO=ESPERA;
 	
@@ -32,26 +31,34 @@ void juego()
     /*Si se quiere visualizar el valor de una variable escribir %d dentro de las comillas y el nombre de la variable fuera de las comillas.*/
 	iprintf("\x1b[23;5HPrueba de escritura con variable. Valor=%d", i);
 
-	//*******************************EN LA 2.ACTIVIDAD ********************************//
-        // LLAMADAS A REALIZAR:
-	// Habilitar interrupciones.
-	// Configurar el teclado.
-	// Configurar el temporizador.
-	// Habilitar las interrupciones del teclado.
-	// Habilitar las interrupciones del temporizador.
-	// Establecer las rutinas de atención a interrupciones
-	//******************************************************************************//
-
 	while(1)
 	{
-        // Geru: Testing purposes. Todo: remove this.
+        /**************** EN LA 1.ACTIVIDAD ****************/
+
+        /* Si el estado es ESPERA: codificar aquí la encuesta del teclado,
+         * sacar por pantalla la tecla que se ha pulsado, y si se pulsa
+         * la tecla START cambiar de estado
+         * */
         if(TeclaDetectada()){
-            iprintf("\x1b[16;00H TECLA PULSADA: %i", TeclaPulsada());
-            visualizarPuerta();
-            ESTADO = CERRADA;
+            int tecla = TeclaPulsada();
+            if(tecla != -1){
+                iprintf("\x1b[16;00H TECLA PULSADA: %i", tecla);
+                if(tecla == START){
+                    visualizarPuerta();
+                    ESTADO = CERRADA;
+                }
+            }
         }
-      /*******************************EN LA 1.ACTIVIDAD*****************************************/
-		/*Si el estado es ESPERA: codificar aquí la encuesta del teclado, sacar por pantalla la tecla que se ha pulsado, y si se pulsa ta la tecla START cambiar de estado*/
+
+        //*******************************EN LA 2.ACTIVIDAD ********************************//
+        // LLAMADAS A REALIZAR:
+        // Habilitar interrupciones.
+        // Configurar el teclado.
+        // Configurar el temporizador.
+        // Habilitar las interrupciones del teclado.
+        // Habilitar las interrupciones del temporizador.
+        // Establecer las rutinas de atención a interrupciones
+        //******************************************************************************//
 	}
 }
 

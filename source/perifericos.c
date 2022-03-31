@@ -13,16 +13,13 @@ int tecla; //variable para guardar la tecla pulsada
 
 int TeclaDetectada() 
 {
-    // Geru: Hacer aquí que se comprueba por encuesta / interrupción.
 	//Devuelve TRUE si detecta que se ha pulsado alguna tecla.
 	if ((~TECLAS_DAT & 0x03ff)!=0) return 1;
 	else return 0;
-
 }
 
 int TeclaPulsada() 
 {
-
      /*
      * Geru:
      * Cadena de 10 bits (0 a 9) Se apaga el indicador
@@ -63,17 +60,19 @@ int TeclaPulsada()
 
 void ConfigurarTeclado(int Conf_Tec)
 {
-	//Configuración del teclado. Modificar su registro de control en base a los bits
-        //activados en el parametro Conf_Tec
-	
+        /*
+         * Geru: el bit número 14 de este registro (TECLAS_CNT), pero aquí parece
+         * ser Conf_tec (registro control del teclado), determina si es por
+         * interrupción o no. Así que le hago un and con el bitmask 0xB111 (B = 1011)
+         * Con lo que apago el bit 14 (tercer bit de B) con esta operación.
+        */
+        Conf_Tec &= 0xB111;
 }
 
 void ConfigurarTemporizador(int Latch, int Conf_Tempo)
 {
-	//Configuración del temporizador. El latch es el valor del registro de datos del temporizador
+	    //Configuración del temporizador. El latch es el valor del registro de datos del temporizador
         //Activar los bits del registro de control necesarios en base a los bits activados en el parámetro Conf_Tempo
-
-	
 }
 
 void HabilitarIntTeclado()
