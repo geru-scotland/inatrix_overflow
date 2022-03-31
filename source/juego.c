@@ -39,7 +39,7 @@ void juego()
          * sacar por pantalla la tecla que se ha pulsado, y si se pulsa
          * la tecla START cambiar de estado
          * */
-        if(TeclaDetectada()){
+        if(TeclaDetectada() && (ESTADO == ESPERA)){
             int tecla = TeclaPulsada();
             if(tecla != -1){
                 iprintf("\x1b[16;00H TECLA PULSADA: %i", tecla);

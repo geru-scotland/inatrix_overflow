@@ -54,7 +54,6 @@ int TeclaPulsada()
             return L;
         default:
             return -1;
-            break;
     }
 }
 
