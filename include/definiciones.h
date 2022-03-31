@@ -38,7 +38,7 @@ definiciones.h
 #define SELECT			2 
 #define START			3
 #define DERECHA			4 
-#define IZQUIERDA			5
+#define IZQUIERDA		5
 #define ARRIBA			6 
 #define ABAJO			7
 #define R				8 
