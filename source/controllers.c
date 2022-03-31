@@ -1,12 +1,12 @@
 /*-------------------------------------
-rutinasAtencion.c
+controllers.cc
 -------------------------------------*/
 
 #include <nds.h>
 #include <stdio.h>
-#include "definiciones.h"
-#include "perifericos.h"
-#include "fondos.h"
+#include "defines.h"
+#include "devices.h"
+#include "backgrounds.h"
 #include "sprites.h"
 
 int ESTADO;

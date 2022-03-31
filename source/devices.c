@@ -1,10 +1,10 @@
 /*-------------------------------------
-perifericos.c
+        Keyboard and Screen
 -------------------------------------*/
 
 #include <nds.h>
 #include <stdio.h>
-#include "definiciones.h"
+#include "defines.h"
 
 
 int tecla; //variable para guardar la tecla pulsada
@@ -26,7 +26,7 @@ int TeclaPulsada()
      * Simplemente he calculado en binario los números
      * y pasado a hexadecimal.
      *
-     * De "definiciones.h":
+     * De "defines.h":
      * A=0;B=1;SELECT=2;START=3;IZQUIERDA=4;DERECHA=5;
      * ARRIBA=6;ABAJO=7;R=8;L=9;
      */
@@ -68,12 +68,6 @@ void ConfigurarTeclado(int Conf_Tec)
         Conf_Tec &= 0xB111;
 }
 
-void ConfigurarTemporizador(int Latch, int Conf_Tempo)
-{
-	    //Configuración del temporizador. El latch es el valor del registro de datos del temporizador
-        //Activar los bits del registro de control necesarios en base a los bits activados en el parámetro Conf_Tempo
-}
-
 void HabilitarIntTeclado()
 {
 	//Habilitar las interrupciones del teclado
@@ -98,40 +92,3 @@ void InhibirIntTeclado()
 	IME=1;
 }  
 
-void HabilitarIntTempo()
-{
-
-
-	//Habilitar las interrupciones del temporizador (timer0)
-	//Para realizar esa operación, primero deshabilitar todas las interrupciones de forma general, realizar la operación, 
-	//y después volver a habilitar las interrupciones de forma general 
-	IME=0;
-	//ESCRIBIR AQUÍ VUESTRO CÓDIGO
-	
-	IME=1;
-}
-
-void InhibirIntTempo()
-{
-
-	//Deshabilitar las interrupciones del temporizado (timer0)
-	//Para realizar esa operación, primero deshabilitar todas las interrupciones de forma general, realizar la operación, 
-	//y después volver a habilitar las interrupciones de forma general 
-	IME=0;
-	//ESCRIBIR AQUÍ VUESTRO CÓDIGO
-	
-	IME=1;
-
-}
-
-void PonerEnMarchaTempo()
-{
-	//ESCRIBIR AQUÍ VUESTRO CÓDIGO
-	
-}
-
-void PararTempo()
-{
-	//ESCRIBIR AQUÍ VUESTRO CÓDIGO
-	
-}

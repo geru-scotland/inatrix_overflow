@@ -1,5 +1,5 @@
 /*-------------------------------------
-fondos.h
+backgrounds.h
 -------------------------------------*/
 
 extern void visualizarPuerta();

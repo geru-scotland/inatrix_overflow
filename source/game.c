@@ -11,10 +11,10 @@ y en otro ejemplo de Jaeden Ameronen
 
 //librerías desarrolladas por nosotros para el proyecto
 	
-#include "definiciones.h"
-#include "perifericos.h"
-#include "rutinasAtencion.h"
-#include "fondos.h"
+#include "defines.h"
+#include "devices.h"
+#include "controllers.h"
+#include "backgrounds.h"
 
 int tiempo;
 

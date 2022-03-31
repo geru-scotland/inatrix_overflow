@@ -9,7 +9,7 @@ adibide batean oinarrituta.
 #include <unistd.h>		
 
 #include "sprites.h"
-#include "definiciones.h"
+#include "defines.h"
 
 u16* gfxrombo;
 u16* gfxromboGrande;

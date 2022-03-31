@@ -1,8 +1,8 @@
 /*-------------------------------------
-definiciones.h
+defines.h
 -------------------------------------*/
-#ifndef DEFINICIONES_H_
-#define DEFINICIONES_H_
+#ifndef DEFINES_H
+#define DEFINES_H
 
 #include <nds.h> 		//librería de la nds
 #include <stdio.h>		//librería de entrada/salida estandar de C
@@ -25,7 +25,6 @@ definiciones.h
 //registros del temporizador Timer0
 #define TIMER0_CNT   (*(vuint16*)0x04000102) //registro de control
 #define TIMER0_DAT    (*(vuint16*)0x04000100) //registro de datos
-
 
 
 //Acceso a los registros de la pantalla táctil

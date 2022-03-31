@@ -10,11 +10,11 @@ y en otro ejemplo de Jaeden Ameronen
 
 //librerías desarroladas por nosotros para el proyecto
 
-#include "graficos.h"		
-#include "definiciones.h"
+#include "graphics.h"
+#include "defines.h"
 #include "sprites.h"
-#include "juego.h"
-#include "perifericos.h"
+#include "game.h"
+#include "devices.h"
 
 
 //---------------------------------------------------------------------------------
