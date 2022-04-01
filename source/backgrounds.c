@@ -7,7 +7,7 @@
 /* Si queremos visualizar distintos fondos, aquí se debe incluir el fichero de cabecera (fichero .h) de cada fondo. Estos ficheros de cabecera se generan automáticamente durante la compilación. */
 
 #include "backgrounds.h"
-#include "graphics.h"
+#include "engine.h"
 #include "Puerta.h"
 #include "PuertaAbierta.h"
 

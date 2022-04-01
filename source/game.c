@@ -12,7 +12,7 @@ y en otro ejemplo de Jaeden Ameronen
 //librerías desarrolladas por nosotros para el proyecto
 	
 #include "defines.h"
-#include "devices.h"
+#include "input.h"
 #include "controllers.h"
 #include "backgrounds.h"
 

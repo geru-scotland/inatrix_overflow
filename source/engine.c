@@ -6,7 +6,7 @@ Definición del sistema de video, NO SE NECESITA CAMBIAR NADA AQUÍR
 #include <stdio.h>		
 #include <stdlib.h>		
 #include <unistd.h>		
-#include "graphics.h"
+#include "engine.h"
 #include "sprites.h"
 
 

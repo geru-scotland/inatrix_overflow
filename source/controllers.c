@@ -5,7 +5,7 @@ controllers.cc
 #include <nds.h>
 #include <stdio.h>
 #include "defines.h"
-#include "devices.h"
+#include "input.h"
 #include "backgrounds.h"
 #include "sprites.h"
 
