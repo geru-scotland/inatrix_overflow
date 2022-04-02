@@ -19,7 +19,7 @@ enum KEYS {
     L         = 9
 };
 
-extern int TeclaDetectada();
+int TeclaDetectada();
 extern int TeclaPulsada();
 extern void ConfigurarTeclado(int Conf_Tec);
 extern void HabilitarIntTeclado();

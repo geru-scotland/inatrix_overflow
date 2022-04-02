@@ -12,9 +12,11 @@ y en otro ejemplo de Jaeden Ameronen
 //librerías desarrolladas por nosotros para el proyecto
 	
 #include "defines.h"
+#include "event_manager.h"
 #include "input.h"
 #include "controllers.h"
 #include "backgrounds.h"
+#include "game.h"
 
 int tiempo;
 

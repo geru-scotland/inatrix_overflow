@@ -18,7 +18,7 @@ y en otro ejemplo de Jaeden Ameronen
 #include "timer.h"
 
 // Geru: variables globales aquí.
-GlobalData data;
+GameData data;
 TimerData timer;
 
 //---------------------------------------------------------------------------------

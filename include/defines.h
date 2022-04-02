@@ -25,17 +25,7 @@ defines.h
 //Acceso a los registros de la pantalla táctil
 //touchPosition PANT_DAT;
 
-enum STATES {
-    WAIT    = 0,
-    CLOSED  = 1,
-    OPEN    = 2
-};
-
-typedef struct {
-    int state;
-} GlobalData;
-
-extern GlobalData data;
+#define MAX_EVENTS 15
 
 #endif
 

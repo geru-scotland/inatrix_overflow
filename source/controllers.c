@@ -8,6 +8,9 @@ controllers.cc
 #include "input.h"
 #include "backgrounds.h"
 #include "sprites.h"
+#include "event_manager.h"
+#include "game.h"
+// TODO: Geru: Quitar event_manager.h y game.h de aqui una vez implementado correctamente.
 
 int seg3;
 
