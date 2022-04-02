@@ -38,7 +38,7 @@ typedef struct {
     int execTime;
 } Event;
 
-extern Event eventList[MAX_EVENTS];
+extern Event* eventList[MAX_EVENTS];
 
 //Funciones de Event Manager
 void updateEvents();

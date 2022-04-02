@@ -4,7 +4,7 @@
 
 #include "event_manager.h"
 
-Event eventList[MAX_EVENTS];
+Event* eventList[MAX_EVENTS];
 
 void updateEvent(){
 
