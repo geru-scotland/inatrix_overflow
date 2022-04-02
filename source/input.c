@@ -4,6 +4,7 @@
 
 #include <nds.h>
 #include <stdio.h>
+#include "input.h"
 #include "defines.h"
 
 
@@ -25,6 +26,9 @@ int TeclaPulsada()
      * Cadena de 10 bits (0 a 9) Se apaga el indicador
      * Simplemente he calculado en binario los números
      * y pasado a hexadecimal.
+     *
+     * E.g. Otra opción de implementación sería:
+     * if(~TECLAS_DAT & 0x0001) { return A; }
      *
      * De "defines.h":
      * A=0;B=1;SELECT=2;START=3;IZQUIERDA=4;DERECHA=5;

@@ -3,7 +3,7 @@
 #---------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------
 # Geru: If Linux OS (uname -s shows the kernel), export the environment vars.
-# NOTE: It is recommended to write them at the end of the ~/.bashrc, ~/.zhsrc
+# NOTE: It is recommended to write them at the end of the ~/.bashrc, ~/.zshrc
 # (or whatever shell's script is being used).
 #---------------------------------------------------------------------------------
 KERNEL_NAME := $(shell uname -s)

@@ -15,7 +15,11 @@ y en otro ejemplo de Jaeden Ameronen
 #include "sprites.h"
 #include "game.h"
 #include "input.h"
+#include "timer.h"
 
+// Geru: variables globales aquí.
+GlobalData data;
+TimerData timer;
 
 //---------------------------------------------------------------------------------
 int main(void) {

@@ -9,16 +9,15 @@ controllers.cc
 #include "backgrounds.h"
 #include "sprites.h"
 
-int ESTADO;
 int seg3;
 
 void RutAtencionTeclado ()
 {
-if (ESTADO == CERRADA)
+if (data.state == CLOSED)
 {	
 	if (TeclaPulsada()==A)
 	{
-		ESTADO=ABIERTA;
+		data.state = OPEN;
 		visualizarPuertaAbierta();
 		seg3=0;
 		MostrarRombo(1, 5, 5);
@@ -33,7 +32,7 @@ void RutAtencionTempo()
 	static int seg=0;
 	
 
-if (ESTADO!=ESPERA)
+if (data.state != WAIT)
 {
 	tick++; 
 	if (tick==5)
@@ -41,14 +40,14 @@ if (ESTADO!=ESPERA)
 		seg++;
 		iprintf("\x1b[13;5HSegundos que han pasado=%d", seg);
 		tick=0;
-		if (ESTADO == ABIERTA)
+		if (data.state == OPEN)
 		{
 			seg3++;
 			if (seg3==3)
 			{
 				visualizarPuerta();
 				seg3=0;
-				ESTADO=CERRADA;
+				data.state = CLOSED;
 				BorrarRombo(1, 5, 5);
 				BorrarRomboGrande(2, 100, 100);
 			}

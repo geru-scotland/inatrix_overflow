@@ -9,4 +9,12 @@ extern void InhibirIntTempo();
 extern void PonerEnMarchaTempo();
 extern void PararTempo();
 extern void ConfigurarTemporizador(int Latch, int Conf_Tempo);
+
+typedef struct {
+    int latch;
+    int interruptions;
+} TimerData;
+
+extern TimerData timer;
+
 #endif //INATRIX_OVERFLOW_TIMER_H

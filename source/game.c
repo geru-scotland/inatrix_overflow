@@ -23,8 +23,8 @@ void juego()
 	//definiciones de variables
 	int i=12;
 
-	ESTADO=ESPERA;
-	
+	data.state = WAIT;
+
 	//Escribe en la fila 22 columna 5 de la pantalla	
 	iprintf("\x1b[22;5HPrueba de escritura");
 
@@ -39,13 +39,13 @@ void juego()
          * sacar por pantalla la tecla que se ha pulsado, y si se pulsa
          * la tecla START cambiar de estado
          * */
-        if(TeclaDetectada() && (ESTADO == ESPERA)){
+        if(TeclaDetectada() && (data.state == WAIT)){
             int tecla = TeclaPulsada();
             if(tecla != -1){
                 iprintf("\x1b[16;00H TECLA PULSADA: %i", tecla);
                 if(tecla == START){
                     visualizarPuerta();
-                    ESTADO = CERRADA;
+                    data.state = CLOSED;
                 }
             }
         }
