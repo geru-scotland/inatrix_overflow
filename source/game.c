@@ -4,19 +4,19 @@ y en otro ejemplo de Jaeden Ameronen
 ---------------------------------------------------------------------------------*/
 
 
-#include <nds.h> 		//librería de la nds
+#include "../include/libnds/nds.h" 		//librería de la nds
 #include <stdio.h>		//librería de entrada/salida estándar de C
 #include <stdlib.h>		//librería estándar de C para reserva de memoria y conversiones númericas
 #include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos
 
 //librerías desarrolladas por nosotros para el proyecto
 	
-#include "defines.h"
-#include "event_manager.h"
-#include "input.h"
-#include "controllers.h"
-#include "backgrounds.h"
-#include "game.h"
+#include "../include/defines.h"
+#include "../include/event_manager.h"
+#include "../include/input.h"
+#include "../include/controllers.h"
+#include "../include/backgrounds.h"
+#include "../include/game.h"
 
 int tiempo;
 
@@ -33,6 +33,8 @@ void juego()
     /*Si se quiere visualizar el valor de una variable escribir %d dentro de las comillas y el nombre de la variable fuera de las comillas.*/
 	iprintf("\x1b[23;5HPrueba de escritura con variable. Valor=%d", i);
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
 	while(1)
 	{
         /**************** EN LA 1.ACTIVIDAD ****************/
@@ -41,6 +43,8 @@ void juego()
          * sacar por pantalla la tecla que se ha pulsado, y si se pulsa
          * la tecla START cambiar de estado
          * */
+        GameData* data1 = malloc(sizeof *data1);
+        data1->state = 2;
         if(TeclaDetectada() && (data.state == WAIT)){
             int tecla = TeclaPulsada();
             if(tecla != -1){
@@ -62,6 +66,7 @@ void juego()
         // Establecer las rutinas de atención a interrupciones
         //******************************************************************************//
 	}
+#pragma clang diagnostic pop
 }
 
 

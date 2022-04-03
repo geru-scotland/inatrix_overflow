@@ -38,12 +38,17 @@ typedef struct {
     int execTime;
 } Event;
 
+// Por ahora, sin más. Un array de Eventos
+// Y que cuando se borre uno, se muevan todos los demás
+// eventList[i] = EventList[i+1]
 extern Event* eventList[MAX_EVENTS];
 
 //Funciones de Event Manager
-void updateEvents();
-bool addEvent(Event *event);
-bool executeEvent(Event *event);
+extern void updateEvents();
+extern bool addEvent(Event *event);
+extern int getEvent();
+extern bool executeEvent(Event *event);
+extern bool deleteEvent(Event* event);
 
 
 #endif //INATRIX_OVERFLOW_EVENT_MANAGER_H

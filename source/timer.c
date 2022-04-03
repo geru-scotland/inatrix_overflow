@@ -2,8 +2,8 @@
 // Created by Eideann on 31/3/22.
 //
 
-#include "timer.h"
-#include "defines.h"
+#include "../include/timer.h"
+#include "../include/defines.h"
 
 void ConfigurarTemporizador(int Latch, int Conf_Tempo)
 {

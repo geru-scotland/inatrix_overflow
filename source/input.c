@@ -2,10 +2,10 @@
         Keyboard and Screen
 -------------------------------------*/
 
-#include <nds.h>
+#include "../include/libnds/nds.h"
 #include <stdio.h>
-#include "input.h"
-#include "defines.h"
+#include "../include/input.h"
+#include "../include/defines.h"
 
 
 int tecla; //variable para guardar la tecla pulsada

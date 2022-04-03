@@ -2,14 +2,14 @@
 controllers.cc
 -------------------------------------*/
 
-#include <nds.h>
+#include "../include/libnds/nds.h"
 #include <stdio.h>
-#include "defines.h"
-#include "input.h"
-#include "backgrounds.h"
-#include "sprites.h"
-#include "event_manager.h"
-#include "game.h"
+#include "../include/defines.h"
+#include "../include/input.h"
+#include "../include/backgrounds.h"
+#include "../include/sprites.h"
+#include "../include/event_manager.h"
+#include "../include/game.h"
 // TODO: Geru: Quitar event_manager.h y game.h de aqui una vez implementado correctamente.
 
 int seg3;

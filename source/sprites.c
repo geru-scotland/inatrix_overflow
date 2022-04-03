@@ -3,13 +3,13 @@ Kode hau garatu da dovotoren "Simple sprite demo" adibidean eta Jaeden Ameronen 
 adibide batean oinarrituta.
 ---------------------------------------------------------------------------------*/
 
-#include <nds.h> 		
+#include "../include/libnds/nds.h"
 #include <stdio.h>		
 #include <stdlib.h>		
 #include <unistd.h>		
 
-#include "sprites.h"
-#include "defines.h"
+#include "../include/sprites.h"
+#include "../include/defines.h"
 
 u16* gfxrombo;
 u16* gfxromboGrande;

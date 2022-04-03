@@ -2,12 +2,12 @@
 Definición del sistema de video, NO SE NECESITA CAMBIAR NADA AQUÍR
 ---------------------------------------------------------------------------------*/
 
-#include <nds.h> 		
+#include "../include/libnds/nds.h"
 #include <stdio.h>		
 #include <stdlib.h>		
 #include <unistd.h>		
-#include "engine.h"
-#include "sprites.h"
+#include "../include/engine.h"
+#include "../include/sprites.h"
 
 
 void inicializarVideo() {

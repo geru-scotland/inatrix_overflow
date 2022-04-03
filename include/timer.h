@@ -11,7 +11,7 @@ extern void PararTempo();
 extern void ConfigurarTemporizador(int Latch, int Conf_Tempo);
 
 typedef struct {
-    int initTime; // Tiempo desde que se ejecutó el juego (actualizar en cada tick)
+    int currentTime; // Tiempo desde que se ejecutó el juego (actualizar en cada tick)
     int latch;
     int interruptions;
 } TimerData;
