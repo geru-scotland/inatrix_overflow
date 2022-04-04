@@ -23,7 +23,7 @@ defines.h
 
 
 //Acceso a los registros de la pantalla táctil
-//touchPosition PANT_DAT;
+extern touchPosition PANT_DAT;
 
 #define MAX_EVENTS 15
 
