@@ -17,13 +17,22 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/controllers.h"
 #include "../include/backgrounds.h"
 #include "../include/game.h"
+#include "../include/timer.h"
 
 int tiempo;
 int SWITCH = 1;
 
-void juego()
+GameData data;
+
+void game_Update(){
+    input_UpdateKeyData();
+    timer_UpdateTimer();
+}
+
+void game_Loop()
 {
 	int i=12;
+
 	data.state = WAIT;
 
 	//Escribe en la fila 22 columna 5 de la pantalla	
@@ -36,7 +45,7 @@ void juego()
 #pragma ide diagnostic ignored "EndlessLoop"
 	while(SWITCH)
 	{
-        input_UpdateKeyData();
+        game_Update();
 
         if(keyData.isPressed && (data.state == WAIT)){
             if(keyData.key != -1){

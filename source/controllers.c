@@ -22,22 +22,9 @@ void controllers_DisableIntMaster(){
     IME = 0;
 }
 
-void controllers_RutAtencionTeclado ()
-{
-    if (data.state == CLOSED)
-    {
-        if (input_KeyPressed()==A)
-        {
-            data.state = OPEN;
-            visualizarPuertaAbierta();
-            seg3=0;
-            MostrarRombo(1, 5, 5);
-            MostrarRomboGrande(2, 100, 100);
-        }
-    }
-}
+/* Handlers */
 
-void controllers_RutAtencionTempo() {
+void controllers_KeyPadHandler(){
     static int tick = 0;
     static int seg = 0;
 
@@ -57,9 +44,12 @@ void controllers_RutAtencionTempo() {
                     BorrarRomboGrande(2, 100, 100);
                 }
             }
-
         }
     }
+}
+
+void controllers_TimerHandler(){
+
 }
 
 void controllers_ConfigureControlRegisters(){
@@ -72,7 +62,8 @@ void controllers_ConfigureControlRegisters(){
 
 void controllers_SetInterruptionVector()
 {
-    irqSet(IRQ_KEYS, input_KeyPadHandler);
+    irqSet(IRQ_KEYS, controllers_KeyPadHandler);
+    irqSet(IRQ_TIMER0, controllers_TimerHandler);
 }
 
 void controllers_ConfigureInterrupts(){

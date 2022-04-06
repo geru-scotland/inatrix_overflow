@@ -26,12 +26,14 @@ typedef struct {
 
 extern KeyData keyData;
 
+// TODO: Poner extern solo las que realmente vayan a ser linkadas
+// En otros archivos, no en el c
+
 extern void input_UpdateKeyData();
 extern int input_KeyDetected();
 extern int input_KeyPressed();
 extern void input_ConfigureKeypad(int Conf_Tec);
 extern void input_EnableKeyPadInt();
 extern void input_DisableKeyPadInt();
-extern void input_KeyPadHandler();
 
 

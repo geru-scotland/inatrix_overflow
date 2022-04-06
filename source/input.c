@@ -21,8 +21,7 @@ void input_UpdateKeyData(){
 int input_KeyDetected()
 {
 	//Devuelve TRUE si detecta que se ha pulsado alguna tecla.
-	if ((~TECLAS_DAT & 0x03ff)!=0) return 1;
-	else return 0;
+    return (~TECLAS_DAT & 0x03ff)!=0 ? 1 : 0;
 }
 
 int input_KeyPressed()
@@ -80,23 +79,19 @@ void input_ConfigureKeyPad(int Conf_Tec)
          * interrupción o no. Así que le hago un and con el bitmask 0xB111 (B = 1011)
          * Con lo que apago el bit 14 (tercer bit de B) con esta operación.
         */
-        //Conf_Tec &= 0xB111;
+        TECLAS_CNT |= Conf_Tec | 0x4000;
 }
 
 void input_EnableKeyPadInt()
 {
 	IME=0;
-    IE = IE | 0x1008;
+    IE |= IRQ_KEYS;
 	IME=1;
 }
 
 void input_DisableKeyPadInt()
 {
 	IME=0;
-	//ESCRIBIR AQUÍ VUESTRO CÓDIGO
+	IE &= ~IRQ_KEYS;
 	IME=1;
-}  
-
-void input_KeyPadHandler(){
-    // Teclas por interrupción, triguean esto.
 }

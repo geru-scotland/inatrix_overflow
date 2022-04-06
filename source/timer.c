@@ -5,7 +5,12 @@
 #include "../include/timer.h"
 #include "../include/defines.h"
 
-void timer_ConfigurarTemporizador(int Latch, int Conf_Tempo)
+TimerData timer;
+
+void timer_UpdateTimer(){
+}
+
+void timer_ConfigureTimer(int Latch, int Conf_Tempo)
 {
     //Configuración del temporizador. El latch es el valor del registro de datos del temporizador
     //Activar los bits del registro de control necesarios en base a los bits activados en el parámetro Conf_Tempo
