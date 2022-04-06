@@ -16,6 +16,7 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/game.h"
 #include "../include/input.h"
 #include "../include/timer.h"
+#include "../include/controllers.h"
 
 // Geru: variables globales aquí.
 GameData data;
@@ -25,8 +26,9 @@ TimerData timer;
 int main(void) {
 //---------------------------------------------------------------------------------
 
+    controllers_ConfigureInterrupts();
+    iprintf("\x1b[16;00H  MAIN LLAMADO  ");
 	inicializarGraficosSprites();
-	HabilitarInterrupciones();
 
 	//llamada al juego que vosotros programaréis
 	juego();

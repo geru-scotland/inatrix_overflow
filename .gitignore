@@ -60,6 +60,7 @@ dkms.conf
 #Config files.
 .DS_Store
 .idea
+.vscode
 
 #Build folder
 /build/

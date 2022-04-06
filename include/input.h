@@ -19,10 +19,11 @@ enum KEYS {
     L         = 9
 };
 
-int TeclaDetectada();
-extern int TeclaPulsada();
-extern void ConfigurarTeclado(int Conf_Tec);
-extern void HabilitarIntTeclado();
-extern void InhibirIntTeclado();
+extern int input_KeyDetected();
+extern int input_KeyPressed();
+extern void input_ConfigureKeypad(int Conf_Tec);
+extern void input_EnableKeyPadInt();
+extern void input_DisableKeyPadInt();
+extern void input_KeyPadHandler();
 
 

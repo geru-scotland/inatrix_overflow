@@ -12,14 +12,14 @@ int tecla; //variable para guardar la tecla pulsada
 
 
 
-int TeclaDetectada() 
+int input_KeyDetected()
 {
 	//Devuelve TRUE si detecta que se ha pulsado alguna tecla.
 	if ((~TECLAS_DAT & 0x03ff)!=0) return 1;
 	else return 0;
 }
 
-int TeclaPulsada() 
+int input_KeyPressed()
 {
      /*
      * Geru:
@@ -66,7 +66,7 @@ int TeclaPulsada()
     }
 }
 
-void ConfigurarTeclado(int Conf_Tec)
+void input_ConfigureKeyPad(int Conf_Tec)
 {
         /*
          * Geru: el bit número 14 de este registro (TECLAS_CNT), pero aquí parece
@@ -74,30 +74,23 @@ void ConfigurarTeclado(int Conf_Tec)
          * interrupción o no. Así que le hago un and con el bitmask 0xB111 (B = 1011)
          * Con lo que apago el bit 14 (tercer bit de B) con esta operación.
         */
-        Conf_Tec &= 0xB111;
+        //Conf_Tec &= 0xB111;
 }
 
-void HabilitarIntTeclado()
+void input_EnableKeyPadInt()
 {
-	//Habilitar las interrupciones del teclado
-	//Para realizar esa operación, primero deshabilitar todas las interrupciones de forma general, realizar la operación, 
-	//y después volver a habilitar las interrupciones de forma general 
 	IME=0;
-        //ESCRIBIR AQUÍ VUESTRO CÓDIGO
-	
+    IE = IE | 0x1008;
 	IME=1;
 }
 
-void InhibirIntTeclado()
+void input_DisableKeyPadInt()
 {
-
-	//Deshabilitar las interrupciones del teclado
-	//Para realizar esa operación, primero deshabilitar todas las interrupciones de forma general, realizar la operación, 
-	//y después volver a habilitar las interrupciones de forma general 
-
 	IME=0;
 	//ESCRIBIR AQUÍ VUESTRO CÓDIGO
-
 	IME=1;
 }  
 
+void input_KeyPadHandler(){
+    // Teclas por interrupción, triguean esto.
+}

@@ -1,28 +1,25 @@
 //
-// Created by Eideann on 2/4/22.
+// Created by Geru on 2/4/22.
 //
 
-#include "../include/event_manager.h"
+#include "../include/eventMgr.h"
 
 Event* eventList[MAX_EVENTS];
 
-void updateEvents(){
-
+void eventMgr_updateEvents(){
 }
 
-bool addEvent(Event *event){
+bool eventMgr_addEvent(Event *event){
     return false;
 }
 
 // Si hay algún evento a ejecutar (execTime <= timer.currentTime)
 // Devolver y borrar
-int getEvent(){
-    int id = eventList[0]->id;
-    deleteEvent(eventList[0]);
-    return id;
+int eventMgr_getEvent(){
+    return NULL;
 }
 
-bool executeEvent(Event *event){
+bool eventMgr_executeEvent(Event *event){
     return false;
 }
 
@@ -30,6 +27,6 @@ bool executeEvent(Event *event){
 // a delete event.
 // Liberar el puntero al evento
 // y borrar del array esa posición
-bool deleteEvent(Event *event){
+bool eventMgr_deleteEvent(Event *event){
     return false;
 }

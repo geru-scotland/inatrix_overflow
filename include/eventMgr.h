@@ -44,11 +44,11 @@ typedef struct {
 extern Event* eventList[MAX_EVENTS];
 
 //Funciones de Event Manager
-extern void updateEvents();
-extern bool addEvent(Event *event);
-extern int getEvent();
-extern bool executeEvent(Event *event);
-extern bool deleteEvent(Event* event);
+extern void eventMgr_updateEvents();
+extern bool eventMgr_addEvent(Event *event);
+extern int eventMgr_getEvent();
+extern bool eventMgr_executeEvent(Event *event);
+extern bool eventMgr_deleteEvent(Event* event);
 
 
 #endif //INATRIX_OVERFLOW_EVENT_MANAGER_H

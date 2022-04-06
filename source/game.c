@@ -12,13 +12,14 @@ y en otro ejemplo de Jaeden Ameronen
 //librerías desarrolladas por nosotros para el proyecto
 	
 #include "../include/defines.h"
-#include "../include/event_manager.h"
+#include "../include/eventMgr.h"
 #include "../include/input.h"
 #include "../include/controllers.h"
 #include "../include/backgrounds.h"
 #include "../include/game.h"
 
 int tiempo;
+int SWITCH = 1;
 
 void juego()
 {	
@@ -28,14 +29,14 @@ void juego()
 	data.state = WAIT;
 
 	//Escribe en la fila 22 columna 5 de la pantalla	
-	iprintf("\x1b[22;5HPrueba de escritura");
+	iprintf("\x1b[22;5HPruebaA de escritura");
 
     /*Si se quiere visualizar el valor de una variable escribir %d dentro de las comillas y el nombre de la variable fuera de las comillas.*/
 	iprintf("\x1b[23;5HPrueba de escritura con variable. Valor=%d", i);
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
-	while(1)
+	while(SWITCH)
 	{
         /**************** EN LA 1.ACTIVIDAD ****************/
 
@@ -45,8 +46,8 @@ void juego()
          * */
         GameData* data1 = malloc(sizeof *data1);
         data1->state = 2;
-        if(TeclaDetectada() && (data.state == WAIT)){
-            int tecla = TeclaPulsada();
+        if(input_KeyDetected() && (data.state == WAIT)){
+            int tecla = input_KeyPressed();
             if(tecla != -1){
                 iprintf("\x1b[16;00H TECLA PULSADA: %i", tecla);
                 if(tecla == START){
