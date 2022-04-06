@@ -15,7 +15,7 @@ void input_UpdateKeyData(){
     if(keyData.isPressed)
         keyData.key = input_KeyPressed();
     else
-        keyData.key = NULL;
+        keyData.key = -1;
 }
 
 int input_KeyDetected()

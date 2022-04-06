@@ -7,6 +7,8 @@
 
 #include "defines.h"
 
+#define MAX_EVENTS 15
+
 enum States {
     // States temporales.
     // Quitar una vez entregada segunda actividad.
