@@ -19,6 +19,14 @@ enum KEYS {
     L         = 9
 };
 
+typedef struct {
+    bool isPressed;
+    int key;
+} KeyData;
+
+extern KeyData keyData;
+
+extern void input_UpdateKeyData();
 extern int input_KeyDetected();
 extern int input_KeyPressed();
 extern void input_ConfigureKeypad(int Conf_Tec);

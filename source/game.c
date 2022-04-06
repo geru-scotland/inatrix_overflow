@@ -22,10 +22,8 @@ int tiempo;
 int SWITCH = 1;
 
 void juego()
-{	
-	//definiciones de variables
+{
 	int i=12;
-
 	data.state = WAIT;
 
 	//Escribe en la fila 22 columna 5 de la pantalla	
@@ -38,19 +36,12 @@ void juego()
 #pragma ide diagnostic ignored "EndlessLoop"
 	while(SWITCH)
 	{
-        /**************** EN LA 1.ACTIVIDAD ****************/
+        input_UpdateKeyData();
 
-        /* Si el estado es ESPERA: codificar aquí la encuesta del teclado,
-         * sacar por pantalla la tecla que se ha pulsado, y si se pulsa
-         * la tecla START cambiar de estado
-         * */
-        GameData* data1 = malloc(sizeof *data1);
-        data1->state = 2;
-        if(input_KeyDetected() && (data.state == WAIT)){
-            int tecla = input_KeyPressed();
-            if(tecla != -1){
-                iprintf("\x1b[16;00H TECLA PULSADA: %i", tecla);
-                if(tecla == START){
+        if(keyData.isPressed && (data.state == WAIT)){
+            if(keyData.key != -1){
+                iprintf("\x1b[16;00H TECLA PULSADA: %i", keyData.key);
+                if(keyData.key == START){
                     visualizarPuerta();
                     data.state = CLOSED;
                 }

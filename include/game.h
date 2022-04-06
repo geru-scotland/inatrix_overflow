@@ -14,4 +14,3 @@ typedef struct {
 } GameData;
 
 extern GameData data;
-

@@ -7,10 +7,16 @@
 #include "../include/input.h"
 #include "../include/defines.h"
 
+KeyData keyData;
 
-int tecla; //variable para guardar la tecla pulsada
+void input_UpdateKeyData(){
+    keyData.isPressed = input_KeyDetected();
 
-
+    if(keyData.isPressed)
+        keyData.key = input_KeyPressed();
+    else
+        keyData.key = NULL;
+}
 
 int input_KeyDetected()
 {
