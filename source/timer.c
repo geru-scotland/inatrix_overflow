@@ -39,14 +39,12 @@ void timer_InhibirIntTempo()
     IME=1;
 }
 
-void timer_PonerEnMarchaTempo()
+void timer_StartTimer()
 {
-    //ESCRIBIR AQUÍ VUESTRO CÓDIGO
 
 }
 
-void timer_PararTempo()
+void timer_StopTimer()
 {
-    //ESCRIBIR AQUÍ VUESTRO CÓDIGO
 
 }

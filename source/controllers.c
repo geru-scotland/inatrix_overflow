@@ -10,10 +10,14 @@ controllers.cc
 #include "../include/sprites.h"
 #include "../include/eventMgr.h"
 #include "../include/game.h"
+#include "../include/timer.h"
 // TODO: Geru: Quitar event_manager.h y game.h de aqui una vez implementado correctamente.
 
 int seg3;
-
+int seg;
+/**
+ * INTERRUPTION MASTER
+ */
 void controllers_EnableIntMaster(){
     IME = 1;
 }
@@ -22,18 +26,19 @@ void controllers_DisableIntMaster(){
     IME = 0;
 }
 
-/* Handlers */
+/**
+ * HANDLERS
+ */
 
 void controllers_KeyPadHandler(){
-    static int tick = 0;
-    static int seg = 0;
-
+    // TODO: Geru: Hacer esto bien con el nuevo gestor de eventos.
+    iprintf("\x1b[16;00H TECLA POR INTERRUPCION ");
     if (data.state != WAIT) {
-        tick++;
-        if (tick == 5) {
+        timer.ticks++;
+        if (timer.ticks == 5) {
             seg++;
             iprintf("\x1b[13;5HSegundos que han pasado=%d", seg);
-            tick = 0;
+            timer.ticks = 0;
             if (data.state == OPEN) {
                 seg3++;
                 if (seg3 == 3) {
@@ -52,12 +57,26 @@ void controllers_TimerHandler(){
 
 }
 
-void controllers_ConfigureControlRegisters(){
+void controllers_EnableKeyPadInt(){
+    IME=0;
+    IE |= IRQ_KEYS;
+    IME=1;
+}
+
+void controllers_DisableKeyInt(){
+    IME=0;
+    IE &= ~IRQ_KEYS;
+    IME=1;
+}
+
+void controllers_ConfigureInput(){
     /*
-     * Registro de Control del Teclado
-     * Teclas a detectar por Interrupción
-     **/
-    TECLAS_CNT = 0x43FD;
+     * Geru: el bit número 14 de este registro (TECLAS_CNT), pero aquí parece
+     * ser Conf_tec (registro control del teclado), determina si es por
+     * interrupción o no. Así que le hago un and con el bitmask 0xB111 (B = 1011)
+     * Con lo que apago el bit 14 (tercer bit de B) con esta operación.
+    */
+    TECLAS_CNT |= 0x4000 | 0x0001;
 }
 
 void controllers_SetInterruptionVector()
@@ -66,14 +85,12 @@ void controllers_SetInterruptionVector()
     irqSet(IRQ_TIMER0, controllers_TimerHandler);
 }
 
-void controllers_ConfigureInterrupts(){
+void controllers_InitSetup(){
 
     /* Controllers */
     controllers_EnableIntMaster();
-    controllers_ConfigureControlRegisters();
+    controllers_EnableKeyPadInt();
+    controllers_ConfigureInput();
     controllers_SetInterruptionVector();
-
-    /* Input */
-    input_EnableKeyPadInt();
 }
 

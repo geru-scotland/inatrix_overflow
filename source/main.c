@@ -22,7 +22,7 @@ y en otro ejemplo de Jaeden Ameronen
 int main(void) {
 //---------------------------------------------------------------------------------
 
-    controllers_ConfigureInterrupts();
+    controllers_InitSetup();
 	inicializarGraficosSprites();
 
     // Main loop

@@ -2,11 +2,15 @@
 controllers.h
 -------------------------------------*/
 
-extern void controllers_EnableInterruptsMaster();
-extern void controllers_DisableInterruptsMaster();
-extern void controllers_SetInterruptionVector();
-extern void controllers_ConfigureControlRegisters();
-extern void controllers_ConfigureInterrupts();
+void controllers_EnableInterruptsMaster();
+void controllers_DisableInterruptsMaster();
+void controllers_SetInterruptionVector();
+
+void controllers_ConfigureInput();
+void controllers_EnableKeyPadInt();
+void controllers_DisableKeyPadInt();
+
+extern void controllers_InitSetup();
 
 /* Handlers */
 extern void controllers_KeyPadHandler();

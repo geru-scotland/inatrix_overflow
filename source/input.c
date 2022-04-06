@@ -70,28 +70,3 @@ int input_KeyPressed()
             return -1;
     }
 }
-
-void input_ConfigureKeyPad(int Conf_Tec)
-{
-        /*
-         * Geru: el bit número 14 de este registro (TECLAS_CNT), pero aquí parece
-         * ser Conf_tec (registro control del teclado), determina si es por
-         * interrupción o no. Así que le hago un and con el bitmask 0xB111 (B = 1011)
-         * Con lo que apago el bit 14 (tercer bit de B) con esta operación.
-        */
-        TECLAS_CNT |= Conf_Tec | 0x4000;
-}
-
-void input_EnableKeyPadInt()
-{
-	IME=0;
-    IE |= IRQ_KEYS;
-	IME=1;
-}
-
-void input_DisableKeyPadInt()
-{
-	IME=0;
-	IE &= ~IRQ_KEYS;
-	IME=1;
-}

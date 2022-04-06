@@ -16,7 +16,7 @@ bool eventMgr_addEvent(Event *event){
 // Si hay algún evento a ejecutar (execTime <= timer.currentTime)
 // Devolver y borrar
 int eventMgr_getEvent(){
-    return NULL;
+    return -1;
 }
 
 bool eventMgr_executeEvent(Event *event){

@@ -32,8 +32,4 @@ extern KeyData keyData;
 extern void input_UpdateKeyData();
 extern int input_KeyDetected();
 extern int input_KeyPressed();
-extern void input_ConfigureKeypad(int Conf_Tec);
-extern void input_EnableKeyPadInt();
-extern void input_DisableKeyPadInt();
-
 

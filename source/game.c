@@ -51,8 +51,7 @@ void game_Loop()
             if(keyData.key != -1){
                 iprintf("\x1b[16;00H TECLA PULSADA: %i", keyData.key);
                 if(keyData.key == START){
-                    visualizarPuerta();
-                    data.state = CLOSED;
+                    timer_StartTimer();
                 }
             }
         }
