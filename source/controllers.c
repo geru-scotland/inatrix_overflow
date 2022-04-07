@@ -27,8 +27,8 @@ void controllers_DisableIntMaster(){
 }
 
 void controllers_ConfigureTimer(){
-    timer_ConfigureTimer(0, 0x00C0);
-    // Quitado para poder hacer muestra 2Actividad.
+    timer_ConfigureTimer(0, 0x0000);
+    // Deshabilitado para poder hacer muestra 2Actividad:
     //timer_StartTimer();
 }
 
@@ -39,9 +39,7 @@ void controllers_ConfigureInput(){
      * interrupción o no. Así que le hago un and con el bitmask 0xB111 (B = 1011)
      * Con lo que apago el bit 14 (tercer bit de B) con esta operación.
     */
-
-    //TODO: Pasar esto a input.
-    TECLAS_CNT |= 0x4000 | 0x0001;
+    input_ConfigureInput(0x4000 | 0x0001);
 }
 
 void controllers_EnableKeyPadInt(){
@@ -68,24 +66,18 @@ void controllers_TimerHandler(){
 
 void controllers_KeyPadHandler(){
     // TODO: Geru: Hacer esto bien con el nuevo gestor de eventos.
-    iprintf("\x1b[10;00H TECLA POR INTERRUPCION ");
-    if (data.state != WAIT) {
-        if (timer.ticks == 5) {
-            seg++;
-            iprintf("\x1b[13;5HSegundos que han pasado=%d", seg);
-            timer.ticks = 0;
-            if (data.state == OPEN) {
-                seg3++;
-                if (seg3 == 3) {
-                    visualizarPuerta();
-                    seg3 = 0;
-                    data.state = CLOSED;
-                    BorrarRombo(1, 5, 5);
-                    BorrarRomboGrande(2, 100, 100);
-                }
-            }
-        }
-    }
+    /**
+     *
+     * Esto se llama cada vez que una tecla sea pulsada POR INTERRUPCIÓN.
+     * Con lo que, el pulsar una tecla lo activaría.
+     *
+     * Tendría que llamar a la función de la actividad 2, de abrir la puerta
+     * tras varios segundos etc.
+     *
+     * Como estamos implementando un gestor de eventos, aquí habría que programar
+     * o schedulear dicho evento, lo cual agregará a una cola y ejecutará
+     * cuando corresponda (tiempo actual + tiempo del evento).
+     */
 }
 
 void controllers_SetInterruptionVector()

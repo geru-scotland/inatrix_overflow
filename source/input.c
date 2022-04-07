@@ -9,7 +9,13 @@
 
 KeyData keyData;
 
-void input_UpdateKeyData(){
+void input_ConfigureInput(int mask)
+{
+    TECLAS_CNT |= mask;
+}
+
+void input_UpdateKeyData()
+{
     keyData.isPressed = input_KeyDetected();
 
     if(keyData.isPressed)

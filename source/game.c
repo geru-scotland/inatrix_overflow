@@ -26,7 +26,9 @@ GameData data;
 
 void game_Update(){
     input_UpdateKeyData();
-    timer_UpdateTimer();
+    // Está así para la segunda actividad
+    if(data.state == TIMER_TESTS)
+        timer_UpdateTimer();
 }
 
 void game_Loop()
@@ -46,29 +48,24 @@ void game_Loop()
 	while(SWITCH)
 	{
         game_Update();
+
+        // Está así para la segunda actividad
         if(data.state == TIMER_TESTS)
         {
             iprintf("\x1b[13;00H Timer: %i", timer.time);
         }
-        if(keyData.isPressed && (data.state == WAIT)){
+
+        if(keyData.isPressed && (data.state == WAIT)) // Una vez se cambie de estado no entrará más. Puesto para tests.
+        {
             if(keyData.key != -1){
                 iprintf("\x1b[16;00H TECLA PULSADA: %i", keyData.key);
                 if(keyData.key == START){
-                    timer_StartTimer(); // Tests para 2. Actividad.
+                    // Está así para la segunda actividad
+                    timer_StartTimer();
                     data.state = TIMER_TESTS;
                 }
             }
         }
-
-        //*******************************EN LA 2.ACTIVIDAD ********************************//
-        // LLAMADAS A REALIZAR:
-        // Habilitar interrupciones.
-        // Configurar el teclado.
-        // Configurar el temporizador.
-        // Habilitar las interrupciones del teclado.
-        // Habilitar las interrupciones del temporizador.
-        // Establecer las rutinas de atención a interrupciones
-        //******************************************************************************//
 	}
 #pragma clang diagnostic pop
 }

@@ -7,34 +7,49 @@
 
 TimerData timer;
 
-void timer_UpdateTimer(){
-    // Establecemos, 512 ticks - 1 segundo.
+void timer_UpdateTimer()
+{
+    // Establecemos, 512 ticks - ~1 segundo.
     timer.ticks++;
-    if(timer.ticks >= TIMER0_FREQ){
+    iprintf("\x1b[11;00H ticks: %i", timer.ticks);
+    if(timer.ticks == TIMER0_FREQ){
         timer.time++; // Seconds++
+        timer.ticks = 0;
     }
 }
 
-void timer_ConfigureTimer(int latch, int conf)
+void timer_ConfigureTimer(int latch, int mask)
 {
-    TIMER0_DAT = 0;
-    timer.ticks = 0;
+    timer_EnableInterruptions();
+
     timer.ticks = 0;
     timer.interruptionRate = 0;
     timer.latch = latch;
-    timer.conf = conf;
+    timer.conf = mask;
+    timer.time = 0;
+
+    TIMER0_CNT |= timer.conf;
+    TIMER0_DAT = timer.latch;
+}
+
+void timer_EnableInterruptions(){
+    IME = 0;
+    IE |= IRQ_TIMER0;
+    IME = 1;
+}
+
+void timer_DisableInterruptions(){
+    IME = 0;
+    IE &= ~IRQ_TIMER0;
+    IME = 1;
 }
 
 void timer_StartTimer()
 {
-    IME = 0;
-    TIMER0_CNT |= timer.conf;
-    IME = 1;
+    TIMER0_CNT |= BIT(7);
 }
 
 void timer_StopTimer()
 {
-    IME = 0;
-    TIMER0_CNT &= ~timer.conf;
-    IME = 1;
+    TIMER0_CNT &= ~BIT(7);
 }

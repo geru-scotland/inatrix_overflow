@@ -11,7 +11,10 @@
 #define TIMER0_FREQ 512
 
 extern void timer_UpdateTimer();
-extern void timer_ConfigureTimer(int latch, int conf_Tempo);
+extern void timer_ConfigureTimer(int latch, int mask);
+
+void timer_EnableInterruptions();
+void timer_DisableInterruptions();
 
 extern void timer_StartTimer();
 extern void timer_StopTimer();
