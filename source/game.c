@@ -46,12 +46,16 @@ void game_Loop()
 	while(SWITCH)
 	{
         game_Update();
-
+        if(data.state == TIMER_TESTS)
+        {
+            iprintf("\x1b[13;00H Timer: %i", timer.time);
+        }
         if(keyData.isPressed && (data.state == WAIT)){
             if(keyData.key != -1){
                 iprintf("\x1b[16;00H TECLA PULSADA: %i", keyData.key);
                 if(keyData.key == START){
-                    timer_StartTimer();
+                    timer_StartTimer(); // Tests para 2. Actividad.
+                    data.state = TIMER_TESTS;
                 }
             }
         }

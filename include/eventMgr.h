@@ -15,6 +15,7 @@ enum States {
     WAIT = 0,
     CLOSED,
     OPEN,
+    TIMER_TESTS,
 
     // States reales del juego.
     STATE_INTRO,

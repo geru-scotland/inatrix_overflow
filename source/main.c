@@ -11,11 +11,9 @@ y en otro ejemplo de Jaeden Ameronen
 //librerías desarroladas por nosotros para el proyecto
 
 #include "../include/engine.h"
-#include "../include/defines.h"
 #include "../include/sprites.h"
 #include "../include/game.h"
 #include "../include/input.h"
-#include "../include/timer.h"
 #include "../include/controllers.h"
 
 //---------------------------------------------------------------------------------

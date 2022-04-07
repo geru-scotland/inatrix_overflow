@@ -8,43 +8,33 @@
 TimerData timer;
 
 void timer_UpdateTimer(){
+    // Establecemos, 512 ticks - 1 segundo.
+    timer.ticks++;
+    if(timer.ticks >= TIMER0_FREQ){
+        timer.time++; // Seconds++
+    }
 }
 
-void timer_ConfigureTimer(int Latch, int Conf_Tempo)
+void timer_ConfigureTimer(int latch, int conf)
 {
-    //Configuración del temporizador. El latch es el valor del registro de datos del temporizador
-    //Activar los bits del registro de control necesarios en base a los bits activados en el parámetro Conf_Tempo
-}
-
-void timer_HabilitarIntTempo()
-{
-    //Habilitar las interrupciones del temporizador (timer0)
-    //Para realizar esa operación, primero deshabilitar todas las interrupciones de forma general, realizar la operación,
-    //y después volver a habilitar las interrupciones de forma general
-    IME=0;
-    //ESCRIBIR AQUÍ VUESTRO CÓDIGO
-
-    IME=1;
-}
-
-void timer_InhibirIntTempo()
-{
-
-    //Deshabilitar las interrupciones del temporizado (timer0)
-    //Para realizar esa operación, primero deshabilitar todas las interrupciones de forma general, realizar la operación,
-    //y después volver a habilitar las interrupciones de forma general
-    IME=0;
-    //ESCRIBIR AQUÍ VUESTRO CÓDIGO
-
-    IME=1;
+    TIMER0_DAT = 0;
+    timer.ticks = 0;
+    timer.ticks = 0;
+    timer.interruptionRate = 0;
+    timer.latch = latch;
+    timer.conf = conf;
 }
 
 void timer_StartTimer()
 {
-
+    IME = 0;
+    TIMER0_CNT |= timer.conf;
+    IME = 1;
 }
 
 void timer_StopTimer()
 {
-
+    IME = 0;
+    TIMER0_CNT &= ~timer.conf;
+    IME = 1;
 }
