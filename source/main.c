@@ -15,11 +15,13 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/game.h"
 #include "../include/input.h"
 #include "../include/controllers.h"
+#include "../include/eventMgr.h"
 
 //---------------------------------------------------------------------------------
 int main(void) {
 //---------------------------------------------------------------------------------
 
+    eventMgr_InitEventSystem();
     controllers_InitSetup();
 	inicializarGraficosSprites();
 

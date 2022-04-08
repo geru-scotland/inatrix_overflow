@@ -26,43 +26,25 @@ GameData data;
 
 void game_Update(){
     input_UpdateKeyData();
-    // Está así para la segunda actividad
-    if(data.state == TIMER_TESTS)
-        timer_UpdateTimer();
+    // Aquí más updates que necesitemos.
 }
 
 void game_Loop()
 {
-	int i=12;
-
 	data.state = WAIT;
-
-	//Escribe en la fila 22 columna 5 de la pantalla	
-	iprintf("\x1b[22;5HPruebaA de escritura");
-
-    /*Si se quiere visualizar el valor de una variable escribir %d dentro de las comillas y el nombre de la variable fuera de las comillas.*/
-	iprintf("\x1b[23;5HPrueba de escritura con variable. Valor=%d", i);
-
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 	while(SWITCH)
 	{
         game_Update();
+        iprintf("\x1b[14;00H  Timer: %i", timer.time);
 
-        // Está así para la segunda actividad
-        if(data.state == TIMER_TESTS)
-        {
-            iprintf("\x1b[13;00H Timer: %i", timer.time);
-        }
-
-        if(keyData.isPressed && (data.state == WAIT)) // Una vez se cambie de estado no entrará más. Puesto para tests.
+        if(keyData.isPressed && (data.state == WAIT))
         {
             if(keyData.key != -1){
-                iprintf("\x1b[16;00H TECLA PULSADA: %i", keyData.key);
                 if(keyData.key == START){
-                    // Está así para la segunda actividad
-                    timer_StartTimer();
-                    data.state = TIMER_TESTS;
+                        eventMgr_ScheduleEvent(EVENT_TEST_2ND_ACTIVITY, IN_5_SECONDS-2);
+                        data.state = TIMER_TESTS;
                 }
             }
         }

@@ -2,12 +2,18 @@
 // Created by Geru on 2/4/22.
 //
 
-#ifndef INATRIX_OVERFLOW_EVENT_MANAGER_H
-#define INATRIX_OVERFLOW_EVENT_MANAGER_H
+#ifndef EVENTMGR_H_
+#define EVENTMGR_H_
 
 #include "defines.h"
 
-#define MAX_EVENTS 15
+#define MAX_EVENTS 20
+
+enum TimeMarks {
+    IN_5_SECONDS = 5,
+    IN_10_SECONDS = 10,
+    IN_20_SECONDS = 20
+};
 
 enum States {
     // States temporales.
@@ -33,25 +39,26 @@ enum Events{
     EVENT_NEXT_STATE,
     EVENT_ADD_POINT,
     EVENT_EXPLODE_BIT_BLOCK,
-    EVENT_REGENERATE_MATRIX
+    EVENT_REGENERATE_MATRIX,
+    // Requerido por segunda actividad.
+    EVENT_TEST_2ND_ACTIVITY,
+    EVENT_OPEN_DOOR,
 };
 
 typedef struct {
-    int id;
+    uint8 id;
     int execTime;
+    uint8 pos;
 } Event;
 
-// Por ahora, sin más. Un array de Eventos
-// Y que cuando se borre uno, se muevan todos los demás
-// eventList[i] = EventList[i+1]
 extern Event* eventList[MAX_EVENTS];
-
+extern int numEvents;
 //Funciones de Event Manager
-extern void eventMgr_updateEvents();
-extern bool eventMgr_addEvent(Event *event);
-extern int eventMgr_getEvent();
-extern bool eventMgr_executeEvent(Event *event);
-extern bool eventMgr_deleteEvent(Event* event);
+extern void eventMgr_InitEventSystem();
+extern void eventMgr_UpdateEvents();
+extern void eventMgr_AddEvent(Event *event);
+extern void eventMgr_ScheduleEvent(uint8 eventId, int time);
+extern void eventMgr_DeleteEvent(Event* event);
 
 
-#endif //INATRIX_OVERFLOW_EVENT_MANAGER_H
+#endif //EVENTMGR_H_
