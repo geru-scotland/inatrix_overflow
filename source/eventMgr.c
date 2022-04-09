@@ -21,7 +21,7 @@ void eventMgr_InitEventSystem(){
  */
 void eventMgr_DeleteEvent(Event *event){
     uint8 i = event->pos;
-    while (i < numEvents && eventList[i] != NULL)
+    while ((i < numEvents) && (eventList[i] != NULL))
     {
         eventList[i] = eventList[i+1];
         i++;
@@ -93,10 +93,18 @@ void eventMgr_UpdateEvents(){
                     break;
                 case EVENT_TEST_2ND_ACTIVITY:
                     visualizarPuerta();
-                    eventMgr_ScheduleEvent(EVENT_OPEN_DOOR, IN_10_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_OPEN_DOOR, IN_5_SECONDS);
                     break;
                 case EVENT_OPEN_DOOR:
                     visualizarPuertaAbierta();
+                    eventMgr_ScheduleEvent(EVENT_SET_MATRIX_BACKGROUND, IN_5_SECONDS);
+                    break;
+                case EVENT_SET_MATRIX_BACKGROUND:
+                    background_SetMatrixBackground();
+                    eventMgr_ScheduleEvent(EVENT_SET_MATRIX_BACKGROUND2, IN_10_SECONDS);
+                    break;
+                case EVENT_SET_MATRIX_BACKGROUND2:
+                    background_SetMatrixBackground2();
                     break;
                 default:
                     break;

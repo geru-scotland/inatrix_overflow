@@ -10,6 +10,8 @@
 #include "engine.h"
 #include "Puerta.h"
 #include "PuertaAbierta.h"
+#include "MatrixBackground.h"
+#include "MatrixBackground2.h"
 
 /* Se elige el canal de DMA que se utilizará para copiar las imágenes en memoria.*/
 static const int DMA_CHANNEL = 3;
@@ -17,7 +19,7 @@ static const int DMA_CHANNEL = 3;
 /* Para cada fondo que se quiera visualizar hay que escribir un procedimiento como el siguiente */
 
 void visualizarPuerta() {
-	
+
 	dmaCopyHalfWords(DMA_CHANNEL,
                      PuertaBitmap, /* Variable que se genera automaticamente */
                      (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
@@ -30,4 +32,22 @@ void visualizarPuertaAbierta() {
                      PuertaAbiertaBitmap, /* Variable que se genera automaticamente */
                      (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
                      PuertaAbiertaBitmapLen); /* Longitud en bytes, variable que se genera automáticamente */
+}
+
+// Hacer una función únicamente, que reciba
+// como parámetro el nombre del fondo y haga el resto.
+void background_SetMatrixBackground() {
+
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     MatrixBackgroundBitmap, /* Variable que se genera automaticamente */
+                     (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
+                     MatrixBackgroundBitmapLen); /* Longitud en bytes, variable que se genera automáticamente */
+}
+
+void background_SetMatrixBackground2() {
+
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     MatrixBackground2Bitmap, /* Variable que se genera automaticamente */
+                     (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
+                     MatrixBackground2BitmapLen); /* Longitud en bytes, variable que se genera automáticamente */
 }

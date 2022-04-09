@@ -78,6 +78,9 @@ void controllers_KeyPadHandler(){
      * o schedulear dicho evento, lo cual agregará a una cola y ejecutará
      * cuando corresponda (tiempo actual + tiempo del evento).
      */
+
+    // Mostrar por pantalla la tecla que ha sido pulsada
+    // Tanto por interrupción como por encuesta.
 }
 
 void controllers_SetInterruptionVector()

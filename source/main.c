@@ -17,17 +17,11 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/controllers.h"
 #include "../include/eventMgr.h"
 
-//---------------------------------------------------------------------------------
-int main(void) {
-//---------------------------------------------------------------------------------
 
+int main(void) {
     eventMgr_InitEventSystem();
     controllers_InitSetup();
 	inicializarGraficosSprites();
-
-    // Main loop
 	game_Loop();
-
 	return(0);
-
 }

@@ -4,6 +4,8 @@
 
 #ifndef INATRIX_OVERFLOW_TIMER_H
 #define INATRIX_OVERFLOW_TIMER_H
+#include <stdint.h>
+#include <stdbool.h>
 
 #define TIMER0_CNT  (*(vuint16*)0x04000102)
 #define TIMER0_DAT  (*(vuint16*)0x04000100)
@@ -19,12 +21,15 @@ void timer_DisableInterruptions();
 extern void timer_StartTimer();
 extern void timer_StopTimer();
 
+extern bool timer_TicksHavePassed(int total, int prev);
+
 typedef struct {
     int ticks; // Temp
-    int time; // Tiempo desde que se ejecutó el juego (actualizar en cada tick)
+    int time; // Tiempo en segundos desde que se ejecutó el juego (actualizar en cada tick)
     int latch;
     int conf;
-    int interruptionRate;
+    int totalTicks; // Geru: Cambiar nombres de variables, estoy cansado.
+    int prevTicks;
 } TimerData;
 
 extern TimerData timer;

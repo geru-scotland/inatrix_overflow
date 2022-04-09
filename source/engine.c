@@ -97,7 +97,11 @@ void inicializarGraficos()
     powerOn(POWER_ALL_2D);
     lcdMainOnBottom();
     inicializarVideo();
-    consoleDemoInit(); //La pantalla superior se utilizará en modo texto y la inferior en modo gráfico.
+    PrintConsole* console = consoleDemoInit(); //La pantalla superior se utilizará en modo texto y la inferior en modo gráfico.
+    ConsoleFont font;
+    font.numColors = 1;
+    font.convertSingleColor = true;
+    consoleSetFont(console, &font);
 }
 
 

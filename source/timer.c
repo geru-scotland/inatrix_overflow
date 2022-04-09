@@ -21,10 +21,11 @@ void timer_ConfigureTimer(int latch, int mask)
     timer_EnableInterruptions();
 
     timer.ticks = 0;
-    timer.interruptionRate = 0;
     timer.latch = latch;
     timer.conf = mask;
     timer.time = 0;
+    timer.totalTicks = 0;
+    timer.prevTicks = 0;
 
     TIMER0_CNT |= 0x00C0 | timer.conf;
     TIMER0_DAT |= timer.latch;
@@ -40,7 +41,8 @@ void timer_UpdateTimer()
      * Algo has tenido que configurar mal del timer.
      */
     timer.ticks++;
-    if(timer.ticks == TIMER0_FREQ * 3){
+    timer.totalTicks++;
+    if(timer.ticks == TIMER0_FREQ){
         timer.time++; // Seconds++
         timer.ticks = 0;
         /*
@@ -86,4 +88,16 @@ void timer_StartTimer()
 void timer_StopTimer()
 {
     TIMER0_CNT &= ~BIT(7);
+}
+
+/**
+ *
+ * @param ticks
+ * @return
+ */
+bool timer_TicksHavePassed(int total, int prev){
+    if(total <= prev)
+        return true;
+    else
+        return false;
 }

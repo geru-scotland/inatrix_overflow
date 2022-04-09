@@ -2,6 +2,8 @@
 game.h
 ---------------------------------------------------------------------------------*/
 
+#define GAME_FPS_CAP 1600
+
 void game_Loop();
 void game_Update();
 
@@ -12,7 +14,7 @@ void game_Update();
  * */
 typedef struct {
     int state;
-    int diff;
+    float diff;
 } GameData;
 
 extern GameData data;

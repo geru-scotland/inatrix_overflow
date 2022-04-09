@@ -43,6 +43,8 @@ enum Events{
     // Requerido por segunda actividad.
     EVENT_TEST_2ND_ACTIVITY,
     EVENT_OPEN_DOOR,
+    EVENT_SET_MATRIX_BACKGROUND,
+    EVENT_SET_MATRIX_BACKGROUND2,
 };
 
 typedef struct {

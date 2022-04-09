@@ -36,6 +36,16 @@ void game_Loop()
 #pragma ide diagnostic ignored "EndlessLoop"
 	while(SWITCH)
 	{
+        // Capar a 16ms per frames
+        while(!timer_TicksHavePassed(timer.totalTicks, timer.prevTicks + GAME_FPS_CAP))
+            return;
+
+        /*
+         * El diff o también conocido como delta time, va a permitirnos
+         * saber cuanto se ha de mover un sprite en 1 frame, por ejemplo.
+         * */
+        data.diff = (timer.totalTicks - timer.prevTicks)/1000;
+        iprintf("\x1b[11;00H  Diff: %i", data.diff);
         game_Update();
         iprintf("\x1b[14;00H  Timer: %i", timer.time);
 
@@ -48,6 +58,7 @@ void game_Loop()
                 }
             }
         }
+        timer.prevTicks = timer.totalTicks;
 	}
 #pragma clang diagnostic pop
 }
