@@ -45,9 +45,9 @@ void game_Loop()
          * saber cuanto se ha de mover un sprite en 1 frame, por ejemplo.
          * */
         data.diff = (timer.totalTicks - timer.prevTicks)/1000;
-        iprintf("\x1b[11;00H  Diff: %i", data.diff);
+        iprintf("\x1b[6;00H  Diff: %i", data.diff);
         game_Update();
-        iprintf("\x1b[14;00H  Timer: %i", timer.time);
+        iprintf("\x1b[9;00H  Timer: %i", timer.time);
 
         if(keyData.isPressed && (data.state == WAIT))
         {

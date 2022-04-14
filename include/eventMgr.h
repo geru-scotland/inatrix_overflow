@@ -30,7 +30,8 @@ enum States {
     STATE_PAUSE,
     STATE_GAME_OVER,
     STATE_STATS,
-    STATE_SURRENDER
+    STATE_SURRENDER,
+    STATE_BALL_MOVING
 };
 
 enum Events{
@@ -57,10 +58,10 @@ extern Event* eventList[MAX_EVENTS];
 extern int numEvents;
 //Funciones de Event Manager
 extern void eventMgr_InitEventSystem();
-extern void eventMgr_UpdateEvents();
+extern void eventMgr_UpdateScheduledEvents();
 extern void eventMgr_AddEvent(Event *event);
 extern void eventMgr_ScheduleEvent(uint8 eventId, int time);
 extern void eventMgr_DeleteEvent(Event* event);
-
+extern void eventMgr_UpdateInstantEvents();
 
 #endif //EVENTMGR_H_

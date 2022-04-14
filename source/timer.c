@@ -50,7 +50,7 @@ void timer_UpdateTimer()
          * TODO: Hacer esto de otra manera, que sea llamado
          * Desde el bucle principal cada X ms
          */
-        eventMgr_UpdateEvents();
+        eventMgr_UpdateScheduledEvents();
     }
 }
 
@@ -96,8 +96,5 @@ void timer_StopTimer()
  * @return
  */
 bool timer_TicksHavePassed(int total, int prev){
-    if(total <= prev)
-        return true;
-    else
-        return false;
+    return (total <= prev) ? true : false;
 }

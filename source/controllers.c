@@ -61,7 +61,9 @@ void controllers_DisableKeyInt(){
 
 void controllers_TimerHandler(){
     // El handler será llamado por interrupción constantemente
+    // Movimientos, si reunen ciertas características, aquí.
     timer_UpdateTimer();
+    eventMgr_UpdateInstantEvents();
 }
 
 void controllers_KeyPadHandler(){

@@ -10,10 +10,12 @@ adibide batean oinarrituta.
 
 #include "../include/sprites.h"
 #include "../include/defines.h"
+#include "../include/gfx_bitmaps.h"
 
 u16* gfxrombo;
 u16* gfxromboGrande;
-
+Sprite* sprites[MAX_SPRITES];
+u16* gfxList[MAX_GFX];
 
 /* Reservar memoria para cada sprite que se quiera mostrar en pantalla.*/
 void memoriaReserba()
@@ -33,87 +35,9 @@ void EstablecerPaletaPrincipal() {
 	SPRITE_PALETTE[3] = RGB15(0,0,31); // los píxeles con valor 3 serán azules.
 }
 
-/* definición de un sprite de 16x16 píxeles para dibujar un rombo */
-/* Por la forma que tienen de trabajar los bancos de memoria, la imagen del sprite se divide en bloques de 8x8 píxeles. Los primeros 64 (8x8) píxeles que indicamos
-aparecerán en el cuadrante superior izquierdo de la imagen del sprite, los siguientes 64 en el cuadrante superior derecho, los siguientes en el cuadrante inferior izquierdo y los
-últimos en el cuadrante inferior derecho. */
-
-u8 rombo[256] = 
-{
-	0,0,0,0,0,0,2,2,
-        0,0,0,0,0,2,2,2,	//	0,0,0,0,0,0,2,2, 2,2,0,0,0,0,0,0,
-	0,0,0,0,2,2,2,2,
-        0,0,0,2,2,2,2,2,	//	0,0,0,0,0,2,2,2, 2,2,2,0,0,0,0,0,
-	0,0,2,2,2,2,2,2,
-        0,2,2,2,2,2,2,2,	//	0,0,0,0,2,2,2,2, 2,2,2,2,0,0,0,0,
-	2,2,2,2,2,2,2,2,
-        2,2,2,2,2,2,2,2,	//	0,0,0,2,2,2,2,2, 2,2,2,2,2,0,0,0,
- 
-	2,2,0,0,0,0,0,0,
-        2,2,2,0,0,0,0,0,	//	0,0,2,2,2,2,2,2, 2,2,2,2,2,2,0,0,
-	2,2,2,2,0,0,0,0,
-        2,2,2,2,2,0,0,0,	//	0,2,2,2,2,2,2,2, 2,2,2,2,2,2,2,0,
-	2,2,2,2,2,2,0,0,
-        2,2,2,2,2,2,2,0,	//	2,2,2,2,2,2,2,2, 2,2,2,2,2,2,2,2,
-	2,2,2,2,2,2,2,2,
-        2,2,2,2,2,2,2,2,	//	2,2,2,2,2,2,2,2, 2,2,2,2,2,2,2,2,
-
-	1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,	//	1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,
-	0,1,1,1,1,1,1,1,
-        0,0,1,1,1,1,1,1,	//	1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,
-	0,0,0,1,1,1,1,1,
-        0,0,0,0,1,1,1,1,	//	0,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,0,
-	0,0,0,0,0,1,1,1,
-        0,0,0,0,0,0,1,1,	//	0,0,1,1,1,1,1,1, 1,1,1,1,1,1,0,0,
-
-	1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,	//	0,0,0,1,1,1,1,1, 1,1,1,1,1,0,0,0,
-	1,1,1,1,1,1,1,0,
-        1,1,1,1,1,1,0,0,	//	0,0,0,0,1,1,1,1, 1,1,1,1,0,0,0,0,
-	1,1,1,1,1,0,0,0,
-        1,1,1,1,0,0,0,0,	//	0,0,0,0,0,1,1,1, 1,1,1,0,0,0,0,0,
-	1,1,1,0,0,0,0,0,
-        1,1,0,0,0,0,0,0,	//	0,0,0,0,0,0,1,1, 1,1,0,0,0,0,0,0,
-};
-
-u8 romboGrande[1024] = 
-{
-	0,0,0,0,0,0,2,2,0,0,0,0,0,2,2,2,0,0,0,0,2,2,2,2,0,0,0,2,2,2,2,2,0,0,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,	
-
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,	
-
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,	
- 
-	2,2,0,0,0,0,0,0,2,2,2,0,0,0,0,0,2,2,2,2,0,0,0,0,2,2,2,2,2,0,0,0,2,2,2,2,2,2,0,0,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,	
-
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-
-	0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,1,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,	
-
-	1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,	
-
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,0,0,2,2,2,2,2,2,0,0,0,2,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,0,2,2,2,0,0,0,0,0,0,2,2,	
-
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,0,0,2,2,2,2,2,0,0,0,2,2,2,2,0,0,0,0,2,2,2,0,0,0,0,0,2,2,0,0,0,0,0,0,	
-
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,	
-
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,	
-
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,	
-
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,	
-};
-
 /* Carga en memoria cada uno de los sprites que hemos dibujado. */
 
+/*TODO: Geru - Revisar bien esto, en la guía has visto algo de que era más óptimo guardar de otra manera. */
 void GuardarSpritesMemoria(){ 
 	
 int i;
@@ -132,14 +56,14 @@ int i;
 /* Esta función dibuja un rombo en la posición x-y de pantalla. A cada rombo que se quiera mostrar en pantalla se le debe asignar un indice distinto, un valor entre 0 y 126. */
 
 void MostrarRombo(int indice, int x, int y)
-{ 
- 
+{
+
 oamSet(&oamMain, //main graphics engine context
 		indice,           //oam index (0 to 127)  
 		x, y,   //x and y pixle location of the sprite
 		0,                    //priority, lower renders last (on top)
 		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
-		SpriteSize_16x16,     
+		SpriteSize_16x16,
 		SpriteColorFormat_256Color, 
 		gfxrombo,//+16*16/2,                  //pointer to the loaded graphics
 		-1,                  //sprite rotation data  
@@ -176,7 +100,7 @@ oamUpdate(&oamMain);
 
 void MostrarRomboGrande(int indice, int x, int y)
 { 
- 
+
 oamSet(&oamMain, //main graphics engine context
 		indice,           //oam index (0 to 127)  
 		x, y,   //x and y pixle location of the sprite
@@ -198,7 +122,6 @@ oamUpdate(&oamMain);
 
 void BorrarRomboGrande(int indice, int x, int y)
 {
-
 oamSet(&oamMain, //main graphics engine context
 		indice,           //oam index (0 to 127)  
 		x, y,   //x and y pixle location of the sprite
@@ -216,3 +139,101 @@ oamSet(&oamMain, //main graphics engine context
 oamUpdate(&oamMain); 
 
 }
+
+// TODO: Borrar todas las funciones previas de mostrar/borrar.
+
+/**
+ * Función que gestiona lo necesario para la creación de cualquier
+ * sprite. Tanto de memoria y asociaciones de libnds, como por nuestra parte
+ * para la fácil manipulación de sprites.
+ * @param index
+ * @param gfxIndex
+ * @param x
+ * @param y
+ * @param size
+ * @param colorFormat
+ * @param isHidden
+ */
+void createSprite(int index, u8 gfxIndex, int x, int y, SpriteSize size, SpriteColorFormat colorFormat, bool isHidden){
+    // Geru: Primero se crea el struct en memoria dinámica o heap
+    // Luego tendremos que liberarla, si no -> memory leaks.
+    Sprite* sprite = malloc( sizeof(Sprite));
+    sprite->index = index;
+    sprite->speed = DEFAULT_SPRITE_SPEED;
+    sprite->gfx = gfxList[gfxIndex];
+    sprite->size = size;
+    sprite->colorFormat = colorFormat;
+
+    // Ahora se define el nuevo sprite
+    oamSet(&oamMain,
+           sprite->index,
+           x, y,
+           0,
+           0,
+           sprite->size,
+           sprite->colorFormat,
+           sprite->gfx,
+           -1,
+           false,
+           isHidden,
+           false, false,
+           false
+    );
+    // Se actualiza la memoria con el nuevo sprite (lo dibuja)
+    oamUpdate(&oamMain);
+
+    // Se obtiene el SpriteEntry creado por libnds
+    // Y se asigna al struct Sprite
+    sprite->spriteEntry = &oamMain.oamMemory[sprite->index];
+    // Listo, insertamos en nuestro array de sprites
+    sprites[sprite->index] = sprite;
+}
+
+//TODO: Liberar memoria de los punteros creados para cada sprite
+//Cada vez que se haga un delete o similar.
+
+void updateSprite(Sprite* sprite){
+    oamSet(&oamMain, 	//main graphics engine context
+           sprite->index,  		//oam index (0 to 127)
+           sprite->spriteEntry->x, sprite->spriteEntry->y,    		//x and y pixel location of the sprite
+           0,       		//priority, lower renders last (on top)
+           0,	 			//this is the palette index if multiple palettes or the alpha value if bmp sprite
+           sprite->size,
+           sprite->colorFormat,
+           sprite->gfx,		//+16*16/2, 	//pointer to the loaded graphics
+           -1,            	//sprite rotation data
+           false,         	//double the size when rotating?
+           sprite->spriteEntry->isHidden,			//hide the sprite?
+           false, false, 	//vflip, hflip
+           false			//apply mosaic
+    );
+    oamUpdate(&oamMain);
+}
+
+/**
+ * sprites[] es un array de punteros a structs.
+ * @param index
+ * @return Puntero al struct del sprite asociado al index
+ */
+Sprite* getSpriteByIndex(int index){
+    return sprites[index];
+}
+
+/**
+ * Una vez en memoria oam (gracias al set que se ha hecho inicialmente)
+ * podemos obtener su SpriteEntry
+ * @param index
+ * @return
+ */
+SpriteEntry* getSpriteEntryByIndex(int index){
+    return &oamMain.oamMemory[index];
+}
+
+/**
+* Borrar Sprites
+ * Por ahora, poner a hidden en oamMain y que se updatee
+ * A parte, hacer un free del puntero y gestionar la lista
+ * Pero hay que mirar cómo se puede borrar totalmente de memoria
+ * o si en su creación/mapeo inicial, se queda registrado de
+ * manera persistente.
+*/
