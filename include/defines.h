@@ -13,6 +13,8 @@ defines.h
 #define IE		(*(vuint32*)0x04000210) //Interrupt Enable -- Habilitar-deshabilitar las interrupciones de forma individual
 #define IF		(*(vuint32*)0x04000214) //Interrupt Flag -- Registro de solicitud de interrupción
 
+typedef unsigned char uint8;
+
 //Acceso a los registros de la pantalla táctil
 extern touchPosition PANT_DAT;
 

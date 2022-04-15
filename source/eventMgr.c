@@ -12,7 +12,6 @@
 Event* eventList[MAX_EVENTS];
 
 SpriteGlobalInfo spriteInfo;
-
 int numEvents;
 
 void eventMgr_InitEventSystem(){
@@ -97,8 +96,10 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_NEXT_PHASE:
                     break;
                 case EVENT_TEST_2ND_ACTIVITY:
+                    //Mostrar
+                    //sprites_displaySprite(INDEX_BALL, 50, 50, false);
                     //Create ball
-                    createSprite(INDEX_BALL, GFX_BALL, 15, 120, SpriteSize_16x16, SpriteColorFormat_256Color, false);
+                    sprites_displaySprite(INDEX_BALL, 15, 120, false);
 
                     /* La empezamos a mover de inmediato - pero si quisíeramos
                      * que se empezara a mover en 15 segundos, pues no tendríamos más que
@@ -110,6 +111,8 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_OPEN_DOOR:
                     break;
                 case EVENT_SET_MATRIX_BACKGROUND:
+                    //Test: spawn second ball
+                    sprites_displaySprite(INDEX_BALL2, 120, 120, false);
                     background_SetMatrixBackground();
                     eventMgr_ScheduleEvent(EVENT_SET_MATRIX_BACKGROUND2, 1);
                     break;
@@ -133,12 +136,20 @@ void eventMgr_UpdateScheduledEvents(){
  * manera instantánea
  */
 void eventMgr_UpdateInstantEvents(){
+    // Pruebas random
     if((data.state == STATE_BALL_MOVING) && (timer.ticks % 16 == 0)){
-        /*Sprite* sprite = getSpriteByIndex(INDEX_BALL);
-        sprite->spriteEntry->x +=2;
-        sprite->spriteEntry->y -=2;*/
-        sprites[INDEX_BALL]->spriteEntry->x += 1;
-        sprites[INDEX_BALL]->spriteEntry->y -= 1;
-        updateSprite(sprites[INDEX_BALL]);
+
+        Sprite* ball1 = sprites[INDEX_BALL];
+        if(ball1 && !ball1->spriteEntry->isHidden)
+        {
+            ball1->spriteEntry->x += 1;
+            ball1->spriteEntry->y -= 1;
+        }
+        Sprite* ball2 = sprites[INDEX_BALL2];
+        if(ball2 && !ball2->spriteEntry->isHidden){
+            ball2->spriteEntry->x += 1;
+            ball2->spriteEntry->y -= 1;
+        }
+        oamUpdate(&oamMain);
     }
 }

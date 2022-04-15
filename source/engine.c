@@ -12,7 +12,6 @@ Definición del sistema de video, NO SE NECESITA CAMBIAR NADA AQUÍR
 
 void inicializarVideo() {
     /*  Mapeo de memoria para mostrar imagenes en las dos pantallas. */
-
     vramSetMainBanks(VRAM_A_MAIN_BG_0x06000000,
                      VRAM_B_MAIN_BG_0x06020000,
                      VRAM_C_SUB_BG_0x06200000,
@@ -114,6 +113,7 @@ void initSpriteMem() {
 
 	oamInit(&oamMain, SpriteMapping_1D_32, false);
 	oamInit(&oamSub, SpriteMapping_1D_32, false);
+
 }
 
 
@@ -123,7 +123,5 @@ void inicializarGraficosSprites()
 	inicializarGraficos();
 	inicializarFondos();
 	initSpriteMem();
-	memoriaReserba();
-	EstablecerPaletaPrincipal();
-	GuardarSpritesMemoria();
+    sprites_initSpriteSystem();
 }
