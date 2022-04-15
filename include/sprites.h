@@ -6,15 +6,7 @@
 
 // Indices asociados a cada sprite (nuestro y en oamMemory)
 typedef enum {
-    INDEX_BALL = 0, // Testing purposes
-    INDEX_BALL2,
-    INDEX_INATRIX_1,
-    INDEX_INATRIX_2,
-    INDEX_MATRIX_1_1,
-    INDEX_MATRIX_1_2,
-    INDEX_MATRIX_1_3,
-    INDEX_MATRIX_2_1
-    //..
+    INDEX_INATRIX = 0
 } SpriteIndex;
 
 // Información global de los sprites

@@ -90,7 +90,6 @@ void inicializarFondos() {
 /*******************************************************************************************/
 }
 
-
 void inicializarGraficos()
 {
     powerOn(POWER_ALL_2D);

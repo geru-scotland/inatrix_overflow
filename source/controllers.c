@@ -83,6 +83,7 @@ void controllers_KeyPadHandler(){
 
     // Mostrar por pantalla la tecla que ha sido pulsada
     // Tanto por interrupción como por encuesta.
+
 }
 
 void controllers_SetInterruptionVector()

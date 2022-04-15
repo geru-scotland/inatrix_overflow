@@ -8,19 +8,10 @@
 #include "nds.h"
 #define GFX_SIZE 2
 
-#define GFX_SIZE_16_16 16392
-#define GFX_SIZE_32_32 32800
-
-#define GFX_256COLOR_FORMAT 1
-
 // Identificadores para los GFX, asociamos uno a cada sprite.
 // Deben coincidir con SpriteIndex. TODO: Revisar esto, está feo.
 typedef enum{
-    GFX_BALL = 0,
-    GFX_BALL2,
-    GFX_ONE,
-    GFX_ZERO,
-    GFX_INATRIX_1
+    GFX_INATRIX = 0
 } GfxID;
 
 

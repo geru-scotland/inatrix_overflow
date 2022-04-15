@@ -29,7 +29,6 @@ typedef struct {
     int latch;
     int conf;
     int totalTicks; // Geru: Cambiar nombres de variables, estoy cansado.
-    int prevTicks;
 } TimerData;
 
 extern TimerData timer;

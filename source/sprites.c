@@ -85,7 +85,7 @@ void sprites_displaySprite(uint8 index, int x, int y, bool isHidden){
 
     // Se obtiene el SpriteEntry creado por libnds
     // Y se asigna al struct Sprite
-    sprites[index]->spriteEntry = &oamMain.oamMemory[sprites[index]->index];
+    sprites[index]->spriteEntry = &oamMain.oamMemory[index];
 }
 
 void sprites_updateSprite(uint8 index){

@@ -7,14 +7,29 @@ game.h
 void game_Loop();
 void game_Update();
 
+
+enum States {
+    // Estados generales del juego
+    GAME_STATE_INTRO,
+    GAME_STATE_MENU,
+    GAME_STATE_GAME,
+    GAME_STATE_PAUSE,
+    GAME_STATE_GAME_OVER,
+    GAME_STATE_STATS,
+    GAME_STATE_SURRENDER,
+};
+
+enum Phases{
+    PHASE_INTRO_TEXT = 0,
+    PHASE_INTRO_WAITING,
+};
+
 /*
  * Información general del juego.
  * state: estado actual del juego.
- * diff: Tiempo de actualización, diferencia entre el frame actual y el anterior.
  * */
 typedef struct {
     int state;
-    float diff;
 } GameData;
 
-extern GameData data;
+extern GameData gameData;

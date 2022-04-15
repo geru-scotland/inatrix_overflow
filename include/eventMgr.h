@@ -12,40 +12,11 @@
 enum TimeMarks {
     IN_5_SECONDS = 5,
     IN_10_SECONDS = 10,
-    IN_20_SECONDS = 20
-};
-
-enum States {
-    // States temporales.
-    // Quitar una vez entregada segunda actividad.
-    WAIT = 0,
-    CLOSED,
-    OPEN,
-    TIMER_TESTS,
-
-    // States reales del juego.
-    STATE_INTRO,
-    STATE_MENU,
-    STATE_GAME,
-    STATE_PAUSE,
-    STATE_GAME_OVER,
-    STATE_STATS,
-    STATE_SURRENDER,
-    STATE_BALL_MOVING
+    IN_20_SECONDS = 20,
 };
 
 enum Events{
-    // Eventos Iniciales, ejemplos.
-    EVENT_NEXT_PHASE = 0,
-    EVENT_NEXT_STATE,
-    EVENT_ADD_POINT,
-    EVENT_EXPLODE_BIT_BLOCK,
-    EVENT_REGENERATE_MATRIX,
-    // Requerido por segunda actividad.
-    EVENT_TEST_2ND_ACTIVITY,
-    EVENT_OPEN_DOOR,
-    EVENT_SET_MATRIX_BACKGROUND,
-    EVENT_SET_MATRIX_BACKGROUND2,
+    EVENT_START_INTRO,
 };
 
 typedef struct {

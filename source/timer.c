@@ -25,7 +25,6 @@ void timer_ConfigureTimer(int latch, int mask)
     timer.conf = mask;
     timer.time = 0;
     timer.totalTicks = 0;
-    timer.prevTicks = 0;
 
     TIMER0_CNT |= 0x00C0 | timer.conf;
     TIMER0_DAT |= timer.latch;

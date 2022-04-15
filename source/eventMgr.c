@@ -85,41 +85,6 @@ void eventMgr_UpdateScheduledEvents(){
         {
             switch(eventList[i]->id)
             {
-                case EVENT_REGENERATE_MATRIX:
-                    break;
-                case EVENT_ADD_POINT:
-                    break;
-                case EVENT_EXPLODE_BIT_BLOCK:
-                    break;
-                case EVENT_NEXT_STATE:
-                    break;
-                case EVENT_NEXT_PHASE:
-                    break;
-                case EVENT_TEST_2ND_ACTIVITY:
-                    //Mostrar
-                    //sprites_displaySprite(INDEX_BALL, 50, 50, false);
-                    //Create ball
-                    sprites_displaySprite(INDEX_BALL, 15, 120, false);
-
-                    /* La empezamos a mover de inmediato - pero si quisíeramos
-                     * que se empezara a mover en 15 segundos, pues no tendríamos más que
-                     * schedulear un evento aquí
-                     */
-                    data.state = STATE_BALL_MOVING;
-                    eventMgr_ScheduleEvent(EVENT_SET_MATRIX_BACKGROUND, IN_5_SECONDS);
-                    break;
-                case EVENT_OPEN_DOOR:
-                    break;
-                case EVENT_SET_MATRIX_BACKGROUND:
-                    //Test: spawn second ball
-                    sprites_displaySprite(INDEX_BALL2, 120, 120, false);
-                    background_SetMatrixBackground();
-                    eventMgr_ScheduleEvent(EVENT_SET_MATRIX_BACKGROUND2, 1);
-                    break;
-                case EVENT_SET_MATRIX_BACKGROUND2:
-                    background_SetMatrixBackground2();
-                    eventMgr_ScheduleEvent(EVENT_SET_MATRIX_BACKGROUND, 1);
-                    break;
                 default:
                     break;
             }
@@ -137,19 +102,5 @@ void eventMgr_UpdateScheduledEvents(){
  */
 void eventMgr_UpdateInstantEvents(){
     // Pruebas random
-    if((data.state == STATE_BALL_MOVING) && (timer.ticks % 16 == 0)){
-
-        Sprite* ball1 = sprites[INDEX_BALL];
-        if(ball1 && !ball1->spriteEntry->isHidden)
-        {
-            ball1->spriteEntry->x += 1;
-            ball1->spriteEntry->y -= 1;
-        }
-        Sprite* ball2 = sprites[INDEX_BALL2];
-        if(ball2 && !ball2->spriteEntry->isHidden){
-            ball2->spriteEntry->x += 1;
-            ball2->spriteEntry->y -= 1;
-        }
-        oamUpdate(&oamMain);
-    }
+    oamUpdate(&oamMain);
 }
