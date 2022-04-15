@@ -1,5 +1,5 @@
 //
-// Created by Eideann on 14/4/22.
+// Created by Geru on 14/4/22.
 //
 
 #ifndef INATRIX_OVERFLOW_GFX_BITMAPS_H
