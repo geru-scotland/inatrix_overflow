@@ -32,7 +32,6 @@ typedef struct {
 extern void sprites_initSpriteSystem();
 extern void sprites_setMainPalette();
 extern void sprites_allocateMemory();
-//extern void sprites_displaySprite(int index, int x, int y, bool isHidden);
 extern void sprites_displaySprite(uint8 index, int x, int y, bool isHidden);
 extern void sprites_updateSprite(uint8 index);
 Sprite* sprites_getSpriteByIndex(uint8 index);
