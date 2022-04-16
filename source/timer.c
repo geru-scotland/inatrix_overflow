@@ -35,9 +35,6 @@ void timer_UpdateTimer()
 {
     /*
      * Establecemos, 512 ticks - ~1 segundo.
-     * Investigar y entender bien el tema de FREQ
-     * que hay algo que no funciona bien, jaja.
-     * Algo has tenido que configurar mal del timer.
      */
     timer.ticks++;
     timer.totalTicks++;
