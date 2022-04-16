@@ -8,7 +8,6 @@
 #include "../include/sprites.h"
 #include "nds.h"
 #include "../include/game.h"
-
 Event* eventList[MAX_EVENTS];
 
 SpriteGlobalInfo spriteInfo;
@@ -29,16 +28,19 @@ void eventMgr_InitEventSystem(){
  */
 void eventMgr_DeleteEvent(Event *event){
     uint8 i = event->pos;
-    while ((i < numEvents))
+
 #ifdef DEBUG_MODE
     iprintf("\x1b[%i;00H [DEL] NE: %i e.pos: %i - e.id: %i", lineDelete, numEvents, event->pos, event->id);
     lineDelete += 1;
 #endif // DEBUG_MODE
+
+    while ((i < numEvents) && (eventList[i] != NULL))
     {
         eventList[i] = eventList[i+1];
         eventList[i]->pos = i;
         i++;
     }
+
     free(event);
     numEvents--;
 #ifdef DEBUG_MODE
