@@ -14,6 +14,10 @@ Event* eventList[MAX_EVENTS];
 SpriteGlobalInfo spriteInfo;
 int numEvents;
 
+#ifdef DEBUG_MODE
+int lineDelete = 8;
+int lineAdd = 0;
+#endif
 void eventMgr_InitEventSystem(){
     numEvents = 0;
 }
@@ -26,12 +30,20 @@ void eventMgr_InitEventSystem(){
 void eventMgr_DeleteEvent(Event *event){
     uint8 i = event->pos;
     while ((i < numEvents))
+#ifdef DEBUG_MODE
+    iprintf("\x1b[%i;00H [DEL] NE: %i e.pos: %i - e.id: %i", lineDelete, numEvents, event->pos, event->id);
+    lineDelete += 1;
+#endif // DEBUG_MODE
     {
         eventList[i] = eventList[i+1];
         i++;
     }
     free(event);
     numEvents--;
+#ifdef DEBUG_MODE
+    iprintf("\x1b[%i;00H [ARRAY] ={%i, %i, %i, %i}", lineDelete+6, eventList[0]->id, eventList[1]->id,eventList[2]->id,eventList[3]->id);
+    lineDelete += 1;
+#endif // DEBUG_MODE
 }
 
 /**
@@ -44,6 +56,10 @@ void eventMgr_AddEvent(Event *event){
         eventList[numEvents] = event;
         event->pos = numEvents;
         numEvents++;
+#ifdef DEBUG_MODE
+        iprintf("\x1b[%i;00H [ADD] NE: %i e.pos: %i - e.id: %i", lineAdd, numEvents, event->pos, event->id);
+        lineAdd += 1;
+#endif // DEBUG_MODE
     }
 }
 
