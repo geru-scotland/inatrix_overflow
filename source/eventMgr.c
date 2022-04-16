@@ -99,16 +99,30 @@ void eventMgr_UpdateScheduledEvents(){
 
                 case EVENT_INTRO_START:
                     iprintf("\x1b[10;00H Wake up, Inatrix...");
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_CCLEAR1, IN_3_SECONDS);
+                    break;
+                case EVENT_INTRO_CCLEAR1:
+                    iprintf("\x1b[2J"); // consoleClear();
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_2_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT2:
-                    iprintf("\x1b[2J"); // consoleClear();
                     iprintf("\x1b[10;00H The Matrix has you...");
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_CCLEAR2, IN_3_SECONDS);
+                    break;
+                case EVENT_INTRO_CCLEAR2:
+                    iprintf("\x1b[2J"); // consoleClear();
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_2_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT3:
+                    iprintf("\x1b[10;00H Follow the white rabbit.");
+                    eventMgr_ScheduleEvent(EVENT_INTRO_CCLEAR3, IN_5_SECONDS);
+                    break;
+                case EVENT_INTRO_CCLEAR3:
                     iprintf("\x1b[2J"); // consoleClear();
-                    iprintf("\x1b[14;00H Follow the white rabbit.");
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT4, IN_2_SECONDS);
+                    break;
+                case EVENT_INTRO_TEXT4:
+                    iprintf("\x1b[10;00H Knock, knock, Inatrix.");
                     eventMgr_ScheduleEvent(EVENT_NEXT_PHASE, IN_5_SECONDS);
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
@@ -118,7 +132,6 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[2J"); // consoleClear();
                     break;
                 case EVENT_NEXT_PHASE:
-                    iprintf("\x1b[10;00H NEXT PHASE ");
                     gameData.phase = game_getNextPhase();
                     break;
                 default:

@@ -10,7 +10,7 @@
 #define MAX_EVENTS 20
 
 enum TimeMarks {
-    IN_1_SECOND = 1,
+    IN_1_SECONDS = 1,
     IN_2_SECONDS = 2,
     IN_3_SECONDS = 3,
     IN_5_SECONDS = 5,
@@ -21,7 +21,11 @@ enum TimeMarks {
 enum Events{
     EVENT_INTRO_START = 0,
     EVENT_INTRO_TEXT2,
+    EVENT_INTRO_CCLEAR1,
     EVENT_INTRO_TEXT3,
+    EVENT_INTRO_CCLEAR2,
+    EVENT_INTRO_TEXT4,
+    EVENT_INTRO_CCLEAR3,
     EVENT_INTRO_SETBACKGROUND1,
     EVENT_NEXT_PHASE,
     /*
