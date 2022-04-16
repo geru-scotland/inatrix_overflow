@@ -79,9 +79,6 @@ void eventMgr_ScheduleEvent(uint8 eventId, int time){
      * Geru: Reservo memoria dinámica en el heap, porque el stack se vacía
      * Una vez terminado el scope de la función, y queremos que persistan.
      * Importante liberar la memoria reservada correspondiente a cada evento.
-     *
-     * TODO: Hacer un sistema para evitar duplicados.
-     * Quizá un estado OnCooldown para el SheduleEvent.
      */
     if(numEvents < MAX_EVENTS) {
         Event* e = malloc(sizeof(Event));
@@ -103,45 +100,31 @@ void eventMgr_UpdateScheduledEvents(){
         {
             switch(eventList[i]->id)
             {
-                /**
-                 * TODO: Hay un problema con la lista de eventos.
-                 * Parece ser que si pongo:
-                 * eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                 * eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_5_SECONDS);
-                 *
-                 * No funciona, será alguna tonteria al eliminar un evento de entre
-                 * medias en el array. Crear incidencia en Github.
-                 *
-                 * Es decir, sólo funciona si lo pongo en ascendente. Estoy ultra cansado
-                 * asi que, mirar esto mañana.
-                 */
-
+                /*
+                *********************
+                *********************
+                ******* INTRO *******
+                *********************
+                *********************
+                */
                 case EVENT_INTRO_START:
                     iprintf("\x1b[10;00H Wake up, Inatrix...");
-                    eventMgr_ScheduleEvent(EVENT_INTRO_CCLEAR1, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_5_SECONDS);
                     break;
-                case EVENT_INTRO_CCLEAR1:
-                    iprintf("\x1b[2J"); // consoleClear();
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_2_SECONDS);
+                case EVENT_INTRO_TEXT1:
+                    iprintf("\x1b[10;00H The Matrix has you...");
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_5_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT2:
-                    iprintf("\x1b[10;00H The Matrix has you...");
-                    eventMgr_ScheduleEvent(EVENT_INTRO_CCLEAR2, IN_3_SECONDS);
-                    break;
-                case EVENT_INTRO_CCLEAR2:
-                    iprintf("\x1b[2J"); // consoleClear();
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_2_SECONDS);
+                    iprintf("\x1b[10;00H Follow the white rabbit.");
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_5_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT3:
-                    iprintf("\x1b[10;00H Follow the white rabbit.");
-                    eventMgr_ScheduleEvent(EVENT_INTRO_CCLEAR3, IN_5_SECONDS);
-                    break;
-                case EVENT_INTRO_CCLEAR3:
-                    iprintf("\x1b[2J"); // consoleClear();
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT4, IN_2_SECONDS);
-                    break;
-                case EVENT_INTRO_TEXT4:
                     iprintf("\x1b[10;00H Knock, knock, Inatrix.");
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_NEXT_PHASE, IN_5_SECONDS);
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
@@ -151,8 +134,17 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[2J"); // consoleClear();
                     break;
                 case EVENT_NEXT_PHASE:
+                    iprintf("\x1b[10;00H (Entering Next phase)");
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_2_SECONDS);
                     gameData.phase = game_getNextPhase();
                     break;
+                /*
+                *********************
+                *********************
+                ******* GAME ********
+                *********************
+                *********************
+                */
                 default:
                     break;
             }
