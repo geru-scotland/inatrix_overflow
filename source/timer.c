@@ -49,6 +49,8 @@ void timer_UpdateTimer()
          * TODO: Hacer esto de otra manera, que sea llamado
          * Desde el bucle principal cada X ms
          */
+    }else if(timer.ticks == TIMER0_FREQ/2)
+    {
         eventMgr_UpdateScheduledEvents();
     }
 }
