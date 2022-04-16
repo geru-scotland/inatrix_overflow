@@ -10,13 +10,24 @@
 #define MAX_EVENTS 20
 
 enum TimeMarks {
+    IN_1_SECOND = 1,
+    IN_2_SECONDS = 2,
+    IN_3_SECONDS = 3,
     IN_5_SECONDS = 5,
     IN_10_SECONDS = 10,
     IN_20_SECONDS = 20,
 };
 
 enum Events{
-    EVENT_START_INTRO,
+    EVENT_INTRO_START = 0,
+    EVENT_INTRO_TEXT2,
+    EVENT_INTRO_TEXT3,
+    EVENT_INTRO_SETBACKGROUND1,
+    EVENT_NEXT_PHASE,
+    /*
+     * No correspondiente a ningún evento en concreto
+     */
+    EVENT_CLEAR_CONSOLE
 };
 
 typedef struct {

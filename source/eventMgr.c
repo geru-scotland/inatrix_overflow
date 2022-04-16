@@ -25,7 +25,7 @@ void eventMgr_InitEventSystem(){
  */
 void eventMgr_DeleteEvent(Event *event){
     uint8 i = event->pos;
-    while ((i < numEvents) && (eventList[i] != NULL))
+    while ((i < numEvents))
     {
         eventList[i] = eventList[i+1];
         i++;
@@ -44,6 +44,9 @@ void eventMgr_AddEvent(Event *event){
         eventList[numEvents] = event;
         event->pos = numEvents;
         numEvents++;
+        if(event->id == EVENT_INTRO_TEXT3){
+            iprintf("\x1b[2;00H EvenTO TEXT3 AGREGADO");
+        }
     }
 }
 
@@ -78,13 +81,49 @@ void eventMgr_ScheduleEvent(uint8 eventId, int time){
 void eventMgr_UpdateScheduledEvents(){
     if(numEvents == 0)
         return;
-
     for (int i = 0; i < numEvents; i++)
     {
         if(eventList[i]->execTime <= timer.time)
         {
             switch(eventList[i]->id)
             {
+                /**
+                 * TODO: Hay un problema con la lista de eventos.
+                 * Parece ser que si pongo:
+                 * eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
+                 * eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_5_SECONDS);
+                 *
+                 * No funciona, será alguna tonteria al eliminar un evento de entre
+                 * medias en el array. Crear incidencia en Github.
+                 *
+                 * Es decir, sólo funciona si lo pongo en ascendente. Estoy ultra cansado
+                 * asi que, mirar esto mañana.
+                 */
+
+                case EVENT_INTRO_START:
+                    iprintf("\x1b[10;00H Wake up, Inatrix...");
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_5_SECONDS);
+                    break;
+                case EVENT_INTRO_TEXT2:
+                    iprintf("\x1b[2J"); // consoleClear();
+                    iprintf("\x1b[10;00H The Matrix has you...");
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_5_SECONDS);
+                    break;
+                case EVENT_INTRO_TEXT3:
+                    iprintf("\x1b[2J"); // consoleClear();
+                    iprintf("\x1b[14;00H Follow the white rabbit.");
+                    eventMgr_ScheduleEvent(EVENT_NEXT_PHASE, IN_5_SECONDS);
+                    break;
+                case EVENT_INTRO_SETBACKGROUND1:
+                    background_SetMatrixBackground();
+                    break;
+                case EVENT_CLEAR_CONSOLE:
+                    iprintf("\x1b[2J"); // consoleClear();
+                    break;
+                case EVENT_NEXT_PHASE:
+                    iprintf("\x1b[10;00H NEXT PHASE ");
+                    gameData.phase = game_getNextPhase();
+                    break;
                 default:
                     break;
             }

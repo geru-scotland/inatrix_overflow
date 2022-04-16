@@ -9,7 +9,7 @@ Definición del sistema de video, NO SE NECESITA CAMBIAR NADA AQUÍR
 #include "../include/engine.h"
 #include "../include/sprites.h"
 
-
+// Geru: Ojo, no se está invocando. Unreachable calls.
 void inicializarVideo() {
     /*  Mapeo de memoria para mostrar imagenes en las dos pantallas. */
     vramSetMainBanks(VRAM_A_MAIN_BG_0x06000000,
@@ -33,6 +33,7 @@ void inicializarVideo() {
 
 /* ---- CONFIGURACIÓN DE FONDOS, NO HAY QUE MODIFICARLO ---- */
 
+// Geru: Ojo, no se está invocando. Unreachable calls.
 /* Procedimiento para configurar el sistema de fondos */
 void inicializarFondos() {
     /*  Establecer la afinidad del fondo 3 de la pantalla principal para colores de 16 bits. */
@@ -96,10 +97,6 @@ void inicializarGraficos()
     lcdMainOnBottom();
     inicializarVideo();
     PrintConsole* console = consoleDemoInit(); //La pantalla superior se utilizará en modo texto y la inferior en modo gráfico.
-    ConsoleFont font;
-    font.numColors = 1;
-    font.convertSingleColor = true;
-    consoleSetFont(console, &font);
 }
 
 

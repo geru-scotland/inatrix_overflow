@@ -29,22 +29,42 @@ void game_Update(){
     // Aquí más updates que necesitemos.
 }
 
+int game_getNextPhase(){
+
+    switch(gameData.state){
+        case GAME_STATE_INTRO:
+            return gameData.phase + 1; // Geru: Ojo con las declaraciones
+        default:
+            break;
+    }
+
+    return PHASE_NULL;
+}
 void game_Loop()
 {
 	gameData.state = GAME_STATE_INTRO;
+    gameData.phase = PHASE_INTRO_START;
+
 	while(SWITCH)
 	{
         game_Update();
 
         switch(gameData.state){
             case GAME_STATE_INTRO:
-
+                switch(gameData.phase){
+                    case PHASE_INTRO_START:
+                        eventMgr_ScheduleEvent(EVENT_INTRO_START, IN_5_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND1, IN_2_SECONDS);
+                        gameData.phase = PHASE_INTRO_WAITING;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;
         }
 	}
 }
-
 
 

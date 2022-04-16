@@ -19,17 +19,30 @@ enum States {
     GAME_STATE_SURRENDER,
 };
 
-enum Phases{
-    PHASE_INTRO_TEXT = 0,
+typedef enum {
+    PHASE_NULL = 0,
+    /* INTRO */
+    PHASE_INTRO_START,
     PHASE_INTRO_WAITING,
-};
+
+    /* MENU */
+    /* GAME */
+} Phases;
 
 /*
  * Información general del juego.
  * state: estado actual del juego.
+ * phase: phase del estado.
+ *
+ * Desafortunadamente, switch no acepta otra
+ * cosa más que int, así que no se pueden declarar
+ * las variables como uint8 o similares.
  * */
 typedef struct {
     int state;
+    int phase;
 } GameData;
 
 extern GameData gameData;
+
+extern int game_getNextPhase();
