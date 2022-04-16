@@ -36,6 +36,7 @@ void eventMgr_DeleteEvent(Event *event){
 #endif // DEBUG_MODE
     {
         eventList[i] = eventList[i+1];
+        eventList[i]->pos = i;
         i++;
     }
     free(event);
