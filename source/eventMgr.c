@@ -44,9 +44,6 @@ void eventMgr_AddEvent(Event *event){
         eventList[numEvents] = event;
         event->pos = numEvents;
         numEvents++;
-        if(event->id == EVENT_INTRO_TEXT3){
-            iprintf("\x1b[2;00H EvenTO TEXT3 AGREGADO");
-        }
     }
 }
 
