@@ -1,6 +1,8 @@
 /*-------------------------------------
 controllers.h
 -------------------------------------*/
+#ifndef CONTROLLERS_H
+#define CONTROLLERS_H
 
 void controllers_EnableInterruptsMaster();
 void controllers_DisableInterruptsMaster();
@@ -17,3 +19,4 @@ extern void controllers_TimerHandler();
 /* Init Setup */
 void controllers_SetInterruptionVector();
 extern void controllers_InitSetup();
+#endif //CONTROLLERS_H

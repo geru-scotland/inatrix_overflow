@@ -2,8 +2,8 @@
 // Created by Geru on 2/4/22.
 //
 
-#ifndef EVENTMGR_H_
-#define EVENTMGR_H_
+#ifndef EVENTMGR_H
+#define EVENTMGR_H
 
 #include "defines.h"
 
@@ -58,4 +58,4 @@ extern void eventMgr_ScheduleEvent(uint8 eventId, int time);
 extern void eventMgr_DeleteEvent(Event* event);
 extern void eventMgr_UpdateInstantEvents();
 
-#endif //EVENTMGR_H_
+#endif //EVENTMGR_H

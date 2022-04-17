@@ -1,6 +1,9 @@
 #define MAX_SPRITES 20
 #define DEFAULT_SPRITE_SPEED 1
 
+#ifndef SPRITES_H
+#define SPRITES_H
+
 #include "gfxInfo.h"
 
 // Información global de los sprites
@@ -27,3 +30,4 @@ extern void sprites_loadGfx();
 
 extern SpriteGlobalInfo spriteInfo;
 extern Sprite* sprites[MAX_SPRITES];
+#endif SPRTIES_H

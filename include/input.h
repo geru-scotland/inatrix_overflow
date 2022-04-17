@@ -1,7 +1,8 @@
 /*-------------------------------------
 input.h
 -------------------------------------*/
-
+#ifndef INPUT_H
+#define INPUT_H
 //registros del teclado
 #define TECLAS_DAT	(*(vu16*)0x4000130) //registro de datos
 #define TECLAS_CNT	(*(vu16*)0x4000132) //registro de control
@@ -33,4 +34,4 @@ extern void input_ConfigureInput(int mask);
 extern void input_UpdateKeyData();
 extern int input_KeyDetected();
 extern int input_KeyPressed();
-
+#endif INPUT_H
