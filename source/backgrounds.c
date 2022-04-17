@@ -53,3 +53,24 @@ void background_SetMatrixBackground2() {
                      (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
                      MatrixBackground2BitmapLen); /* Longitud en bytes, variable que se genera automáticamente */
 }
+
+//IMPORTANTE: Actualizar cada vez que se añada un nuevo background
+void background_Set(int i){
+    switch (i) {
+        case 0:
+            visualizarPuerta();
+            break;
+        case 1:
+            visualizarPuertaAbierta();
+            break;
+        case 2:
+            background_SetMatrixBackground();
+            break;
+        case 3:
+            background_SetMatrixBackground2();
+            break;
+        default:
+            printf("Algo has hecho mal, TOLAI"); //Quitar luego, es para evitar despistes
+            break;
+    }
+}
