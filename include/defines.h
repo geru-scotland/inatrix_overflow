@@ -21,14 +21,5 @@ extern touchPosition PANT_DAT;
 
 extern int SWITCH;
 
-//Defines para los backgrounds:
-//IMPORTANTE: Actualizar cada vez que se añada un nuevo background
-#define Puerta 0
-#define PuertaAbierta 1
-#define Matrix 2
-#define Matrix2 3
-
-
-
 #endif //DEFINES_H
 

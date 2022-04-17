@@ -157,10 +157,10 @@ void eventMgr_UpdateScheduledEvents(){
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
-                    background_Set(Matrix);
+                    background_setBackground(matrix);
                     break;
                 case EVENT_INTRO_SETBACKGROUND2:
-                    background_Set(Matrix2);
+                    background_setBackground(matrix2);
                     break;
                 case EVENT_CLEAR_CONSOLE:
                     iprintf("\x1b[2J"); // consoleClear();
