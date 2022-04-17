@@ -2,12 +2,6 @@
 #define DEFAULT_SPRITE_SPEED 1
 
 #include "gfxInfo.h"
-// TODO: SpriteManager (create, modify, etc)
-
-// Indices asociados a cada sprite (nuestro y en oamMemory)
-typedef enum {
-    INDEX_INATRIX = 0
-} SpriteIndex;
 
 // Información global de los sprites
 typedef struct {

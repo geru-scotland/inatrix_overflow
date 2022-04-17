@@ -11,7 +11,8 @@
 // Identificadores para los GFX, asociamos uno a cada sprite.
 // Deben coincidir con SpriteIndex. TODO: Revisar esto, está feo.
 typedef enum{
-    GFX_INATRIX = 0
+    GFX_CAPSULE_BLUE = 0,
+    GFX_CAPSULE_RED
 } GfxID;
 
 
@@ -25,7 +26,7 @@ typedef struct {
 
 extern GfxData* gfxList[GFX_SIZE];
 
-extern void gfxInfo_setBitmaps();
+extern void gfxInfo_setGfx(GfxID gfxId, u8* bitmap, SpriteSize size);
 extern void gfxInfo_init();
 
 #endif //INATRIX_OVERFLOW_GFX_BITMAPS_H
