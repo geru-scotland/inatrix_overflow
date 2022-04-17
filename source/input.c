@@ -53,25 +53,25 @@ int input_KeyPressed()
      */
     switch(TECLAS_DAT){
         case 0x03FE:
-            return A;
+            return INPUT_KEY_A;
         case 0x03FD:
-            return B;
+            return INPUT_KEY_B;
         case 0x03FB:
-            return SELECT;
+            return INPUT_KEY_SELECT;
         case 0x03F7:
-            return START;
+            return INPUT_KEY_START;
         case 0X03EF:
-            return IZQUIERDA;
+            return INPUT_KEY_LEFT;
         case 0x03DF:
-            return DERECHA;
+            return INPUT_KEY_RIGHT;
         case 0X03BF:
-            return ARRIBA;
+            return INPUT_KEY_UP;
         case 0x037F:
-            return ABAJO;
+            return INPUT_KEY_DOWN;
         case 0x02FF:
-            return R;
+            return INPUT_KEY_R;
         case 0x01FF:
-            return L;
+            return INPUT_KEY_L;
         default:
             return -1;
     }
