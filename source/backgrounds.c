@@ -36,6 +36,8 @@ void visualizarPuertaAbierta() {
 
 // Hacer una función únicamente, que reciba
 // como parámetro el nombre del fondo y haga el resto.
+// Revisar X Macros para ello, para buildear los nombres
+// de variables.
 void background_SetMatrixBackground() {
 
     dmaCopyHalfWords(DMA_CHANNEL,

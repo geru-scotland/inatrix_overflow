@@ -55,7 +55,18 @@ void game_Loop()
                     case PHASE_INTRO_START:
                         eventMgr_ScheduleEvent(EVENT_INTRO_START, IN_5_SECONDS);
                         eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND1, IN_2_SECONDS);
-                        gameData.phase = PHASE_INTRO_WAITING;
+                        gameData.phase = PHASE_INTRO_SCENE_ACTIVE;
+                        break;
+                        /* Está fijo con Start, para hacer demo.
+                         * cambiar esto y leer ambas teclas (A-B)
+                         * Y que obviamente lance otro evento depende de
+                         * la capsula elegida
+                         * */
+                    case PHASE_WAITING_PLAYER_INPUT:
+                        if(keyData.isPressed && (keyData.key == INPUT_KEY_START)){
+                            eventMgr_ScheduleEvent(EVENT_INTRO_CAPSULE_RED, NO_WAIT);
+                            gameData.phase = PHASE_NULL;
+                        }
                         break;
                     default:
                         break;

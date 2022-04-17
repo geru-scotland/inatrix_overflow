@@ -23,7 +23,9 @@ typedef enum {
     PHASE_NULL = 0,
     /* INTRO */
     PHASE_INTRO_START,
-    PHASE_INTRO_WAITING,
+    PHASE_INTRO_SCENE_ACTIVE,
+    PHASE_WAITING_PLAYER_INPUT,
+    PHASE_MOVE_RED_CAPSULE,
 
     /* MENU */
     /* GAME */

@@ -125,17 +125,47 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_INTRO_TEXT3:
                     iprintf("\x1b[10;00H Knock, knock, Inatrix.");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_NEXT_PHASE, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT4, IN_4_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND2, IN_3_SECONDS);
+                    break;
+                case EVENT_INTRO_TEXT4:
+                    iprintf("\x1b[10;00H So, what is your choice?");
+                    iprintf("\x1b[20;00H Blue - A)");
+                    iprintf("\x1b[20;20H Red - B)");
+                    eventMgr_ScheduleEvent(EVENT_INTRO_SHOW_CAPSULES, IN_2_SECONDS);
+                    break;
+                case EVENT_INTRO_SHOW_CAPSULES:
+                    sprites_displaySprite(GFX_CAPSULE_RED, 95, 80, false);
+                    sprites_displaySprite(GFX_CAPSULE_BLUE, 145, 80, false);
+                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+                    break;
+                case EVENT_INTRO_CAPSULE_RED:
+                    iprintf("\x1b[2J"); // Forzamos un clear console
+                    sprites_displaySprite(GFX_CAPSULE_BLUE, 145, 80, true);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT5, IN_2_SECONDS);
+                    gameData.phase = PHASE_MOVE_RED_CAPSULE;
+                    break;
+                case EVENT_INTRO_TEXT5:
+                    iprintf("\x1b[10;00H I see... good choice");
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_2_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_FINISH, IN_4_SECONDS);
+                    break;
+                case EVENT_INTRO_FINISH:
+                    iprintf("\x1b[10;00H Or not? haha...");
+                    sprites_displaySprite(GFX_CAPSULE_RED, 145, 80, true);
+                    gameData.state = GAME_STATE_MENU; // O Game, es un ejemplo.
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
                     background_SetMatrixBackground();
+                    break;
+                case EVENT_INTRO_SETBACKGROUND2:
+                    background_SetMatrixBackground2();
                     break;
                 case EVENT_CLEAR_CONSOLE:
                     iprintf("\x1b[2J"); // consoleClear();
                     break;
                 case EVENT_NEXT_PHASE:
-                    iprintf("\x1b[10;00H (Entering Next phase)");
-                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_2_SECONDS);
                     gameData.phase = game_getNextPhase();
                     break;
                 /*
@@ -161,6 +191,17 @@ void eventMgr_UpdateScheduledEvents(){
  * manera instantánea
  */
 void eventMgr_UpdateInstantEvents(){
+    if(timer.ticks % 28 != 0)
+        return;
+    if(gameData.phase == PHASE_MOVE_RED_CAPSULE){
+        if(sprites[GFX_CAPSULE_RED]->spriteEntry->x <= 120){
+            sprites[GFX_CAPSULE_RED]->spriteEntry->x +=1;
+            sprites[GFX_CAPSULE_RED]->spriteEntry->y -=1;
+        }else
+        {
+            gameData.phase = PHASE_NULL;
+        }
+    }
     // Pruebas random
     oamUpdate(&oamMain);
 }
