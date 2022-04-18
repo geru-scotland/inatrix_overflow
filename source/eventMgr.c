@@ -108,6 +108,7 @@ void eventMgr_UpdateScheduledEvents(){
                 *********************
                 */
                 case EVENT_INTRO_START:
+                    iprintf("\x1b[09;10H _");
                     iprintf("\x1b[10;00H Wake up, Inatrix...");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_5_SECONDS);
@@ -123,6 +124,7 @@ void eventMgr_UpdateScheduledEvents(){
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_5_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT3:
+                    iprintf("\x1b[09;15H _");
                     iprintf("\x1b[10;00H Knock, knock, Inatrix.");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT4, IN_4_SECONDS);
