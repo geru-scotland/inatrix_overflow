@@ -16,12 +16,13 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/input.h"
 #include "../include/controllers.h"
 #include "../include/eventMgr.h"
-
+#include "../include/audioMgr.h"
 
 int main(void) {
     eventMgr_InitEventSystem();
     controllers_InitSetup();
 	inicializarGraficosSprites();
+    audioMgr_initAudio();
 	game_Loop();
 	return(0);
 }
