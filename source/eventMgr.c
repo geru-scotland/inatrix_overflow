@@ -119,14 +119,14 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[10;00H The Matrix has you...");
                     matrix_showMatrix();
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_BITBLOCK_REMOVAL, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT2:
                     matrix_replicateMatrixToGfx(); // Test
                     iprintf("\x1b[10;00H Follow the white rabbit.");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;
-                case EVENT_BITBLOCK_REMOVAL:
+                case EVENT_DROP_BITBLOCK:
                     //Schedulear Regeneración
                     matrix_updatePivot(1,1);
                     gameData.phase = PHASE_BITBLOCK_FALLING;
@@ -208,7 +208,7 @@ void eventMgr_UpdateInstantEvents(){
     if(timer.ticks % 13 != 0)
         return;
     if(gameData.phase == PHASE_BITBLOCK_FALLING){
-        if(!matrix_destroyBitBlock(pivot))
+        if(!matrix_dropBitBlock(pivot))
             gameData.phase = PHASE_NULL;
     }
     else if(gameData.phase == PHASE_DESTROYING_MATRIX){

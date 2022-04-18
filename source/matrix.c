@@ -53,7 +53,7 @@ void matrix_destroyMatrix(){
  * @param center
  */
 
-bool matrix_destroyBitBlock(MatrixPivot* pivot){
+bool matrix_dropBitBlock(MatrixPivot* pivot){
 
     // Hacer checks correspondientes a las diferentes posibilidades
     // Extremos de la matriz etc.

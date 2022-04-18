@@ -25,7 +25,7 @@ typedef bool Binary;
 extern void matrix_initSystem();
 extern void matrix_showMatrix();
 extern void matrix_destroyMatrix();
-extern bool matrix_destroyBitBlock(MatrixPivot* pivot);
+extern bool matrix_dropBitBlock(MatrixPivot* pivot);
 extern void matrix_regenerateBitBlock();
 extern void matrix_regenerateMatrix();
 extern void matrix_replicateMatrixToGfx();

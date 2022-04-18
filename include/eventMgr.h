@@ -37,7 +37,7 @@ enum Events{
     EVENT_INTRO_FINISH,
     EVENT_NEXT_PHASE,
     EVENT_DESTROY_MATRIX,
-    EVENT_BITBLOCK_REMOVAL,
+    EVENT_DROP_BITBLOCK,
     /*
      * No correspondiente a ningún evento en concreto
      */
