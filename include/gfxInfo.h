@@ -6,7 +6,8 @@
 #define INATRIX_OVERFLOW_GFX_BITMAPS_H
 
 #include "nds.h"
-#define GFX_SIZE 3
+#include "matrix.h"
+#define GFX_SIZE 3 + (MATRIX_SIZE * MATRIX_SIZE)
 
 // Identificadores para los GFX, asociamos uno a cada sprite.
 // Deben coincidir con SpriteIndex. TODO: Revisar esto, está feo.
@@ -20,7 +21,7 @@ typedef enum{
 
 typedef struct {
     u16* memAddress;
-    uint8 id;
+    uint16 id;
     u8* bitmap;
     SpriteSize size;
     SpriteColorFormat colorFormat;
