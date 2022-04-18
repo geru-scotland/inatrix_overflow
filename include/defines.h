@@ -13,6 +13,11 @@ defines.h
 #define IE		(*(vuint32*)0x04000210) //Interrupt Enable -- Habilitar-deshabilitar las interrupciones de forma individual
 #define IF		(*(vuint32*)0x04000214) //Interrupt Flag -- Registro de solicitud de interrupción
 
+#define CONSOLE_ROWS 23
+#define CONSOLE_COLUMNS 31
+#define SCREEN_WIDTH 255
+#define SCREEN_HEIGHT 191
+
 //#define DEBUG_MODE
 typedef unsigned char uint8;
 
