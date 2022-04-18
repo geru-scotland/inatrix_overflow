@@ -49,4 +49,4 @@ typedef struct {
 extern GameData gameData;
 
 extern int game_getNextPhase();
-#endif //ENGINE_H
+#endif //GAME_H

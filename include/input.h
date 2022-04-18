@@ -34,4 +34,4 @@ extern void input_ConfigureInput(int mask);
 extern void input_UpdateKeyData();
 extern int input_KeyDetected();
 extern int input_KeyPressed();
-#endif INPUT_H
+#endif // INPUT_H

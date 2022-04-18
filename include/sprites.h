@@ -30,4 +30,4 @@ extern void sprites_loadGfx();
 
 extern SpriteGlobalInfo spriteInfo;
 extern Sprite* sprites[MAX_SPRITES];
-#endif SPRTIES_H
+#endif // SPRITES_H
