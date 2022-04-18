@@ -119,13 +119,19 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[10;00H The Matrix has you...");
                     matrix_showMatrix();
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_BITBLOCK_REMOVAL, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT2:
                     matrix_replicateMatrixToGfx(); // Test
                     iprintf("\x1b[10;00H Follow the white rabbit.");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_5_SECONDS);
+                    break;
+                case EVENT_BITBLOCK_REMOVAL:
+                    gameData.phase = PHASE_BITBLOCK_FALLING;
+                    eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_8_SECONDS);
+                    break;
+                case EVENT_DESTROY_MATRIX:
+                    gameData.phase = PHASE_DESTROYING_MATRIX;
                     break;
                 case EVENT_INTRO_TEXT3:
                     iprintf("\x1b[09;15H _");
@@ -197,16 +203,14 @@ void eventMgr_UpdateScheduledEvents(){
  * manera instantánea
  */
 void eventMgr_UpdateInstantEvents(){
-    if(timer.ticks % 28 != 0)
+    if(timer.ticks % 13 != 0)
         return;
-    if(gameData.phase == PHASE_MOVE_RED_CAPSULE){
-        if(sprites[GFX_CAPSULE_RED]->spriteEntry->x <= 120){
-            sprites[GFX_CAPSULE_RED]->spriteEntry->x +=1;
-            sprites[GFX_CAPSULE_RED]->spriteEntry->y -=1;
-        }else
-        {
+    if(gameData.phase == PHASE_BITBLOCK_FALLING){
+        if(!matrix_destroyBitBlock(5, 5))
             gameData.phase = PHASE_NULL;
-        }
+    }
+    else if(gameData.phase == PHASE_DESTROYING_MATRIX){
+        matrix_destroyMatrix();
     }
     // Pruebas random
     oamUpdate(&oamMain);

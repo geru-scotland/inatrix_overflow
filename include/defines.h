@@ -18,8 +18,8 @@ defines.h
 #define WINDOW_WIDTH 255
 #define WINDOW_HEIGHT 191
 
-#define BINARY_ONE 1
-#define BINARY_ZERO 0
+#define BIT_ONE 1
+#define BIT_ZERO 0
 
 //#define DEBUG_MODE
 typedef unsigned char uint8;
