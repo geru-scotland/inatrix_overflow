@@ -9,6 +9,7 @@ y en otro ejemplo de Jaeden Ameronen
 #include <stdlib.h>		//librería estándar de C para reserva de memoria y conversiones númericas
 #include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos
 
+
 //librerías desarrolladas por nosotros para el proyecto
 	
 #include "../include/defines.h"
@@ -76,6 +77,10 @@ void game_Loop()
                 break;
         }
 	}
+
+    // Liberar recursos de memoria aquí.
+    // De todos los arrays etc.
+    //audioMgr_unloadSounds();
 }
 
 
