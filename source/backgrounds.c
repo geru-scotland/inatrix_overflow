@@ -55,7 +55,7 @@ void background_SetMatrixBackground2() {
 }
 
 //IMPORTANTE: Actualizar cada vez que se añada un nuevo background
-void background_Set(int i){
+void background_setBackground(int i){
     switch (i) {
         case 0:
             visualizarPuerta();
