@@ -127,6 +127,8 @@ void eventMgr_UpdateScheduledEvents(){
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;
                 case EVENT_BITBLOCK_REMOVAL:
+                    //Schedulear Regeneración
+                    matrix_updatePivot(1,1);
                     gameData.phase = PHASE_BITBLOCK_FALLING;
                     eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_8_SECONDS);
                     break;
@@ -206,7 +208,7 @@ void eventMgr_UpdateInstantEvents(){
     if(timer.ticks % 13 != 0)
         return;
     if(gameData.phase == PHASE_BITBLOCK_FALLING){
-        if(!matrix_destroyBitBlock(5, 5))
+        if(!matrix_destroyBitBlock(pivot))
             gameData.phase = PHASE_NULL;
     }
     else if(gameData.phase == PHASE_DESTROYING_MATRIX){

@@ -16,13 +16,22 @@
 
 #define MATRIX_BLOCK 9
 
+typedef struct{
+    uint8 i;
+    uint8 j;
+} MatrixPivot;
+
 typedef bool Binary;
 extern void matrix_initSystem();
 extern void matrix_showMatrix();
-extern void matrix_replicateMatrixToGfx();
 extern void matrix_destroyMatrix();
-extern bool matrix_destroyBitBlock(uint8 i, uint8 j);
+extern bool matrix_destroyBitBlock(MatrixPivot* pivot);
+extern void matrix_regenerateBitBlock();
+extern void matrix_regenerateMatrix();
+extern void matrix_replicateMatrixToGfx();
+extern void matrix_updatePivot(uint8 i, uint8 j);
 
 extern Binary matrix[MATRIX_SIZE][MATRIX_SIZE];
 extern Sprite* spriteMatrix[MATRIX_SIZE][MATRIX_SIZE]; // Replica de Matrix
+extern MatrixPivot* pivot;
 #endif //INATRIX_OVERFLOW_MATRIX_H

@@ -214,7 +214,6 @@ void gfxInfo_initMatrix(){
             spriteMatrix[i][j] = sprites[gfxGUID - 1];
         }
     }
-
 }
 
 void gfxInfo_overwriteGfx(uint8 index){

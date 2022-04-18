@@ -5,6 +5,9 @@
 #include "../include/matrix.h"
 #include "../include/gfxInfo.h"
 
+Sprite* spriteMatrix[MATRIX_SIZE][MATRIX_SIZE];
+MatrixPivot* pivot;
+
 Binary matrix[MATRIX_SIZE][MATRIX_SIZE] = {
 
         { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
@@ -20,10 +23,9 @@ Binary matrix[MATRIX_SIZE][MATRIX_SIZE] = {
 
 };
 
-Sprite* spriteMatrix[MATRIX_SIZE][MATRIX_SIZE];
-
 void matrix_initSystem(){
     gfxInfo_initMatrix();
+    pivot = malloc(sizeof(MatrixPivot));
 }
 
 void matrix_showMatrix(){
@@ -51,19 +53,29 @@ void matrix_destroyMatrix(){
  * @param center
  */
 
-bool matrix_destroyBitBlock(uint8 pivotR, uint8 pivotC){
+bool matrix_destroyBitBlock(MatrixPivot* pivot){
 
     // Hacer checks correspondientes a las diferentes posibilidades
     // Extremos de la matriz etc.
     int out = 0;
     for(int i = -1; i <= 1; i++)
         for(int j = -1; j <= 1; j++)
-            if(spriteMatrix[pivotR + i][pivotC + j]->spriteEntry->y >= WINDOW_HEIGHT)
+            if(spriteMatrix[pivot->i + i][pivot->j + j]->spriteEntry->y >= WINDOW_HEIGHT)
                 out++;
             else
-                spriteMatrix[pivotR + i][pivotC + j]->spriteEntry->y +=1;
+                spriteMatrix[pivot->i + i][pivot->j + j]->spriteEntry->y +=1;
     return out != MATRIX_BLOCK;
 }
+
+void matrix_regenerateMatrix(){
+
+}
+
+void matrix_updatePivot(uint8 i, uint8 j){
+    pivot->i = i;
+    pivot->j = j;
+}
+
 /**
  * Cada vez que haya cambios.
  */
