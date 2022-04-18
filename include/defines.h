@@ -15,8 +15,11 @@ defines.h
 
 #define CONSOLE_ROWS 23
 #define CONSOLE_COLUMNS 31
-#define SCREEN_WIDTH 255
-#define SCREEN_HEIGHT 191
+#define WINDOW_WIDTH 255
+#define WINDOW_HEIGHT 191
+
+#define BINARY_ONE 1
+#define BINARY_ZERO 0
 
 //#define DEBUG_MODE
 typedef unsigned char uint8;
@@ -25,6 +28,30 @@ typedef unsigned char uint8;
 extern touchPosition PANT_DAT;
 
 extern int SWITCH;
+
+typedef enum{
+    GFX_CAPSULE_BLUE = 0,
+    GFX_CAPSULE_RED,
+    GFX_DIGIT_ONE,
+    GFX_DIGIT_ZERO
+} GfxID;
+
+
+typedef struct {
+    u16* memAddress;
+    uint8 GUID;
+    GfxID gfxId;
+    u8* bitmap;
+    SpriteSize size;
+    SpriteColorFormat colorFormat;
+} GfxData;
+
+typedef struct {
+    uint8 index;
+    SpriteEntry* spriteEntry;
+    int speed;
+    GfxData* gfx;
+} Sprite;
 
 #endif //DEFINES_H
 

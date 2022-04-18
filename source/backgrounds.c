@@ -55,18 +55,18 @@ void background_SetMatrixBackground2() {
 }
 
 //IMPORTANTE: Actualizar cada vez que se añada un nuevo background
-void background_setBackground(int i){
-    switch (i) {
-        case 0:
+void background_setBackground(Backgrounds bg){
+    switch (bg) {
+        case BG_PUERTA:
             visualizarPuerta();
             break;
-        case 1:
+        case BG_PUERTAABIERTA:
             visualizarPuertaAbierta();
             break;
-        case 2:
+        case BG_MATRIX:
             background_SetMatrixBackground();
             break;
-        case 3:
+        case BG_MATRIX2:
             background_SetMatrixBackground2();
             break;
         default:

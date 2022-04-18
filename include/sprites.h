@@ -1,33 +1,24 @@
-#define MAX_SPRITES 20
 #define DEFAULT_SPRITE_SPEED 1
 
 #ifndef SPRITES_H
 #define SPRITES_H
 
+#include "defines.h"
 #include "gfxInfo.h"
-
-// Información global de los sprites
-typedef struct {
-    OamState oam;
-} SpriteGlobalInfo;
-
-typedef struct {
-    uint8 index;
-    SpriteEntry* spriteEntry;
-    int speed;
-    GfxData* gfx;
-} Sprite;
 
 extern void sprites_initSpriteSystem();
 extern void sprites_setMainPalette();
 extern void sprites_allocateMemory();
+extern void sprites_memorySetup(GfxData* gfx);
+extern void sprites_setNextMemoryAddress(GfxData* gfx);
+extern void sprites_createSprite(GfxData* gfx);
+extern void sprites_reAllocateMemory(GfxData* gfxData, u16* memAddress);
+extern void sprites_dumpToMemory(GfxData* gfx);
 extern void sprites_displaySprite(uint8 index, int x, int y, bool isHidden);
 extern void sprites_updateSprite(uint8 index);
 Sprite* sprites_getSpriteByIndex(uint8 index);
 SpriteEntry* sprites_getSpriteEntryByIndex(uint8 index);
-void initGlobalSpriteInfo();
-extern void sprites_loadGfx();
+extern void sprites_freeMemory();
 
-extern SpriteGlobalInfo spriteInfo;
-extern Sprite* sprites[MAX_SPRITES];
+extern Sprite* sprites[GFX_SIZE];
 #endif // SPRITES_H

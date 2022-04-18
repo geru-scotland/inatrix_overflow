@@ -8,9 +8,10 @@
 #include "../include/sprites.h"
 #include "nds.h"
 #include "../include/game.h"
+#include "../include/matrix.h"
+
 Event* eventList[MAX_EVENTS];
 
-SpriteGlobalInfo spriteInfo;
 int numEvents;
 
 #ifdef DEBUG_MODE
@@ -110,15 +111,18 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_INTRO_START:
                     iprintf("\x1b[09;10H _");
                     iprintf("\x1b[10;00H Wake up, Inatrix...");
+                    matrix_initSystem(); // Test
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_4_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT1:
                     iprintf("\x1b[10;00H The Matrix has you...");
+                    matrix_showMatrix();
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_5_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT2:
+                    matrix_replicateMatrixToGfx(); // Test
                     iprintf("\x1b[10;00H Follow the white rabbit.");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_5_SECONDS);
@@ -159,10 +163,10 @@ void eventMgr_UpdateScheduledEvents(){
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
-                    background_setBackground(matrix);
+                    background_setBackground(BG_MATRIX);
                     break;
                 case EVENT_INTRO_SETBACKGROUND2:
-                    background_setBackground(matrix2);
+                    background_setBackground(BG_MATRIX2);
                     break;
                 case EVENT_CLEAR_CONSOLE:
                     iprintf("\x1b[2J"); // consoleClear();

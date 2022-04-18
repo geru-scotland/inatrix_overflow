@@ -12,7 +12,7 @@ adibide batean oinarrituta.
 #include "../include/defines.h"
 #include "../include/gfxInfo.h"
 
-Sprite* sprites[MAX_SPRITES];
+Sprite* sprites[GFX_SIZE];
 
 void sprites_initSpriteSystem(){
     gfxInfo_init();
@@ -23,20 +23,37 @@ void sprites_initSpriteSystem(){
 /* Reservar memoria para cada sprite que se quiera mostrar en pantalla.*/
 void sprites_allocateMemory()
 {
-    for (int i = 0; i < GFX_SIZE; i++){
+    for (int i = 0; i < gfxGUID; i++){
+        sprites_memorySetup(gfxList[i]);
+    }
+}
 
-        gfxList[i]->memAddress = oamAllocateGfx(&oamMain, gfxList[i]->size, gfxList[i]->colorFormat);
+void sprites_memorySetup(GfxData* gfx){
+    sprites_setNextMemoryAddress(gfx);
+    sprites_dumpToMemory(gfx);
+    sprites_createSprite(gfx);
+}
 
-        int gfxSize = (gfxList[i]->size == SpriteSize_16x16) ? (16 * 16)/2 : (32 * 32)/2;
+void sprites_setNextMemoryAddress(GfxData* gfx){
+    gfx->memAddress = oamAllocateGfx(&oamMain, gfx->size, gfx->colorFormat);
+}
 
-        for(int pos = 0; pos < gfxSize; pos++){
-            gfxList[i]->memAddress[pos] = gfxList[i]->bitmap[pos * 2] | (gfxList[i]->bitmap[(pos*2)+1] << 8);
-        }
+void sprites_createSprite(GfxData* gfx){
+    sprites[gfx->GUID] = malloc(sizeof(Sprite));
+    sprites[gfx->GUID]->index = gfx->GUID; // TODO: cambiar
+    sprites[gfx->GUID]->speed = DEFAULT_SPRITE_SPEED;
+    sprites[gfx->GUID]->gfx = gfx;
+}
 
-        sprites[i] = malloc(sizeof(Sprite));
-        sprites[i]->index = i;
-        sprites[i]->speed = DEFAULT_SPRITE_SPEED;
-        sprites[i]->gfx = gfxList[i];
+void sprites_reAllocateMemory(GfxData* gfx, u16* memAddress){
+    gfx->memAddress = memAddress;
+    sprites_dumpToMemory(gfx);
+}
+
+void sprites_dumpToMemory(GfxData* gfx){
+    int gfxSize = (gfx->size == SpriteSize_16x16) ? (16 * 16)/2 : (32 * 32)/2;
+    for(int pos = 0; pos < gfxSize; pos++){
+        gfx->memAddress[pos] = gfx->bitmap[pos * 2] | (gfx->bitmap[(pos*2)+1] << 8);
     }
 }
 
@@ -48,6 +65,7 @@ void sprites_setMainPalette() {
 	SPRITE_PALETTE[1] = RGB15(31,0,0); // Rojo.
 	SPRITE_PALETTE[2] = RGB15(0,31,0); // Verde
 	SPRITE_PALETTE[3] = RGB15(0,0,31); // Azul
+    SPRITE_PALETTE[4] = RGB15(0,31,0); // Azul
     SPRITE_PALETTE[21] = RGB15(0,12,0); // Verde oscuro.
 
 }
@@ -133,3 +151,8 @@ SpriteEntry* getSpriteEntryByIndex(uint8 index){
  * o si en su creación/mapeo inicial, se queda registrado de
  * manera persistente.
 */
+void sprites_freeMemory(){
+    for(int i = 0; i < GFX_SIZE; i++){
+        free(gfxList[i]);
+    }
+}

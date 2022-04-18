@@ -6,30 +6,20 @@
 #define INATRIX_OVERFLOW_GFX_BITMAPS_H
 
 #include "nds.h"
+#include "defines.h"
 #include "matrix.h"
-#define GFX_SIZE 3 + (MATRIX_SIZE * MATRIX_SIZE)
 
-// Identificadores para los GFX, asociamos uno a cada sprite.
-// Deben coincidir con SpriteIndex. TODO: Revisar esto, está feo.
-typedef enum{
-    GFX_CAPSULE_BLUE = 0,
-    GFX_CAPSULE_RED,
-    GFX_DIGIT_ONE,
-    GFX_DIGIT_ZERO
-} GfxID;
-
-
-typedef struct {
-    u16* memAddress;
-    uint16 id;
-    u8* bitmap;
-    SpriteSize size;
-    SpriteColorFormat colorFormat;
-} GfxData;
+#define GFX_SIZE 4 + (MATRIX_SIZE * MATRIX_SIZE)
+#define BITMAP_SIZE 4
 
 extern GfxData* gfxList[GFX_SIZE];
+extern u8* gfxBitmaps[BITMAP_SIZE];
+extern uint8 gfxGUID; // Global Unique Identifier
 
-extern void gfxInfo_setGfx(GfxID gfxId, u8* bitmap, SpriteSize size);
+extern void gfxInfo_setGfx(uint8 guid, GfxID gfxId, SpriteSize size, bool overwrite);
 extern void gfxInfo_init();
-
+extern void gfxInfo_initMatrix();
+extern void gfxInfo_overwriteGfx(uint8 index);
+extern void gfxInfo_overwriteMatrixGfx(uint8 i, uint8 j, Binary digit);
+extern void gfxInfo_freeMemory();
 #endif //INATRIX_OVERFLOW_GFX_BITMAPS_H
