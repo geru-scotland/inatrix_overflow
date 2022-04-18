@@ -40,16 +40,16 @@ void sprites_allocateMemory()
     }
 }
 
-
-
 /* A cada uno de los 256 valores que puede tomar un pixel en la PALETA PRINCIPAL
    se le puede asignar un color. El valor 0 es transparente. Los valores sin definir son negros.
    MODIFICAR SEGÚN LOS COLORES QUE QUERAIS UTILIZAR EN VUESTROS SPRITES*/
 void sprites_setMainPalette() {
 
-	SPRITE_PALETTE[1] = RGB15(31,0,0); // los píxeles con valor 1 serán de color rojo.
-	SPRITE_PALETTE[2] = RGB15(0,31,0); // los píxeles con valor 2 serán verdes.
-	SPRITE_PALETTE[3] = RGB15(0,0,31); // los píxeles con valor 3 serán azules.
+	SPRITE_PALETTE[1] = RGB15(31,0,0); // Rojo.
+	SPRITE_PALETTE[2] = RGB15(0,31,0); // Verde
+	SPRITE_PALETTE[3] = RGB15(0,0,31); // Azul
+    SPRITE_PALETTE[21] = RGB15(0,12,0); // Verde oscuro.
+
 }
 
 /**
