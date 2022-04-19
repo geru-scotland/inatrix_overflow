@@ -14,9 +14,6 @@ Event* eventList[MAX_EVENTS];
 
 int numEvents;
 
-int it = 5;
-int jt = 5;
-
 #ifdef DEBUG_MODE
 int lineDelete = 8;
 int lineAdd = 0;
@@ -122,7 +119,7 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[10;00H The Matrix has you...");
                     matrix_showMatrix();
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_3_SECONDS);
+                    //eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT2:
                     iprintf("\x1b[10;00H Follow the white rabbit.");
@@ -154,9 +151,7 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_DROP_BITBLOCK:
                     //Schedulear Regeneración
-                    matrix_updatePivot(it,jt);
-                    it++;
-                    jt++;
+                    matrix_updatePivot(5,5);
                     gameData.phase = PHASE_BITBLOCK_FALLING;
                     eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_7_SECONDS);
                     break;

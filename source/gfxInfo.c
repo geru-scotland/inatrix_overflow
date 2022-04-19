@@ -194,8 +194,6 @@ void gfxInfo_init(){
 
     /* INATRIX */
 
-    /* NUMBER_1 */
-    gfxInfo_initMatrix();
 }
 /**
  * Función que genera la Matrix de manera independiente
@@ -203,44 +201,37 @@ void gfxInfo_init(){
  */
 void gfxInfo_initMatrix(){
 
+    // 100 Posiciones de memoria contiguas después de haber
+    // introducido los gráficos.
     for(int i = 0; i < MATRIX_SIZE; i++){
         for(int j = 0; j < MATRIX_SIZE; j++){
-            gfxInfo_setGfx(baseMatrix[i][j] ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16);
-            sprites_memorySetup(gfxList[gfxGUID - 1]);
-            matrix[i][j]->sprite = sprites[gfxGUID - 1];
-            matrix[i][j]->digit = baseMatrix[i][j] ? BIT_ONE : BIT_ZERO;
+            gfxInfo_allocateMatrixElement(baseMatrix[i][j] ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO);
+            gfxInfo_linkToMatrix(i, j, baseMatrix[i][j] ? BIT_ONE : BIT_ZERO);
         }
     }
 }
 
-void gfxInfo_overwriteGfx(uint8 index){
-
+void gfxInfo_initBitBlockPlaceholder(){
+    // 9 Posiciones de memoria contiguas después de la matriz
+    for (int i = 0; i < MATRIX_BLOCK; i++){
+        /*gfxInfo_allocateMatrixElement(GFX_DIGIT_ZERO);
+        gfxInfo_linkToPlaceHolder();*/
+    }
 }
 
-/**
- * Esto es/será llamado desde la propia Matrix, la real.
- * Cuando quiera replicar los cambios sufridos en sí misma
+void gfxInfo_allocateMatrixElement(GfxID gfxId){
+    gfxInfo_setGfx(gfxId, SpriteSize_16x16);
+    sprites_memorySetup(gfxList[gfxGUID - 1]);
+}
 
- * @param i
- * @param j
- * @param digit
- */
-void gfxInfo_replicateMatrixGfx(uint8 i, uint8 j, Binary digit){
-/*
-    if(matrix[i][j]->sprite!= NULL){
+void gfxInfo_linkToMatrix(uint8 i, uint8 j, Binary digit){
+    matrix[i][j] = malloc(sizeof(MatrixElement));
+    matrix[i][j]->sprite = sprites[gfxGUID - 1];
+    matrix[i][j]->digit = digit;
+}
 
-        uint8 guid = matrix[i][j]->sprite->gfx->GUID;
+void gfxInfo_linkToPlaceHolder(){
 
-        sprites_displaySprite(guid, 0, 0, true);
-        free(gfxList[guid]);
-        free(sprites[guid]);
-        free(matrix[i][j]->sprite);
-        gfxInfo_setGfx(digit ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16);
-        sprites_memorySetup(gfxList[guid]);
-        matrix[i][j]->sprite = sprites[guid];
-        sprites_displaySprite(guid, matrix_getPositionX(j), matrix_getPositionY(i), false);
-    }
-*/
 }
 
 void gfxInfo_freeMemory(){

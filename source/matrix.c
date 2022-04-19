@@ -24,7 +24,8 @@ Binary baseMatrix[MATRIX_SIZE][MATRIX_SIZE] = {
 };
 
 void matrix_initSystem(){
-    //gfxInfo_initMatrix();
+    gfxInfo_initMatrix();
+    gfxInfo_initBitBlockPlaceholder();
     pivot = malloc(sizeof(MatrixPivot));
 }
 
@@ -95,8 +96,8 @@ bool matrix_bitConjuctionEffect(){
 void matrix_regenerateBitBlock(){
     // Cambiar en matrix[i][j] también.
     for(int i = -1; i <= 1; i++)
-        for(int j = -1; j <= 1; j++)
-            gfxInfo_replicateMatrixGfx(pivot->i + i, pivot->j + j, BIT_ONE); // Generar random, claro.
+        for(int j = -1; j <= 1; j++);
+            //gfxInfo_replicateMatrixGfx(pivot->i + i, pivot->j + j, BIT_ONE); // Generar random, claro.
 }
 
 /**
@@ -106,8 +107,8 @@ void matrix_regenerateBitBlock(){
  */
 void matrix_regenerateMatrix(){
     for(int i = 0; i < MATRIX_SIZE; i++)
-        for(int j = 0; j < MATRIX_SIZE; j++)
-            gfxInfo_replicateMatrixGfx(i, j, matrix[i][j]); // Test. Generar random, claro.
+        for(int j = 0; j < MATRIX_SIZE; j++);
+            //gfxInfo_replicateMatrixGfx(i, j, matrix[i][j]); // Test. Generar random, claro.
 }
 
 
