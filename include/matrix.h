@@ -9,6 +9,7 @@
 #include "defines.h"
 
 #define MATRIX_SIZE 10
+#define MATRIX_FIRST 0
 #define MATRIX_X_POS 35
 #define MATRIX_Y_POS 10
 #define MATRIX_X_PADDING 18
@@ -24,12 +25,13 @@ typedef struct{
 typedef bool Binary;
 extern void matrix_initSystem();
 extern void matrix_showMatrix();
-extern void matrix_destroyMatrix();
-extern bool matrix_dropBitBlock(MatrixPivot* pivot);
+extern bool matrix_destroyMatrixEffect();
+extern void matrix_updatePivot(uint8 i, uint8 j);
+extern bool matrix_dropBitBlockEffect();
 extern void matrix_regenerateBitBlock();
 extern void matrix_regenerateMatrix();
-extern void matrix_replicateMatrixToGfx();
-extern void matrix_updatePivot(uint8 i, uint8 j);
+extern uint8 matrix_getPositionX(uint8 axis);
+extern uint8 matrix_getPositionY(uint8 axis);
 
 extern Binary matrix[MATRIX_SIZE][MATRIX_SIZE];
 extern Sprite* spriteMatrix[MATRIX_SIZE][MATRIX_SIZE]; // Replica de Matrix

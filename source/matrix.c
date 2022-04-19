@@ -6,7 +6,7 @@
 #include "../include/gfxInfo.h"
 
 Sprite* spriteMatrix[MATRIX_SIZE][MATRIX_SIZE];
-MatrixPivot* pivot;
+MatrixPivot* pivot; // Quizá hacer un pivotLocked para entre eventos, evitar updates.
 
 Binary matrix[MATRIX_SIZE][MATRIX_SIZE] = {
 
@@ -36,16 +36,24 @@ void matrix_showMatrix(){
                                   MATRIX_X_POS + (j * MATRIX_X_PADDING),
                                   MATRIX_Y_POS + (i * MATRIX_Y_PADDING),
                                   false);
-
-
 }
 
-void matrix_destroyMatrix(){
+/*
+*********************
+*********************
+***** EFFECTS *******
+*********************
+*********************
+*/
+
+bool matrix_destroyMatrixEffect(){
 
     for(int i = 0; i < MATRIX_SIZE; i++)
         for(int j = 0; j < MATRIX_SIZE; j++)
             if((spriteMatrix[i][j] != NULL) && (spriteMatrix[i][j]->spriteEntry->y <= WINDOW_HEIGHT))
                 spriteMatrix[i][j]->spriteEntry->y +=1;
+
+    return (spriteMatrix[MATRIX_FIRST][MATRIX_FIRST]->spriteEntry->y <= WINDOW_HEIGHT) ? true : false;
 }
 
 /**
@@ -53,7 +61,7 @@ void matrix_destroyMatrix(){
  * @param center
  */
 
-bool matrix_dropBitBlock(MatrixPivot* pivot){
+bool matrix_dropBitBlockEffect(){
 
     // Hacer checks correspondientes a las diferentes posibilidades
     // Extremos de la matriz etc.
@@ -67,20 +75,60 @@ bool matrix_dropBitBlock(MatrixPivot* pivot){
     return out != MATRIX_BLOCK;
 }
 
-void matrix_regenerateMatrix(){
+bool matrix_bitConjuctionEffect(){
 
+    return true;
 }
+
+/*
+*********************
+*********************
+*** REGENERATIONS ***
+*********************
+*********************
+*/
+
+/**
+ * Lo replica en la matrix de GFX
+ * Hacer checks seguridad de index acceso.
+ */
+void matrix_regenerateBitBlock(){
+    // Cambiar en matrix[i][j] también.
+    for(int i = -1; i <= 1; i++)
+        for(int j = -1; j <= 1; j++)
+            gfxInfo_replicateMatrixGfx(pivot->i + i, pivot->j + j, BIT_ONE); // Generar random, claro.
+}
+
+/**
+ * Generar random. Por ahora para tests,
+ * tiro de la base.
+ *
+ */
+void matrix_regenerateMatrix(){
+    for(int i = 0; i < MATRIX_SIZE; i++)
+        for(int j = 0; j < MATRIX_SIZE; j++)
+            gfxInfo_replicateMatrixGfx(i, j, matrix[i][j]); // Test. Generar random, claro.
+}
+
+
+/*
+*********************
+*********************
+****** HELPERS ******
+*********************
+*********************
+*/
 
 void matrix_updatePivot(uint8 i, uint8 j){
     pivot->i = i;
     pivot->j = j;
 }
 
-/**
- * Cada vez que haya cambios.
- */
-void matrix_replicateMatrixToGfx(){
-    // Tests.
-    gfxInfo_overwriteMatrixGfx(9,9, BIT_ONE);
-    gfxInfo_overwriteMatrixGfx(1,0, BIT_ZERO);
+// Hacer puntero a función
+uint8 matrix_getPositionX(uint8 axis){
+    return  MATRIX_X_POS + (axis * MATRIX_X_PADDING);
+}
+
+uint8 matrix_getPositionY(uint8 axis){
+    return  MATRIX_Y_POS + (axis * MATRIX_Y_PADDING);
 }

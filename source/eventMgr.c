@@ -14,6 +14,9 @@ Event* eventList[MAX_EVENTS];
 
 int numEvents;
 
+int it = 5;
+int jt = 5;
+
 #ifdef DEBUG_MODE
 int lineDelete = 8;
 int lineAdd = 0;
@@ -122,18 +125,8 @@ void eventMgr_UpdateScheduledEvents(){
                     eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT2:
-                    matrix_replicateMatrixToGfx(); // Test
                     iprintf("\x1b[10;00H Follow the white rabbit.");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    break;
-                case EVENT_DROP_BITBLOCK:
-                    //Schedulear Regeneración
-                    matrix_updatePivot(1,1);
-                    gameData.phase = PHASE_BITBLOCK_FALLING;
-                    eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_8_SECONDS);
-                    break;
-                case EVENT_DESTROY_MATRIX:
-                    gameData.phase = PHASE_DESTROYING_MATRIX;
                     break;
                 case EVENT_INTRO_TEXT3:
                     iprintf("\x1b[09;15H _");
@@ -148,17 +141,6 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[20;20H Red - B)");
                     eventMgr_ScheduleEvent(EVENT_INTRO_SHOW_CAPSULES, IN_2_SECONDS);
                     break;
-                case EVENT_INTRO_SHOW_CAPSULES:
-                    sprites_displaySprite(GFX_CAPSULE_RED, 95, 80, false);
-                    sprites_displaySprite(GFX_CAPSULE_BLUE, 145, 80, false);
-                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
-                    break;
-                case EVENT_INTRO_CAPSULE_RED:
-                    iprintf("\x1b[2J"); // Forzamos un clear console
-                    sprites_displaySprite(GFX_CAPSULE_BLUE, 145, 80, true);
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT5, IN_2_SECONDS);
-                    gameData.phase = PHASE_MOVE_RED_CAPSULE;
-                    break;
                 case EVENT_INTRO_TEXT5:
                     iprintf("\x1b[10;00H I see... good choice");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_2_SECONDS);
@@ -169,6 +151,34 @@ void eventMgr_UpdateScheduledEvents(){
                     sprites_displaySprite(GFX_CAPSULE_RED, 145, 80, true);
                     gameData.state = GAME_STATE_MENU; // O Game, es un ejemplo.
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
+                    break;
+                case EVENT_DROP_BITBLOCK:
+                    //Schedulear Regeneración
+                    matrix_updatePivot(it,jt);
+                    it++;
+                    jt++;
+                    gameData.phase = PHASE_BITBLOCK_FALLING;
+                    eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_7_SECONDS);
+                    break;
+                case EVENT_REGENERATE_BITBLOCK:
+                    matrix_regenerateBitBlock();
+                    break;
+                case EVENT_REGENERATE_MATRIX:
+                    //matrix_regenerateMatrix();
+                    break;
+                case EVENT_DESTROY_MATRIX:
+                    gameData.phase = PHASE_DESTROYING_MATRIX;
+                    break;
+                case EVENT_INTRO_SHOW_CAPSULES:
+                    sprites_displaySprite(GFX_CAPSULE_RED, 95, 80, false);
+                    sprites_displaySprite(GFX_CAPSULE_BLUE, 145, 80, false);
+                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+                    break;
+                case EVENT_INTRO_CAPSULE_RED:
+                    iprintf("\x1b[2J"); // Forzamos un clear console
+                    sprites_displaySprite(GFX_CAPSULE_BLUE, 145, 80, true);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT5, IN_2_SECONDS);
+                    gameData.phase = PHASE_MOVE_RED_CAPSULE;
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
                     background_setBackground(BG_MATRIX);
@@ -204,16 +214,25 @@ void eventMgr_UpdateScheduledEvents(){
  * Son los eventos que van ocurriendo en base al estado, de
  * manera instantánea
  */
-void eventMgr_UpdateInstantEvents(){
+void eventMgr_UpdatePhases(){
     if(timer.ticks % 13 != 0)
         return;
-    if(gameData.phase == PHASE_BITBLOCK_FALLING){
-        if(!matrix_dropBitBlock(pivot))
-            gameData.phase = PHASE_NULL;
+    switch(gameData.phase){
+        case PHASE_BITBLOCK_FALLING:
+            if(!matrix_dropBitBlockEffect()){
+                eventMgr_ScheduleEvent(EVENT_REGENERATE_BITBLOCK, IN_1_SECONDS);
+                gameData.phase = PHASE_NULL;
+            }
+            break;
+        case PHASE_DESTROYING_MATRIX:
+            if(!matrix_destroyMatrixEffect()){
+                eventMgr_ScheduleEvent(EVENT_REGENERATE_MATRIX, IN_3_SECONDS);
+                gameData.phase = PHASE_NULL;
+            }
+            break;
+        default:
+            break;
     }
-    else if(gameData.phase == PHASE_DESTROYING_MATRIX){
-        matrix_destroyMatrix();
-    }
-    // Pruebas random
+
     oamUpdate(&oamMain);
 }

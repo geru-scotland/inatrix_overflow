@@ -80,7 +80,9 @@ void game_Loop()
 
     // Liberar recursos de memoria aquí.
     // De todos los arrays etc.
-    //audioMgr_unloadSounds();
+    // gfxInfo_freeMemory();
+    // audioMgr_unloadSounds();
+
 }
 
 

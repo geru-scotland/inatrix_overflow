@@ -22,7 +22,7 @@ int main(void) {
     eventMgr_InitEventSystem();
     controllers_InitSetup();
 	inicializarGraficosSprites();
-    audioMgr_initAudio();
+    //audioMgr_initAudio();
 	game_Loop();
 	return(0);
 }

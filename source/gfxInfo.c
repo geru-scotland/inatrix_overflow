@@ -228,13 +228,11 @@ void gfxInfo_overwriteGfx(uint8 index){
  * @param j
  * @param digit
  */
-void gfxInfo_overwriteMatrixGfx(uint8 i, uint8 j, Binary digit){
+void gfxInfo_replicateMatrixGfx(uint8 i, uint8 j, Binary digit){
 
     if(spriteMatrix[i][j] != NULL){
 
         uint8 guid = spriteMatrix[i][j]->gfx->GUID;
-        int x = spriteMatrix[i][j]->spriteEntry->x;
-        int y = spriteMatrix[i][j]->spriteEntry->y;
 
         sprites_displaySprite(guid, 0, 0, true);
         free(gfxList[guid]);
@@ -243,7 +241,7 @@ void gfxInfo_overwriteMatrixGfx(uint8 i, uint8 j, Binary digit){
         gfxInfo_setGfx(guid, digit ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16, true);
         sprites_memorySetup(gfxList[guid]);
         spriteMatrix[i][j] = sprites[guid];
-        sprites_displaySprite(guid, x, y, false);
+        sprites_displaySprite(guid, matrix_getPositionX(j), matrix_getPositionY(i), false);
     }
 
 }

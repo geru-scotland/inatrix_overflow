@@ -20,6 +20,6 @@ extern void gfxInfo_setGfx(uint8 guid, GfxID gfxId, SpriteSize size, bool overwr
 extern void gfxInfo_init();
 extern void gfxInfo_initMatrix();
 extern void gfxInfo_overwriteGfx(uint8 index);
-extern void gfxInfo_overwriteMatrixGfx(uint8 i, uint8 j, Binary digit);
+extern void gfxInfo_replicateMatrixGfx(uint8 i, uint8 j, Binary digit);
 extern void gfxInfo_freeMemory();
 #endif //INATRIX_OVERFLOW_GFX_BITMAPS_H

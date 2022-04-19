@@ -38,6 +38,8 @@ enum Events{
     EVENT_NEXT_PHASE,
     EVENT_DESTROY_MATRIX,
     EVENT_DROP_BITBLOCK,
+    EVENT_REGENERATE_BITBLOCK,
+    EVENT_REGENERATE_MATRIX,
     /*
      * No correspondiente a ningún evento en concreto
      */
@@ -52,12 +54,13 @@ typedef struct {
 
 extern Event* eventList[MAX_EVENTS];
 extern int numEvents;
+extern int it, jt;
 //Funciones de Event Manager
 extern void eventMgr_InitEventSystem();
 extern void eventMgr_UpdateScheduledEvents();
 extern void eventMgr_AddEvent(Event *event);
 extern void eventMgr_ScheduleEvent(uint8 eventId, int time);
 extern void eventMgr_DeleteEvent(Event* event);
-extern void eventMgr_UpdateInstantEvents();
+extern void eventMgr_UpdatePhases();
 
 #endif //EVENTMGR_H
