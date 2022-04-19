@@ -14,9 +14,9 @@
 
 extern GfxData* gfxList[GFX_SIZE];
 extern u8* gfxBitmaps[BITMAP_SIZE];
-extern uint8 gfxGUID; // Global Unique Identifier
+static uint8 gfxGUID; // Global Unique Identifier
 
-extern void gfxInfo_setGfx(uint8 guid, GfxID gfxId, SpriteSize size, bool overwrite);
+extern void gfxInfo_setGfx(GfxID gfxId, SpriteSize size);
 extern void gfxInfo_init();
 extern void gfxInfo_initMatrix();
 extern void gfxInfo_overwriteGfx(uint8 index);

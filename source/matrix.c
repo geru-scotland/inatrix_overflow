@@ -5,10 +5,10 @@
 #include "../include/matrix.h"
 #include "../include/gfxInfo.h"
 
-Sprite* spriteMatrix[MATRIX_SIZE][MATRIX_SIZE];
+MatrixElement* matrix[MATRIX_SIZE][MATRIX_SIZE];
 MatrixPivot* pivot; // Quizá hacer un pivotLocked para entre eventos, evitar updates.
 
-Binary matrix[MATRIX_SIZE][MATRIX_SIZE] = {
+Binary baseMatrix[MATRIX_SIZE][MATRIX_SIZE] = {
 
         { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
         { 1, 0, 1, 1, 1, 0, 1, 0, 1, 0 },
@@ -24,7 +24,7 @@ Binary matrix[MATRIX_SIZE][MATRIX_SIZE] = {
 };
 
 void matrix_initSystem(){
-    gfxInfo_initMatrix();
+    //gfxInfo_initMatrix();
     pivot = malloc(sizeof(MatrixPivot));
 }
 
@@ -32,7 +32,7 @@ void matrix_showMatrix(){
 
     for(int i = 0; i < MATRIX_SIZE; i++)
         for (int j = 0; j < MATRIX_SIZE; j++)
-            sprites_displaySprite(spriteMatrix[i][j]->index,
+            sprites_displaySprite(matrix[i][j]->sprite->index,
                                   MATRIX_X_POS + (j * MATRIX_X_PADDING),
                                   MATRIX_Y_POS + (i * MATRIX_Y_PADDING),
                                   false);
@@ -50,10 +50,10 @@ bool matrix_destroyMatrixEffect(){
 
     for(int i = 0; i < MATRIX_SIZE; i++)
         for(int j = 0; j < MATRIX_SIZE; j++)
-            if((spriteMatrix[i][j] != NULL) && (spriteMatrix[i][j]->spriteEntry->y <= WINDOW_HEIGHT))
-                spriteMatrix[i][j]->spriteEntry->y +=1;
+            if((matrix[i][j]->sprite != NULL) && (matrix[i][j]->sprite->spriteEntry->y <= WINDOW_HEIGHT))
+                matrix[i][j]->sprite->spriteEntry->y +=1;
 
-    return (spriteMatrix[MATRIX_FIRST][MATRIX_FIRST]->spriteEntry->y <= WINDOW_HEIGHT) ? true : false;
+    return (matrix[MATRIX_FIRST][MATRIX_FIRST]->sprite->spriteEntry->y <= WINDOW_HEIGHT) ? true : false;
 }
 
 /**
@@ -68,10 +68,10 @@ bool matrix_dropBitBlockEffect(){
     int out = 0;
     for(int i = -1; i <= 1; i++)
         for(int j = -1; j <= 1; j++)
-            if(spriteMatrix[pivot->i + i][pivot->j + j]->spriteEntry->y >= WINDOW_HEIGHT)
+            if(matrix[pivot->i + i][pivot->j + j]->sprite->spriteEntry->y >= WINDOW_HEIGHT)
                 out++;
             else
-                spriteMatrix[pivot->i + i][pivot->j + j]->spriteEntry->y +=1;
+                matrix[pivot->i + i][pivot->j + j]->sprite->spriteEntry->y +=1;
     return out != MATRIX_BLOCK;
 }
 

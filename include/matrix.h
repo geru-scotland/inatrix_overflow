@@ -17,12 +17,19 @@
 
 #define MATRIX_BLOCK 9
 
+typedef bool Binary;
+
 typedef struct{
     uint8 i;
     uint8 j;
 } MatrixPivot;
 
-typedef bool Binary;
+typedef struct{
+    Sprite* sprite;
+    Binary digit;
+} MatrixElement;
+
+
 extern void matrix_initSystem();
 extern void matrix_showMatrix();
 extern bool matrix_destroyMatrixEffect();
@@ -33,7 +40,7 @@ extern void matrix_regenerateMatrix();
 extern uint8 matrix_getPositionX(uint8 axis);
 extern uint8 matrix_getPositionY(uint8 axis);
 
-extern Binary matrix[MATRIX_SIZE][MATRIX_SIZE];
-extern Sprite* spriteMatrix[MATRIX_SIZE][MATRIX_SIZE]; // Replica de Matrix
+extern Binary baseMatrix[MATRIX_SIZE][MATRIX_SIZE];
+extern MatrixElement* matrix[MATRIX_SIZE][MATRIX_SIZE];
 extern MatrixPivot* pivot;
 #endif //INATRIX_OVERFLOW_MATRIX_H

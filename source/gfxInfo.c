@@ -6,7 +6,7 @@
 #include "../include/sprites.h"
 
 GfxData* gfxList[GFX_SIZE];
-uint8 gfxGUID = 0;
+static uint8 gfxGUID = 0;
 
 u8 redCapsule[256] = {
 
@@ -167,17 +167,16 @@ u8 digitZero[256] = {
 
 };
 
-void gfxInfo_setGfx(uint8 guid, GfxID gfxId, SpriteSize size, bool overwrite){
-    gfxList[guid] = malloc(sizeof(GfxData));
-    gfxList[guid]->memAddress = NULL;
-    gfxList[guid]->GUID = guid;
-    gfxList[guid]->gfxId = gfxId;
-    gfxList[guid]->bitmap = gfxBitmaps[gfxId];
-    gfxList[guid]->size = size;
-    gfxList[guid]->colorFormat = SpriteColorFormat_256Color;
+void gfxInfo_setGfx(GfxID gfxId, SpriteSize size){
+    gfxList[gfxGUID] = malloc(sizeof(GfxData));
+    gfxList[gfxGUID]->memAddress = NULL;
+    gfxList[gfxGUID]->GUID = gfxGUID;
+    gfxList[gfxGUID]->gfxId = gfxId;
+    gfxList[gfxGUID]->bitmap = gfxBitmaps[gfxId];
+    gfxList[gfxGUID]->size = size;
+    gfxList[gfxGUID]->colorFormat = SpriteColorFormat_256Color;
 
-    if(!overwrite)
-        gfxGUID++;
+    gfxGUID++;
 }
 
 u8* gfxBitmaps[BITMAP_SIZE] = {
@@ -190,16 +189,13 @@ u8* gfxBitmaps[BITMAP_SIZE] = {
 void gfxInfo_init(){
 
     /* CAPSULES */
-    gfxInfo_setGfx(gfxGUID, GFX_CAPSULE_BLUE, SpriteSize_16x16, false);
-    gfxInfo_setGfx(gfxGUID, GFX_CAPSULE_RED, SpriteSize_16x16, false);
+    gfxInfo_setGfx(GFX_CAPSULE_BLUE, SpriteSize_16x16);
+    gfxInfo_setGfx(GFX_CAPSULE_RED, SpriteSize_16x16);
 
     /* INATRIX */
 
     /* NUMBER_1 */
-
-    // matrix_initMatrix()
-    // dir a matrix, malloc
-
+    gfxInfo_initMatrix();
 }
 /**
  * Función que genera la Matrix de manera independiente
@@ -209,9 +205,10 @@ void gfxInfo_initMatrix(){
 
     for(int i = 0; i < MATRIX_SIZE; i++){
         for(int j = 0; j < MATRIX_SIZE; j++){
-            gfxInfo_setGfx(gfxGUID, matrix[i][j] ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16, false);
+            gfxInfo_setGfx(baseMatrix[i][j] ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16);
             sprites_memorySetup(gfxList[gfxGUID - 1]);
-            spriteMatrix[i][j] = sprites[gfxGUID - 1];
+            matrix[i][j]->sprite = sprites[gfxGUID - 1];
+            matrix[i][j]->digit = baseMatrix[i][j] ? BIT_ONE : BIT_ZERO;
         }
     }
 }
@@ -229,21 +226,21 @@ void gfxInfo_overwriteGfx(uint8 index){
  * @param digit
  */
 void gfxInfo_replicateMatrixGfx(uint8 i, uint8 j, Binary digit){
+/*
+    if(matrix[i][j]->sprite!= NULL){
 
-    if(spriteMatrix[i][j] != NULL){
-
-        uint8 guid = spriteMatrix[i][j]->gfx->GUID;
+        uint8 guid = matrix[i][j]->sprite->gfx->GUID;
 
         sprites_displaySprite(guid, 0, 0, true);
         free(gfxList[guid]);
         free(sprites[guid]);
-        free(spriteMatrix[i][j]);
-        gfxInfo_setGfx(guid, digit ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16, true);
+        free(matrix[i][j]->sprite);
+        gfxInfo_setGfx(digit ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16);
         sprites_memorySetup(gfxList[guid]);
-        spriteMatrix[i][j] = sprites[guid];
+        matrix[i][j]->sprite = sprites[guid];
         sprites_displaySprite(guid, matrix_getPositionX(j), matrix_getPositionY(i), false);
     }
-
+*/
 }
 
 void gfxInfo_freeMemory(){
