@@ -13,6 +13,7 @@
 Event* eventList[MAX_EVENTS];
 
 int numEvents;
+// Test
 int pi = 3;
 int pj = 3;
 #ifdef DEBUG_MODE
@@ -150,7 +151,7 @@ void eventMgr_UpdateScheduledEvents(){
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);*/
                     break;
                 case EVENT_DROP_BITBLOCK:
-                    //Schedulear Regeneración
+                    // Test
                     matrix_updatePivot(pi,pj);
                     gameData.phase = PHASE_BITBLOCK_FALLING;
                     //eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_7_SECONDS);

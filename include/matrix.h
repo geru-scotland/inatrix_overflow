@@ -27,7 +27,7 @@ typedef struct{
 
 typedef struct{
     Sprite* sprite;
-    Binary digit;
+    Binary bit;
 } MatrixElement;
 
 void matrix_hideMatrix(bool hide);

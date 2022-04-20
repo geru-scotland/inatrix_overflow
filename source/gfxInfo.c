@@ -225,16 +225,16 @@ void gfxInfo_allocateMatrixElement(GfxID gfxId){
 }
 
 // TODO: Mejorar esto, es una chapuza.
-void gfxInfo_linkToMatrix(uint8 size, uint8 i, uint8 j, Binary digit) {
+void gfxInfo_linkToMatrix(uint8 size, uint8 i, uint8 j, Binary bit) {
     if(size == BITBLOCK_SIZE){
         bitBlockBuffer[i][j] = malloc(sizeof(MatrixElement));
         bitBlockBuffer[i][j]->sprite = sprites[gfxGUID - 1];
-        bitBlockBuffer[i][j]->digit = digit;
+        bitBlockBuffer[i][j]->bit = bit;
     }else
     {
         matrix[i][j] = malloc(sizeof(MatrixElement));
         matrix[i][j]->sprite = sprites[gfxGUID - 1];
-        matrix[i][j]->digit = digit;
+        matrix[i][j]->bit = bit;
     }
 }
 
