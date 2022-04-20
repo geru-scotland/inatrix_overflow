@@ -16,6 +16,7 @@
 #define MATRIX_Y_PADDING 15
 
 #define MATRIX_BLOCK 9
+#define BITBLOCK_SIZE 3
 
 typedef bool Binary;
 
@@ -29,9 +30,13 @@ typedef struct{
     Binary digit;
 } MatrixElement;
 
+void matrix_hideMatrix(bool hide);
+void matrix_hideBitBlockBuffer(bool hide);
+//void matrix_genericToggle(MatrixElement* baseElement, uint8 size, bool hide);
 
 extern void matrix_initSystem();
-extern void matrix_showMatrix();
+extern void matrix_displayMatrix(bool display);
+extern void matrix_displayBitBlockBuffer(bool display);
 extern bool matrix_destroyMatrixEffect();
 extern void matrix_updatePivot(uint8 i, uint8 j);
 extern bool matrix_dropBitBlockEffect();
@@ -41,6 +46,12 @@ extern uint8 matrix_getPositionX(uint8 axis);
 extern uint8 matrix_getPositionY(uint8 axis);
 
 extern Binary baseMatrix[MATRIX_SIZE][MATRIX_SIZE];
+extern Binary baseBitBlockBuffer[BITBLOCK_SIZE][BITBLOCK_SIZE];
+
 extern MatrixElement* matrix[MATRIX_SIZE][MATRIX_SIZE];
+extern MatrixElement* bitBlockBuffer[BITBLOCK_SIZE][BITBLOCK_SIZE];
+
 extern MatrixPivot* pivot;
+extern bool isMatrixHidden;
+extern bool isBufferHidden;
 #endif //INATRIX_OVERFLOW_MATRIX_H

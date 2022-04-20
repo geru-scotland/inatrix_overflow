@@ -6,7 +6,7 @@
 #include "../include/sprites.h"
 
 GfxData* gfxList[GFX_SIZE];
-static uint8 gfxGUID = 0;
+uint8 gfxGUID = 0;
 
 u8 redCapsule[256] = {
 
@@ -188,6 +188,13 @@ u8* gfxBitmaps[BITMAP_SIZE] = {
 
 void gfxInfo_init(){
 
+    /**
+     * Ojo:
+     * Cada vez que se introduzca un gráfico más, acordarse de
+     * actualizar el #define GFX_NUMBER
+
+     */
+
     /* CAPSULES */
     gfxInfo_setGfx(GFX_CAPSULE_BLUE, SpriteSize_16x16);
     gfxInfo_setGfx(GFX_CAPSULE_RED, SpriteSize_16x16);
@@ -195,27 +202,20 @@ void gfxInfo_init(){
     /* INATRIX */
 
 }
+
 /**
  * Función que genera la Matrix de manera independiente
  * Para poder construir los sprites oportunos.
  */
-void gfxInfo_initMatrix(){
+void gfxInfo_initMatrix(Binary *base, uint8 size){
 
-    // 100 Posiciones de memoria contiguas después de haber
-    // introducido los gráficos.
-    for(int i = 0; i < MATRIX_SIZE; i++){
-        for(int j = 0; j < MATRIX_SIZE; j++){
-            gfxInfo_allocateMatrixElement(baseMatrix[i][j] ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO);
-            gfxInfo_linkToMatrix(i, j, baseMatrix[i][j] ? BIT_ONE : BIT_ZERO);
+    // C guarda internamente los arrays 2D como 1D, calculamos la
+    // Posición en consecuencia con *(base + i*rowsCols + j)
+    for(int i = 0; i < size; i++){
+        for(int j = 0; j < size; j++){
+            gfxInfo_allocateMatrixElement(*(base + i*size + j) ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO);
+            gfxInfo_linkToMatrix(size, i, j, *(base + i*size + j) ? BIT_ONE : BIT_ZERO);
         }
-    }
-}
-
-void gfxInfo_initBitBlockPlaceholder(){
-    // 9 Posiciones de memoria contiguas después de la matriz
-    for (int i = 0; i < MATRIX_BLOCK; i++){
-        /*gfxInfo_allocateMatrixElement(GFX_DIGIT_ZERO);
-        gfxInfo_linkToPlaceHolder();*/
     }
 }
 
@@ -224,14 +224,18 @@ void gfxInfo_allocateMatrixElement(GfxID gfxId){
     sprites_memorySetup(gfxList[gfxGUID - 1]);
 }
 
-void gfxInfo_linkToMatrix(uint8 i, uint8 j, Binary digit){
-    matrix[i][j] = malloc(sizeof(MatrixElement));
-    matrix[i][j]->sprite = sprites[gfxGUID - 1];
-    matrix[i][j]->digit = digit;
-}
-
-void gfxInfo_linkToPlaceHolder(){
-
+// TODO: Mejorar esto, es una chapuza.
+void gfxInfo_linkToMatrix(uint8 size, uint8 i, uint8 j, Binary digit) {
+    if(size == BITBLOCK_SIZE){
+        bitBlockBuffer[i][j] = malloc(sizeof(MatrixElement));
+        bitBlockBuffer[i][j]->sprite = sprites[gfxGUID - 1];
+        bitBlockBuffer[i][j]->digit = digit;
+    }else
+    {
+        matrix[i][j] = malloc(sizeof(MatrixElement));
+        matrix[i][j]->sprite = sprites[gfxGUID - 1];
+        matrix[i][j]->digit = digit;
+    }
 }
 
 void gfxInfo_freeMemory(){

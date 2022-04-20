@@ -13,7 +13,8 @@
 Event* eventList[MAX_EVENTS];
 
 int numEvents;
-
+int pi = 3;
+int pj = 3;
 #ifdef DEBUG_MODE
 int lineDelete = 8;
 int lineAdd = 0;
@@ -111,17 +112,16 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_INTRO_START:
                     iprintf("\x1b[09;10H _");
                     iprintf("\x1b[10;00H Wake up, Inatrix...");
-                    matrix_initSystem(); // Test
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_4_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT1:
                     iprintf("\x1b[10;00H The Matrix has you...");
-                    matrix_showMatrix();
+                    matrix_displayMatrix(true);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    //eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_5_SECONDS);
                     break;
-                case EVENT_INTRO_TEXT2:
+                /*case EVENT_INTRO_TEXT2:
                     iprintf("\x1b[10;00H Follow the white rabbit.");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;
@@ -147,22 +147,29 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[10;00H Or not? haha...");
                     sprites_displaySprite(GFX_CAPSULE_RED, 145, 80, true);
                     gameData.state = GAME_STATE_MENU; // O Game, es un ejemplo.
-                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);*/
                     break;
                 case EVENT_DROP_BITBLOCK:
                     //Schedulear Regeneración
-                    matrix_updatePivot(5,5);
+                    matrix_updatePivot(pi,pj);
                     gameData.phase = PHASE_BITBLOCK_FALLING;
-                    eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_7_SECONDS);
+                    //eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_7_SECONDS);
                     break;
                 case EVENT_REGENERATE_BITBLOCK:
                     matrix_regenerateBitBlock();
+                    pi++;
+                    pj++;
+                    eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_8_SECONDS);
                     break;
-                case EVENT_REGENERATE_MATRIX:
+                /*case EVENT_REGENERATE_MATRIX:
                     //matrix_regenerateMatrix();
                     break;
                 case EVENT_DESTROY_MATRIX:
                     gameData.phase = PHASE_DESTROYING_MATRIX;
+                    break;
+                case EVENT_HIDE_MATRIX:
+                    matrix_displayMatrix(false);
+                    matrix_displayBitBlockBuffer(true);
                     break;
                 case EVENT_INTRO_SHOW_CAPSULES:
                     sprites_displaySprite(GFX_CAPSULE_RED, 95, 80, false);
@@ -174,7 +181,7 @@ void eventMgr_UpdateScheduledEvents(){
                     sprites_displaySprite(GFX_CAPSULE_BLUE, 145, 80, true);
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT5, IN_2_SECONDS);
                     gameData.phase = PHASE_MOVE_RED_CAPSULE;
-                    break;
+                    break;*/
                 case EVENT_INTRO_SETBACKGROUND1:
                     background_setBackground(BG_MATRIX);
                     break;
@@ -215,6 +222,8 @@ void eventMgr_UpdatePhases(){
     switch(gameData.phase){
         case PHASE_BITBLOCK_FALLING:
             if(!matrix_dropBitBlockEffect()){
+                // Si vas a hacer el efecto de spawn desde diferentes posiciones
+                // Que se vean como 0,5sec después de que comience a caer el bitblock
                 eventMgr_ScheduleEvent(EVENT_REGENERATE_BITBLOCK, IN_1_SECONDS);
                 gameData.phase = PHASE_NULL;
             }

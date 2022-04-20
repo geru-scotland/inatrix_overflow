@@ -40,6 +40,7 @@ enum Events{
     EVENT_DROP_BITBLOCK,
     EVENT_REGENERATE_BITBLOCK,
     EVENT_REGENERATE_MATRIX,
+    EVENT_HIDE_MATRIX,
     /*
      * No correspondiente a ningún evento en concreto
      */

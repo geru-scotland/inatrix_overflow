@@ -23,6 +23,7 @@ int main(void) {
     controllers_InitSetup();
 	inicializarGraficosSprites();
     //audioMgr_initAudio();
+    matrix_initSystem();
 	game_Loop();
 	return(0);
 }
