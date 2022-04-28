@@ -167,17 +167,16 @@ u8 digitZero[256] = {
 
 };
 
-void gfxInfo_setGfx(uint8 guid, GfxID gfxId, SpriteSize size, bool overwrite){
-    gfxList[guid] = malloc(sizeof(GfxData));
-    gfxList[guid]->memAddress = NULL;
-    gfxList[guid]->GUID = guid;
-    gfxList[guid]->gfxId = gfxId;
-    gfxList[guid]->bitmap = gfxBitmaps[gfxId];
-    gfxList[guid]->size = size;
-    gfxList[guid]->colorFormat = SpriteColorFormat_256Color;
+void gfxInfo_setGfx(GfxID gfxId, SpriteSize size){
+    gfxList[gfxGUID] = malloc(sizeof(GfxData));
+    gfxList[gfxGUID]->memAddress = NULL;
+    gfxList[gfxGUID]->GUID = gfxGUID;
+    gfxList[gfxGUID]->gfxId = gfxId;
+    gfxList[gfxGUID]->bitmap = gfxBitmaps[gfxId];
+    gfxList[gfxGUID]->size = size;
+    gfxList[gfxGUID]->colorFormat = SpriteColorFormat_256Color;
 
-    if(!overwrite)
-        gfxGUID++;
+    gfxGUID++;
 }
 
 u8* gfxBitmaps[BITMAP_SIZE] = {
@@ -189,61 +188,54 @@ u8* gfxBitmaps[BITMAP_SIZE] = {
 
 void gfxInfo_init(){
 
+    /**
+     * Ojo:
+     * Cada vez que se introduzca un gráfico más, acordarse de
+     * actualizar el #define GFX_NUMBER
+
+     */
+
     /* CAPSULES */
-    gfxInfo_setGfx(gfxGUID, GFX_CAPSULE_BLUE, SpriteSize_16x16, false);
-    gfxInfo_setGfx(gfxGUID, GFX_CAPSULE_RED, SpriteSize_16x16, false);
+    gfxInfo_setGfx(GFX_CAPSULE_BLUE, SpriteSize_16x16);
+    gfxInfo_setGfx(GFX_CAPSULE_RED, SpriteSize_16x16);
 
     /* INATRIX */
 
-    /* NUMBER_1 */
-
-    // matrix_initMatrix()
-    // dir a matrix, malloc
-
 }
+
 /**
  * Función que genera la Matrix de manera independiente
  * Para poder construir los sprites oportunos.
  */
-void gfxInfo_initMatrix(){
+void gfxInfo_initMatrix(Binary *base, uint8 size){
 
-    for(int i = 0; i < MATRIX_SIZE; i++){
-        for(int j = 0; j < MATRIX_SIZE; j++){
-            gfxInfo_setGfx(gfxGUID, matrix[i][j] ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16, false);
-            sprites_memorySetup(gfxList[gfxGUID - 1]);
-            spriteMatrix[i][j] = sprites[gfxGUID - 1];
+    // C guarda internamente los arrays 2D como 1D, calculamos la
+    // Posición en consecuencia con *(base + i*rowsCols + j)
+    for(int i = 0; i < size; i++){
+        for(int j = 0; j < size; j++){
+            gfxInfo_allocateMatrixElement(*(base + i*size + j) ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO);
+            gfxInfo_linkToMatrix(size, i, j, *(base + i*size + j) ? BIT_ONE : BIT_ZERO);
         }
     }
 }
 
-void gfxInfo_overwriteGfx(uint8 index){
-
+void gfxInfo_allocateMatrixElement(GfxID gfxId){
+    gfxInfo_setGfx(gfxId, SpriteSize_16x16);
+    sprites_memorySetup(gfxList[gfxGUID - 1]);
 }
 
-/**
- * Esto es/será llamado desde la propia Matrix, la real.
- * Cuando quiera replicar los cambios sufridos en sí misma
-
- * @param i
- * @param j
- * @param digit
- */
-void gfxInfo_replicateMatrixGfx(uint8 i, uint8 j, Binary digit){
-
-    if(spriteMatrix[i][j] != NULL){
-
-        uint8 guid = spriteMatrix[i][j]->gfx->GUID;
-
-        sprites_displaySprite(guid, 0, 0, true);
-        free(gfxList[guid]);
-        free(sprites[guid]);
-        free(spriteMatrix[i][j]);
-        gfxInfo_setGfx(guid, digit ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO, SpriteSize_16x16, true);
-        sprites_memorySetup(gfxList[guid]);
-        spriteMatrix[i][j] = sprites[guid];
-        sprites_displaySprite(guid, matrix_getPositionX(j), matrix_getPositionY(i), false);
+// TODO: Mejorar esto, es una chapuza.
+void gfxInfo_linkToMatrix(uint8 size, uint8 i, uint8 j, Binary bit) {
+    if(size == BITBLOCK_SIZE){
+        bitBlockBuffer[i][j] = malloc(sizeof(MatrixElement));
+        bitBlockBuffer[i][j]->sprite = sprites[gfxGUID - 1];
+        bitBlockBuffer[i][j]->bit = bit;
+    }else
+    {
+        matrix[i][j] = malloc(sizeof(MatrixElement));
+        matrix[i][j]->sprite = sprites[gfxGUID - 1];
+        matrix[i][j]->bit = bit;
     }
-
 }
 
 void gfxInfo_freeMemory(){
