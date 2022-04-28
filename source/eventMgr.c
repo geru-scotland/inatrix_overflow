@@ -160,12 +160,15 @@ void eventMgr_UpdateScheduledEvents(){
                     matrix_regenerateBitBlock();
                     pi++;
                     pj++;
-                    eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_8_SECONDS);
+                    matrix_displayMatrix(false);
+                    eventMgr_ScheduleEvent(EVENT_REGENERATE_MATRIX, IN_8_SECONDS);
                     break;
-                /*case EVENT_REGENERATE_MATRIX:
-                    //matrix_regenerateMatrix();
+                case EVENT_REGENERATE_MATRIX:
+                    matrix_regenerateMatrix();
+                    matrix_displayMatrix(true);
+                    eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_5_SECONDS);
                     break;
-                case EVENT_DESTROY_MATRIX:
+               /* case EVENT_DESTROY_MATRIX:
                     gameData.phase = PHASE_DESTROYING_MATRIX;
                     break;
                 case EVENT_HIDE_MATRIX:

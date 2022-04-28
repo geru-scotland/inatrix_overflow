@@ -27,11 +27,12 @@ Binary baseMatrix[MATRIX_SIZE][MATRIX_SIZE] = {
 
 };
 
+// Que tenga más 0s que unos
 Binary baseBitBlockBuffer[BITBLOCK_SIZE][BITBLOCK_SIZE] = {
 
-        { 1, 0, 1 },
         { 0, 0, 1 },
-        { 1, 1, 0 }
+        { 0, 1, 0 },
+        { 0, 1, 0 }
 
 };
 
@@ -178,9 +179,21 @@ void matrix_regenerateBitBlock(){
  *
  */
 void matrix_regenerateMatrix(){
-    for(int i = 0; i < MATRIX_SIZE; i++)
-        for(int j = 0; j < MATRIX_SIZE; j++);
-            //gfxInfo_replicateMatrixGfx(i, j, matrix[i][j]); // Test. Generar random, claro.
+    // Por ahora hacer traspuesta, simplemente.
+    // TODO: Implementar algún algoritmo de reordenación
+    MatrixElement* tmpMatrix[MATRIX_SIZE][MATRIX_SIZE];
+
+    for(int i = 0; i < MATRIX_SIZE; i++){
+        for(int j = 0; j < MATRIX_SIZE; j++){
+            tmpMatrix[i][j] = matrix[i][j];
+        }
+    }
+
+    for(int i = 0; i < MATRIX_SIZE; i++){
+        for(int j = 0; j < MATRIX_SIZE; j++){
+           matrix[i][j] = tmpMatrix[j][i];
+        }
+    }
 }
 
 
@@ -193,8 +206,10 @@ void matrix_regenerateMatrix(){
 */
 
 void matrix_updatePivot(uint8 i, uint8 j){
-    pivot->i = i;
-    pivot->j = j;
+    if((i >= 1) && (i < MATRIX_SIZE-1) && (j >= 1) && (j < MATRIX_SIZE-1)){
+        pivot->i = i;
+        pivot->j = j;
+    }
 }
 
 // Hacer puntero a función
