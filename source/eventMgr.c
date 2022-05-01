@@ -118,9 +118,9 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_INTRO_TEXT1:
                     iprintf("\x1b[10;00H The Matrix has you...");
-                    matrix_displayMatrix(false);
+                    matrix_displayMatrix(true);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_REGENERATE_MATRIX, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_5_SECONDS);
                     break;
                 /*case EVENT_INTRO_TEXT2:
                     iprintf("\x1b[10;00H Follow the white rabbit.");
@@ -154,19 +154,19 @@ void eventMgr_UpdateScheduledEvents(){
                     // Test
                     matrix_updatePivot(pi,pj);
                     gameData.phase = PHASE_BITBLOCK_FALLING;
-                    //eventMgr_ScheduleEvent(EVENT_DESTROY_MATRIX, IN_7_SECONDS);
                     break;
                 case EVENT_REGENERATE_BITBLOCK:
                     matrix_regenerateBitBlock();
-                    pi++;
-                    pj++;
+                    eventMgr_ScheduleEvent(EVENT_HIDE_MATRIX, IN_3_SECONDS);
+                    break;
+                case EVENT_HIDE_MATRIX:
                     matrix_displayMatrix(false);
-                    eventMgr_ScheduleEvent(EVENT_REGENERATE_MATRIX, IN_8_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_REGENERATE_MATRIX, IN_5_SECONDS);
                     break;
                 case EVENT_REGENERATE_MATRIX:
                     matrix_regenerateMatrix();
                     matrix_displayMatrix(true);
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_8_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_5_SECONDS);
                     break;
                /* case EVENT_DESTROY_MATRIX:
                     gameData.phase = PHASE_DESTROYING_MATRIX;
