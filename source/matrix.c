@@ -5,6 +5,7 @@
 #include "../include/matrix.h"
 #include "../include/gfxInfo.h"
 #include "../include/eventMgr.h"
+#include <time.h>
 
 MatrixElement* matrix[MATRIX_SIZE][MATRIX_SIZE];
 MatrixElement* bitBlockBuffer[BITBLOCK_SIZE][BITBLOCK_SIZE];
@@ -174,13 +175,39 @@ void matrix_regenerateBitBlock(){
 }
 
 /**
- * Generar random. Por ahora para tests,
- * tiro de la base.
  *
+ * Permuto matriz con algoritmo de
+ * Fisher-Yates algoritmo (1938), versión moderna
+ * por Durstenfeld (1964).
+ * Cambio de base a array 1D
  */
 void matrix_regenerateMatrix(){
-    // Por ahora hacer traspuesta, simplemente.
-    // TODO: Implementar algún algoritmo de reordenación
+
+    MatrixElement* matrix1D[MATRIX_SIZE * MATRIX_SIZE];
+    matrix_transposeMainMatrix();
+
+    for(int i = 0; i < MATRIX_SIZE; i++){
+        for(int j = 0; j < MATRIX_SIZE; j++){
+            matrix1D[(i*MATRIX_SIZE) +j] = matrix[i][j];
+        }
+    }
+
+    matrix_permuteMatrix(matrix1D);
+
+    int i = 0;
+    int j = 0;
+
+    for(int k = 0; k < MATRIX_SIZE*(MATRIX_SIZE-1); k++){
+       if((k % MATRIX_SIZE) == 0){
+           i++;
+           j = 0;
+       }
+       matrix[i][j] = matrix1D[(i*MATRIX_SIZE) +j];
+       j++;
+    }
+}
+void matrix_transposeMainMatrix(){
+
     MatrixElement* tmpMatrix[MATRIX_SIZE][MATRIX_SIZE];
 
     for(int i = 0; i < MATRIX_SIZE; i++){
@@ -196,6 +223,22 @@ void matrix_regenerateMatrix(){
     }
 }
 
+void matrix_permuteMatrix(MatrixElement* matrix1D[]){
+
+    int upper = MATRIX_SIZE*MATRIX_SIZE -1;
+    srand(time(0));
+
+    while(upper > 10 ){
+        MatrixElement* tmp;
+        int r = (rand() % upper);
+        if(r >= MATRIX_SIZE){ // TODO: Investigar, por algun motivo la primera fila se rompe.
+            tmp = matrix1D[r];
+            matrix1D[r] = matrix1D[upper];
+            matrix1D[upper] = tmp;
+            upper--;
+        }
+    }
+}
 
 /*
 *********************
