@@ -66,5 +66,6 @@ extern void eventMgr_AddEvent(Event *event);
 extern void eventMgr_ScheduleEvent(uint8 eventId, int time);
 extern void eventMgr_DeleteEvent(Event* event);
 extern void eventMgr_UpdatePhases();
+extern void eventMgr_UpdateAnimations();
 
 #endif //EVENTMGR_H

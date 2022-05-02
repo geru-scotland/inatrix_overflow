@@ -266,3 +266,7 @@ void eventMgr_UpdatePhases(){
 
     oamUpdate(&oamMain);
 }
+
+void eventMgr_UpdateAnimations(){
+
+}
