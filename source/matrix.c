@@ -1,10 +1,11 @@
 //
-// Created by Eideann on 18/4/22.
+// Created by Geru on 18/4/22.
 //
 
 #include "../include/matrix.h"
 #include "../include/gfxInfo.h"
 #include "../include/eventMgr.h"
+#include <math.h>
 #include <time.h>
 
 MatrixElement* matrix[MATRIX_SIZE][MATRIX_SIZE];
@@ -255,7 +256,7 @@ void matrix_permuteMatrix(MatrixElement* matrix1D[]){
 /*
 *********************
 *********************
-****** HELPERS ******
+******* PIVOT *******
 *********************
 *********************
 */
@@ -268,11 +269,28 @@ void matrix_updatePivot(uint8 i, uint8 j){
 }
 
 bool matrix_evalBitBlockOverflow(){
-    /**
-     * 1. Recorrer el Bitblock [-1, 1]
-     * 2. De cada fila, la pos i determina la potencia
-     */
+    int decValue = 0;
+    for(int i = -1; i <= 1; i++){
+        double power = BITBLOCK_SIZE - 1;
+        for(int j = -1; j <= 1; j++){
+            decValue += matrix[pivot->i + i][pivot->j + j]->bit * pow(2, power);
+            iprintf("\x1b[14;00H Bit: %i y 2^%f=%f", matrix[pivot->i + i][pivot->j + j]->bit, power, pow(2, power));
+            power--;
+        }
+    }
+    iprintf("\x1b[10;00H decValue = %i", decValue);
+    return decValue > OVERFLOW_LIM;
 }
+
+/*
+*********************
+*********************
+****** HELPERS ******
+*********************
+*********************
+*/
+
+
 
 // Hacer puntero a función
 uint8 matrix_getPositionX(uint8 axis){

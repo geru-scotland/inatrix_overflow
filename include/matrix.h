@@ -1,5 +1,5 @@
 //
-// Created by Eideann on 18/4/22.
+// Created by Gerun on 18/4/22.
 //
 
 #ifndef INATRIX_OVERFLOW_MATRIX_H
@@ -17,6 +17,8 @@
 
 #define MATRIX_BLOCK 9
 #define BITBLOCK_SIZE 3
+
+#define OVERFLOW_LIM 9
 
 typedef bool Binary;
 
@@ -60,4 +62,5 @@ extern MatrixElement* bitBlockBuffer[BITBLOCK_SIZE][BITBLOCK_SIZE];
 extern MatrixPivot* pivot;
 extern bool isMatrixHidden;
 extern bool isBufferHidden;
+extern double binaryBase;
 #endif //INATRIX_OVERFLOW_MATRIX_H
