@@ -64,6 +64,7 @@ void controllers_TimerHandler(){
     // Movimientos, si reunen ciertas características, aquí.
     timer_UpdateTimer();
     eventMgr_UpdatePhases();
+    eventMgr_UpdateAnimations();
 }
 
 void controllers_KeyPadHandler(){
