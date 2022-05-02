@@ -57,6 +57,7 @@ extern GameData gameData;
 extern PlayerData playerData;
 
 extern void game_Loop();
-extern void game_manageScore();
+extern void game_manageScore(bool overflow);
+extern void game_consoleUI();
 extern int game_getNextPhase();
 #endif //GAME_H

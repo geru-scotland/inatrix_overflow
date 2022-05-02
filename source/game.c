@@ -134,4 +134,8 @@ void game_manageScore(bool overflow){
     }
 }
 
+void game_consoleUI(){
+
+}
+
 
