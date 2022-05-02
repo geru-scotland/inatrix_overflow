@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------------
-Este código se ha desarrollado basándose en el código de dovoto "Simple sprite demo" 
+Este código se ha desarrollado basándose en el código de dovoto "Simple sprite demo"
 y en otro ejemplo de Jaeden Ameronen
 ---------------------------------------------------------------------------------*/
 
@@ -17,6 +17,7 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/controllers.h"
 #include "../include/eventMgr.h"
 #include "../include/audioMgr.h"
+#include "../include/movementMgr.h"
 
 int main(void) {
     eventMgr_InitEventSystem();
@@ -24,6 +25,7 @@ int main(void) {
 	inicializarGraficosSprites();
     //audioMgr_initAudio();
     matrix_initSystem();
+    movementMgr_initSystem();
 	game_Loop();
 	return(0);
 }

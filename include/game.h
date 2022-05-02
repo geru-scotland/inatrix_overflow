@@ -31,6 +31,8 @@ typedef enum {
     PHASE_DESTROYING_MATRIX,
     /* MENU */
     /* GAME */
+    PHASE_MOVE_INATRIX_X,
+    PHASE_MOVE_INATRIX_Y
 } Phases;
 
 /*

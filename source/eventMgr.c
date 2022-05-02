@@ -9,6 +9,7 @@
 #include "nds.h"
 #include "../include/game.h"
 #include "../include/matrix.h"
+#include "../include/movementMgr.h"
 
 Event* eventList[MAX_EVENTS];
 
@@ -114,16 +115,16 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[09;10H _");
                     iprintf("\x1b[10;00H Wake up, Inatrix...");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_4_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_GAME_START, IN_4_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT1:
                     iprintf("\x1b[10;00H The Matrix has you...");
-                    matrix_displayMatrix(true);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_DROP_BITBLOCK, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT2, IN_5_SECONDS);
                     break;
-                /*case EVENT_INTRO_TEXT2:
+                case EVENT_INTRO_TEXT2:
                     iprintf("\x1b[10;00H Follow the white rabbit.");
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT3, IN_5_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT3:
@@ -147,33 +148,8 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_INTRO_FINISH:
                     iprintf("\x1b[10;00H Or not? haha...");
                     sprites_displaySprite(GFX_CAPSULE_RED, 145, 80, true);
-                    gameData.state = GAME_STATE_MENU; // O Game, es un ejemplo.
-                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);*/
-                    break;
-                case EVENT_DROP_BITBLOCK:
-                    // Test
-                    matrix_updatePivot(pi,pj);
-                    gameData.phase = PHASE_BITBLOCK_FALLING;
-                    break;
-                case EVENT_REGENERATE_BITBLOCK:
-                    matrix_regenerateBitBlock();
-                    eventMgr_ScheduleEvent(EVENT_HIDE_MATRIX, IN_3_SECONDS);
-                    break;
-                case EVENT_HIDE_MATRIX:
-                    matrix_displayMatrix(false);
-                    eventMgr_ScheduleEvent(EVENT_REGENERATE_MATRIX, IN_5_SECONDS);
-                    break;
-                case EVENT_REGENERATE_MATRIX:
-                    matrix_regenerateMatrix();
-                    matrix_displayMatrix(true);
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_5_SECONDS);
-                    break;
-               /* case EVENT_DESTROY_MATRIX:
-                    gameData.phase = PHASE_DESTROYING_MATRIX;
-                    break;
-                case EVENT_HIDE_MATRIX:
-                    matrix_displayMatrix(false);
-                    matrix_displayBitBlockBuffer(true);
+                    eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_SHOW_CAPSULES:
                     sprites_displaySprite(GFX_CAPSULE_RED, 95, 80, false);
@@ -185,7 +161,50 @@ void eventMgr_UpdateScheduledEvents(){
                     sprites_displaySprite(GFX_CAPSULE_BLUE, 145, 80, true);
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT5, IN_2_SECONDS);
                     gameData.phase = PHASE_MOVE_RED_CAPSULE;
-                    break;*/
+                    break;
+                /*
+                *********************
+                *********************
+                ******* GAME ********
+                *********************
+                *********************
+                */
+                case EVENT_GAME_START:
+                    gameData.state = GAME_STATE_GAME;
+                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+                    matrix_displayMatrix(true);
+                    // Spawn Iñatrix
+                    sprites_displaySprite(GFX_INATRIX_X, MATRIX_X_POS, 170, false);
+                    sprites_displaySprite(GFX_INATRIX_Y, MATRIX_X_POS-30, MATRIX_Y_POS, false);
+                    //eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_5_SECONDS);
+                    break;
+                case EVENT_GAME_DROP_BITBLOCK:
+                    matrix_updatePivot(pi,pj);
+                    gameData.phase = PHASE_BITBLOCK_FALLING;
+                    break;
+                case EVENT_GAME_REGENERATE_BITBLOCK:
+                    matrix_regenerateBitBlock();
+                    eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_3_SECONDS);
+                    break;
+                case EVENT_GAME_HIDE_MATRIX:
+                    matrix_displayMatrix(false);
+                    eventMgr_ScheduleEvent(EVENT_GAME_REGENERATE_MATRIX, IN_5_SECONDS);
+                    break;
+                case EVENT_GAME_REGENERATE_MATRIX:
+                    matrix_regenerateMatrix();
+                    matrix_displayMatrix(true);
+                    break;
+                case EVENT_GAME_DESTROY_MATRIX:
+                    gameData.phase = PHASE_DESTROYING_MATRIX;
+                    break;
+                case EVENT_GAME_INATRIX_MOVE_X:
+                    movementMgr_setHomePosition(MOVEMENT_INATRIX_X);
+                    gameData.phase = PHASE_MOVE_INATRIX_X;
+                    break;
+                case EVENT_GAME_INATRIX_MOVE_Y:
+                    movementMgr_setHomePosition(MOVEMENT_INATRIX_Y);
+                    gameData.phase = PHASE_MOVE_INATRIX_Y;
+                    break;
                 case EVENT_INTRO_SETBACKGROUND1:
                     background_setBackground(BG_MATRIX);
                     break;
@@ -198,13 +217,6 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_NEXT_PHASE:
                     gameData.phase = game_getNextPhase();
                     break;
-                /*
-                *********************
-                *********************
-                ******* GAME ********
-                *********************
-                *********************
-                */
                 default:
                     break;
             }
@@ -228,15 +240,22 @@ void eventMgr_UpdatePhases(){
             if(!matrix_dropBitBlockEffect()){
                 // Si vas a hacer el efecto de spawn desde diferentes posiciones
                 // Que se vean como 0,5sec después de que comience a caer el bitblock
-                eventMgr_ScheduleEvent(EVENT_REGENERATE_BITBLOCK, IN_1_SECONDS);
+                eventMgr_ScheduleEvent(EVENT_GAME_REGENERATE_BITBLOCK, IN_1_SECONDS);
                 gameData.phase = PHASE_NULL;
             }
             break;
         case PHASE_DESTROYING_MATRIX:
             if(!matrix_destroyMatrixEffect()){
-                eventMgr_ScheduleEvent(EVENT_REGENERATE_MATRIX, IN_3_SECONDS);
+                eventMgr_ScheduleEvent(EVENT_GAME_REGENERATE_MATRIX, IN_3_SECONDS);
                 gameData.phase = PHASE_NULL;
             }
+            break;
+        case PHASE_MOVE_INATRIX_X:
+            if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_X)){
+                gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+            }
+            break;
+        case PHASE_MOVE_INATRIX_Y:
             break;
         default:
             break;

@@ -10,9 +10,9 @@
 
 #define MATRIX_SIZE 10
 #define MATRIX_FIRST 0
-#define MATRIX_X_POS 35
-#define MATRIX_Y_POS 10
-#define MATRIX_X_PADDING 18
+#define MATRIX_X_POS 50
+#define MATRIX_Y_POS 5
+#define MATRIX_X_PADDING 16
 #define MATRIX_Y_PADDING 15
 
 #define MATRIX_BLOCK 9

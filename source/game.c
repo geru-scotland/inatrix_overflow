@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------------
-Este código se ha desarrollado basándose en el código de dovoto "Simple sprite demo" 
+Este código se ha desarrollado basándose en el código de dovoto "Simple sprite demo"
 y en otro ejemplo de Jaeden Ameronen
 ---------------------------------------------------------------------------------*/
 
@@ -11,7 +11,7 @@ y en otro ejemplo de Jaeden Ameronen
 
 
 //librerías desarrolladas por nosotros para el proyecto
-	
+
 #include "../include/defines.h"
 #include "../include/eventMgr.h"
 #include "../include/input.h"
@@ -58,11 +58,6 @@ void game_Loop()
                         eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND1, IN_2_SECONDS);
                         gameData.phase = PHASE_INTRO_SCENE_ACTIVE;
                         break;
-                        /* Está fijo con Start, para hacer demo.
-                         * cambiar esto y leer ambas teclas (A-B)
-                         * Y que obviamente lance otro evento depende de
-                         * la capsula elegida
-                         * */
                     case PHASE_WAITING_PLAYER_INPUT:
                         if(keyData.isPressed && (keyData.key == INPUT_KEY_START)){
                             eventMgr_ScheduleEvent(EVENT_INTRO_CAPSULE_RED, NO_WAIT);
@@ -72,6 +67,41 @@ void game_Loop()
                     default:
                         break;
                 }
+                break;
+            case GAME_STATE_GAME:
+                switch(gameData.phase){
+                    case PHASE_WAITING_PLAYER_INPUT:
+                        if(keyData.isPressed){
+                            switch(keyData.key){
+                                case INPUT_KEY_LEFT: // Mover izda, ahora sólo derecha.
+                                    break;
+                                case INPUT_KEY_RIGHT:
+                                    eventMgr_ScheduleEvent(EVENT_GAME_INATRIX_MOVE_X, NO_WAIT);
+                                    break;
+                                case INPUT_KEY_DOWN:
+                                    break;
+                                case INPUT_KEY_UP:
+                                    eventMgr_ScheduleEvent(EVENT_GAME_INATRIX_MOVE_Y, NO_WAIT);
+                                    break;
+                                case INPUT_KEY_A:
+                                    //Select pivot
+                                    break;
+                                case INPUT_KEY_START:
+                                    // Pause
+                                    break;
+                                default:
+                                    break;
+                            }
+                            gameData.phase = PHASE_NULL;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case GAME_STATE_GAME_OVER:
+                break;
+            case GAME_STATE_STATS:
                 break;
             default:
                 break;

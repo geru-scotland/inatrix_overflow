@@ -112,8 +112,7 @@ bool matrix_destroyMatrixEffect(){
             && (matrix[i][j]->sprite->spriteEntry->y <= WINDOW_HEIGHT))
                 matrix[i][j]->sprite->spriteEntry->y +=1;
 
-    //TODO: Cambia esto @Matxin, que te has dado cuenta tú.
-    return (matrix[MATRIX_FIRST][MATRIX_FIRST]->sprite->spriteEntry->y <= WINDOW_HEIGHT) ? true : false;
+    return matrix[MATRIX_FIRST][MATRIX_FIRST]->sprite->spriteEntry->y <= WINDOW_HEIGHT;
 }
 
 /**
@@ -122,9 +121,6 @@ bool matrix_destroyMatrixEffect(){
  */
 
 bool matrix_dropBitBlockEffect(){
-
-    // Hacer checks correspondientes a las diferentes posibilidades
-    // Extremos de la matriz etc.
     int out = 0;
     for(int i = -1; i <= 1; i++)
         for(int j = -1; j <= 1; j++)
