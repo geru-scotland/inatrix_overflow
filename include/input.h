@@ -12,7 +12,7 @@ enum KEYS {
     INPUT_KEY_B		  = 1,
     INPUT_KEY_SELECT  = 2,
     INPUT_KEY_START	  = 3,
-    INPUT_KEY_RIGHT	  = 4,
+    INPUT_KEY_RIGHT   = 4,
     INPUT_KEY_LEFT    = 5,
     INPUT_KEY_UP      = 6,
     INPUT_KEY_DOWN    = 7,

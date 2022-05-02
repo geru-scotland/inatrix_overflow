@@ -61,9 +61,9 @@ int input_KeyPressed()
         case 0x03F7:
             return INPUT_KEY_START;
         case 0X03EF:
-            return INPUT_KEY_LEFT;
-        case 0x03DF:
             return INPUT_KEY_RIGHT;
+        case 0x03DF:
+            return INPUT_KEY_LEFT;
         case 0X03BF:
             return INPUT_KEY_UP;
         case 0x037F:
