@@ -198,11 +198,11 @@ void eventMgr_UpdateScheduledEvents(){
                     gameData.phase = PHASE_DESTROYING_MATRIX;
                     break;
                 case EVENT_GAME_INATRIX_MOVE_X:
-                    movementMgr_setHomePosition(MOVEMENT_INATRIX_X);
+                    movementMgr_movePosition(MOVEMENT_INATRIX_X);
                     gameData.phase = PHASE_MOVE_INATRIX_X;
                     break;
                 case EVENT_GAME_INATRIX_MOVE_Y:
-                    movementMgr_setHomePosition(MOVEMENT_INATRIX_Y);
+                    movementMgr_movePosition(MOVEMENT_INATRIX_Y);
                     gameData.phase = PHASE_MOVE_INATRIX_Y;
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
@@ -256,6 +256,9 @@ void eventMgr_UpdatePhases(){
             }
             break;
         case PHASE_MOVE_INATRIX_Y:
+            if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_Y)){
+                gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+            }
             break;
         default:
             break;

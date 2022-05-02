@@ -8,7 +8,7 @@ y en otro ejemplo de Jaeden Ameronen
 #include <stdio.h>		//librería de entrada/salida estándar de C
 #include <stdlib.h>		//librería estándar de C para reserva de memoria y conversiones númericas
 #include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos
-
+#include "../include/movementMgr.h"
 
 //librerías desarrolladas por nosotros para el proyecto
 
@@ -74,16 +74,23 @@ void game_Loop()
                         if(keyData.isPressed){
                             switch(keyData.key){
                                 case INPUT_KEY_LEFT: // Mover izda, ahora sólo derecha.
+                                    movementMgr_updateDirection(MOVEMENT_INATRIX_X, DIRECTION_BACKWARDS);
+                                    eventMgr_ScheduleEvent(EVENT_GAME_INATRIX_MOVE_X, NO_WAIT);
                                     break;
                                 case INPUT_KEY_RIGHT:
+                                    movementMgr_updateDirection(MOVEMENT_INATRIX_X, DIRECTION_FORWARDS);
                                     eventMgr_ScheduleEvent(EVENT_GAME_INATRIX_MOVE_X, NO_WAIT);
                                     break;
                                 case INPUT_KEY_DOWN:
+                                    movementMgr_updateDirection(MOVEMENT_INATRIX_Y, DIRECTION_FORWARDS);
+                                    eventMgr_ScheduleEvent(EVENT_GAME_INATRIX_MOVE_Y, NO_WAIT);
                                     break;
                                 case INPUT_KEY_UP:
+                                    movementMgr_updateDirection(MOVEMENT_INATRIX_Y, DIRECTION_BACKWARDS);
                                     eventMgr_ScheduleEvent(EVENT_GAME_INATRIX_MOVE_Y, NO_WAIT);
                                     break;
                                 case INPUT_KEY_A:
+                                    iprintf("\x1b[10;00H KEY A");
                                     //Select pivot
                                     break;
                                 case INPUT_KEY_START:

@@ -10,24 +10,37 @@
 #define MOVEMENT_INFO_SIZE 2
 
 typedef enum{
-    MOVEMENT_INATRIX_X = 0,
+    MOVEMENT_INATRIX_X,
     MOVEMENT_INATRIX_Y
 } MovementGfx;
 
+// Back es volver hacia la posición de inicio
+// Forward es alejarse
+typedef enum{
+    DIRECTION_BACKWARDS  = -1,
+    DIRECTION_FORWARDS    = 1
+} Direction;
+
 typedef struct{
-    int x;
-    int y;
+    uint8 x;
+    uint8 y;
 } Vector;
 
 typedef struct{
-    Vector* homePos;
-    Vector* destinyPos;
+    uint8 posId; // Columna / Fila - Max 0-MATRIX_SIZE
+    Vector homePos;
+    Vector startPos;
+    Vector destinyPos;
+    Direction direction;
     Sprite* sprite;
 } Movement;
 
 extern void movementMgr_allocateMovements(MovementGfx movGfx);
 extern void movementMgr_initSystem();
-extern void movementMgr_setHomePosition(MovementGfx moveGfx);
+extern void movementMgr_updateDirection(MovementGfx movGfx, Direction direction);
+extern int8 movementMgr_getMultiplier(Direction direction, uint8 posId);
+extern void movementMgr_movePosition(MovementGfx gfxMove);
+extern bool movementMgr_checkPosition(Direction direction, MovementGfx movGfx);
 extern bool movementMgr_nextPositionReached(MovementGfx movGfx);
 extern void movementMgr_destructor();
 

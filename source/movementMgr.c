@@ -11,8 +11,11 @@ Movement* movementInfo[MOVEMENT_INFO_SIZE];
 
 void movementMgr_allocateMovements(MovementGfx movGfx){
     movementInfo[movGfx] = malloc(sizeof(Movement));
-    movementInfo[movGfx]->homePos = malloc(sizeof(Vector));
-    movementInfo[movGfx]->destinyPos = malloc(sizeof(Vector));
+    //Ojo, inicializar con valores correctos, no está siendo init con
+    //los dados en el eventmgr
+    movementInfo[movGfx]->homePos.x = movementInfo[movGfx]->sprite->spriteEntry->x;
+    movementInfo[movGfx]->homePos.y = movementInfo[movGfx]->sprite->spriteEntry->y;
+    movementInfo[movGfx]->posId = 0;
 }
 
 void movementMgr_initSystem(){
@@ -22,35 +25,56 @@ void movementMgr_initSystem(){
     movementInfo[MOVEMENT_INATRIX_Y]->sprite = sprites[GFX_INATRIX_Y];
 }
 
-void movementMgr_setHomePosition(MovementGfx movGfx){
-    // TODO: Hacer control de extremos.
-    movementInfo[movGfx]->homePos->x = movementInfo[movGfx]->sprite->spriteEntry->x;
-    movementInfo[movGfx]->homePos->y = movementInfo[movGfx]->sprite->spriteEntry->y;
+void movementMgr_updateDirection(MovementGfx movGfx, Direction direction){
+    movementInfo[movGfx]->direction = direction;
+}
 
-    if(movGfx == MOVEMENT_INATRIX_X){
-        movementInfo[movGfx]->destinyPos->x = movementInfo[movGfx]->homePos->x + MATRIX_X_PADDING;
-        movementInfo[movGfx]->destinyPos->y = movementInfo[movGfx]->homePos->y;
-    }else{
-        movementInfo[movGfx]->destinyPos->y = movementInfo[movGfx]->homePos->y + MATRIX_Y_PADDING;
+int8 movementMgr_getMultiplier(Direction direction, uint8 posId){
+    return (((posId == 0) && (direction == DIRECTION_BACKWARDS))
+    || ((posId == MATRIX_SIZE-1) && (direction == DIRECTION_FORWARDS))) ? -1 : 1;
+}
+
+void movementMgr_movePosition(MovementGfx gfxMove){
+    movementInfo[gfxMove]->startPos.x = movementInfo[gfxMove]->sprite->spriteEntry->x;
+    movementInfo[gfxMove]->startPos.y = movementInfo[gfxMove]->sprite->spriteEntry->y;
+    int mul = movementMgr_getMultiplier(movementInfo[gfxMove]->direction, movementInfo[gfxMove]->posId);
+    // TODO: Rehacer esto, chapuza.
+    if(gfxMove == MOVEMENT_INATRIX_X){
+        movementInfo[gfxMove]->destinyPos.x =
+                movementInfo[gfxMove]->startPos.x +
+                (MATRIX_X_PADDING * mul * movementInfo[gfxMove]->direction);
+
+        movementInfo[gfxMove]->destinyPos.y = movementInfo[gfxMove]->startPos.y;
+    } else {
+        movementInfo[gfxMove]->destinyPos.y =
+                movementInfo[gfxMove]->startPos.y +
+                (MATRIX_Y_PADDING * mul * movementInfo[gfxMove]->direction);
+
+        movementInfo[gfxMove]->destinyPos.x = movementInfo[gfxMove]->startPos.x;
     }
+    movementMgr_updateDirection(gfxMove, movementInfo[gfxMove]->direction * mul);
+}
+
+bool movementMgr_checkPosition(Direction direction, MovementGfx movGfx){
+
+    return (direction == DIRECTION_FORWARDS && (movementInfo[movGfx]->sprite->spriteEntry->x >= movementInfo[movGfx]->destinyPos.x
+           && movementInfo[movGfx]->sprite->spriteEntry->y >= movementInfo[movGfx]->destinyPos.y)) ||
+           direction == DIRECTION_BACKWARDS && (movementInfo[movGfx]->sprite->spriteEntry->x <= movementInfo[movGfx]->destinyPos.x
+           && movementInfo[movGfx]->sprite->spriteEntry->y <= movementInfo[movGfx]->destinyPos.y);
 }
 
 bool movementMgr_nextPositionReached(MovementGfx movGfx){
 
-
-    if(movementInfo[movGfx]->sprite->spriteEntry->x >= movementInfo[movGfx]->destinyPos->x
-    && movementInfo[movGfx]->sprite->spriteEntry->y >= movementInfo[movGfx]->destinyPos->y){
-        // Reset movement struct
-
-        return true;
+    if(movementMgr_checkPosition(movementInfo[movGfx]->direction, movGfx)){
+            movementInfo[movGfx]->posId += 1 * movementInfo[movGfx]->direction;
+            return true;
     }else{
-        // Move
-        // TODO: Hacer control de extremos.
-        if(movGfx == MOVEMENT_INATRIX_X)
-            movementInfo[movGfx]->sprite->spriteEntry->x += 1;
-        else
-            movementInfo[movGfx]->sprite->spriteEntry->y += 1;
+            if(movGfx == MOVEMENT_INATRIX_X)
+                movementInfo[movGfx]->sprite->spriteEntry->x += 1 * movementInfo[movGfx]->direction;
+            else
+                movementInfo[movGfx]->sprite->spriteEntry->y += 1 * movementInfo[movGfx]->direction;
     }
+
     return false;
 }
 
