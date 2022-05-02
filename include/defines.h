@@ -29,11 +29,15 @@ extern touchPosition PANT_DAT;
 
 extern int SWITCH;
 
+// Importante el orden.
+// Introducir nuevos GFX previo a DIGIT_ONE
 typedef enum{
     GFX_CAPSULE_BLUE = 0,
     GFX_CAPSULE_RED,
+    GFX_INATRIX_X,
+    GFX_INATRIX_Y,
     GFX_DIGIT_ONE,
-    GFX_DIGIT_ZERO
+    GFX_DIGIT_ZERO,
 } GfxID;
 
 

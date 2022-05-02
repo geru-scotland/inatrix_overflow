@@ -167,6 +167,45 @@ u8 digitZero[256] = {
 
 };
 
+u8 inatrix[256] = {
+
+        0,0,0,0,9,10,10,10,
+        0,0,0,11,11,9,9,9,
+        0,0,11,11,11,9,9,9,
+        0,0,11,11,11,17,17,17,
+        0,0,11,11,11,17,17,17,
+        0,0,11,11,17,6,6,17,
+        0,0,0,11,17,17,17,11,
+        0,17,0,0,17,17,17,17,
+
+        10,10,10,10,0,0,0,0,
+        9,9,9,9,10,0,0,0,
+        9,9,9,9,9,0,0,0,
+        17,17,17,0,0,0,0,0,
+        17,17,17,0,0,0,0,0,
+        17,6,6,0,0,0,0,0,
+        11,17,17,0,0,0,0,0,
+        17,17,0,0,0,0,0,0,
+
+        0,6,0,6,6,6,6,11,
+        0,0,6,6,6,6,19,19,
+        0,0,0,6,6,6,19,19,
+        0,0,0,10,10,10,10,9,
+        0,0,0,6,11,0,0,0,
+        0,0,0,6,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+
+        11,6,6,0,0,0,0,0,
+        19,6,6,6,6,17,0,0,
+        19,19,6,0,0,0,0,0,
+        9,9,10,0,0,0,0,0,
+        0,6,11,0,0,0,0,0,
+        0,6,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0
+};
+
 void gfxInfo_setGfx(GfxID gfxId, SpriteSize size){
     gfxList[gfxGUID] = malloc(sizeof(GfxData));
     gfxList[gfxGUID]->memAddress = NULL;
@@ -179,11 +218,16 @@ void gfxInfo_setGfx(GfxID gfxId, SpriteSize size){
     gfxGUID++;
 }
 
+// Referencias a los arrays que contienen
+// los bitmaps.
+// El orden importa, como en el enum GfxID.
 u8* gfxBitmaps[BITMAP_SIZE] = {
-    redCapsule,
-    blueCapsule,
-    digitOne,
-    digitZero
+    redCapsule,     // Red Capsule
+    blueCapsule,    // Blue Capsule
+    inatrix,        // Inatrix_X
+    inatrix,        // Inatrix_Y
+    digitOne,       // Digit 1
+    digitZero       // Digit 0
 };
 
 void gfxInfo_init(){
@@ -191,8 +235,7 @@ void gfxInfo_init(){
     /**
      * Ojo:
      * Cada vez que se introduzca un gráfico más, acordarse de
-     * actualizar el #define GFX_NUMBER
-
+     * actualizar el #define GFX_NUMBER.
      */
 
     /* CAPSULES */
@@ -200,7 +243,8 @@ void gfxInfo_init(){
     gfxInfo_setGfx(GFX_CAPSULE_RED, SpriteSize_16x16);
 
     /* INATRIX */
-
+    gfxInfo_setGfx(GFX_INATRIX_X, SpriteSize_16x16);
+    gfxInfo_setGfx(GFX_INATRIX_Y, SpriteSize_16x16);
 }
 
 /**
@@ -208,9 +252,6 @@ void gfxInfo_init(){
  * Para poder construir los sprites oportunos.
  */
 void gfxInfo_initMatrix(Binary *base, uint8 size){
-
-    // C guarda internamente los arrays 2D como 1D, calculamos la
-    // Posición en consecuencia con *(base + i*rowsCols + j)
     for(int i = 0; i < size; i++){
         for(int j = 0; j < size; j++){
             gfxInfo_allocateMatrixElement(*(base + i*size + j) ? GFX_DIGIT_ONE : GFX_DIGIT_ZERO);

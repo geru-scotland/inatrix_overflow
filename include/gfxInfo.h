@@ -9,9 +9,9 @@
 #include "defines.h"
 #include "matrix.h"
 
-#define GFX_NUMBER 2
+#define GFX_NUMBER 4
 #define GFX_SIZE GFX_NUMBER + (MATRIX_SIZE * MATRIX_SIZE) + (BITBLOCK_SIZE * BITBLOCK_SIZE)
-#define BITMAP_SIZE 4
+#define BITMAP_SIZE 6
 
 extern GfxData* gfxList[GFX_SIZE];
 extern u8* gfxBitmaps[BITMAP_SIZE];
