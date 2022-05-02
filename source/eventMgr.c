@@ -251,6 +251,7 @@ void eventMgr_UpdatePhases(){
             break;
         case PHASE_MOVE_INATRIX_X:
             if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_X)){
+                matrix_deactivatePivot();
                 matrix_updatePivot(movementMgr_getPositionY(), movementMgr_getPositionX());
                 matrix_activatePivot();
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
@@ -258,6 +259,7 @@ void eventMgr_UpdatePhases(){
             break;
         case PHASE_MOVE_INATRIX_Y:
             if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_Y)){
+                matrix_deactivatePivot();
                 matrix_updatePivot(movementMgr_getPositionY(), movementMgr_getPositionX());
                 matrix_activatePivot();
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
