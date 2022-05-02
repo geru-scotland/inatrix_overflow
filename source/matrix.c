@@ -274,11 +274,9 @@ bool matrix_evalBitBlockOverflow(){
         double power = BITBLOCK_SIZE - 1;
         for(int j = -1; j <= 1; j++){
             decValue += matrix[pivot->i + i][pivot->j + j]->bit * pow(2, power);
-            iprintf("\x1b[14;00H Bit: %i y 2^%f=%f", matrix[pivot->i + i][pivot->j + j]->bit, power, pow(2, power));
             power--;
         }
     }
-    iprintf("\x1b[10;00H decValue = %i", decValue);
     return decValue > OVERFLOW_LIM;
 }
 
