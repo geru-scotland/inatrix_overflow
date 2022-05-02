@@ -40,6 +40,8 @@ extern void matrix_displayBitBlockBuffer(bool display);
 extern bool matrix_destroyMatrixEffect();
 extern void matrix_updatePivot(uint8 i, uint8 j);
 extern bool matrix_dropBitBlockEffect();
+extern bool matrix_bitConjuctionEffect();
+extern void matrix_activatePivot();
 extern void matrix_regenerateBitBlock();
 extern void matrix_regenerateMatrix();
 extern uint8 matrix_getPositionX(uint8 axis);

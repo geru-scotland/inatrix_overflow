@@ -10,6 +10,7 @@
 #include "../include/game.h"
 #include "../include/matrix.h"
 #include "../include/movementMgr.h"
+#include "../include/objectMgr.h"
 
 Event* eventList[MAX_EVENTS];
 
@@ -173,9 +174,7 @@ void eventMgr_UpdateScheduledEvents(){
                     gameData.state = GAME_STATE_GAME;
                     gameData.phase = PHASE_WAITING_PLAYER_INPUT;
                     matrix_displayMatrix(true);
-                    // Spawn Iñatrix
-                    sprites_displaySprite(GFX_INATRIX_X, MATRIX_X_POS, 170, false);
-                    sprites_displaySprite(GFX_INATRIX_Y, MATRIX_X_POS-30, MATRIX_Y_POS, false);
+                    objectMgr_spawnInatrix();
                     //eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_5_SECONDS);
                     break;
                 case EVENT_GAME_DROP_BITBLOCK:
@@ -252,11 +251,15 @@ void eventMgr_UpdatePhases(){
             break;
         case PHASE_MOVE_INATRIX_X:
             if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_X)){
+                matrix_updatePivot(movementMgr_getPositionY(), movementMgr_getPositionX());
+                matrix_activatePivot();
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
             }
             break;
         case PHASE_MOVE_INATRIX_Y:
             if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_Y)){
+                matrix_updatePivot(movementMgr_getPositionY(), movementMgr_getPositionX());
+                matrix_activatePivot();
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
             }
             break;

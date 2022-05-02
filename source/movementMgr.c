@@ -11,11 +11,7 @@ Movement* movementInfo[MOVEMENT_INFO_SIZE];
 
 void movementMgr_allocateMovements(MovementGfx movGfx){
     movementInfo[movGfx] = malloc(sizeof(Movement));
-    //Ojo, inicializar con valores correctos, no está siendo init con
-    //los dados en el eventmgr
-    movementInfo[movGfx]->homePos.x = movementInfo[movGfx]->sprite->spriteEntry->x;
-    movementInfo[movGfx]->homePos.y = movementInfo[movGfx]->sprite->spriteEntry->y;
-    movementInfo[movGfx]->posId = 0;
+    movementInfo[movGfx]->posId = START_POS;
 }
 
 void movementMgr_initSystem(){
@@ -30,8 +26,8 @@ void movementMgr_updateDirection(MovementGfx movGfx, Direction direction){
 }
 
 int8 movementMgr_getMultiplier(Direction direction, uint8 posId){
-    return (((posId == 0) && (direction == DIRECTION_BACKWARDS))
-    || ((posId == MATRIX_SIZE-1) && (direction == DIRECTION_FORWARDS))) ? -1 : 1;
+    return (((posId == START_POS) && (direction == DIRECTION_BACKWARDS))
+    || ((posId == MATRIX_SIZE-START_POS-1) && (direction == DIRECTION_FORWARDS))) ? -1 : 1;
 }
 
 void movementMgr_movePosition(MovementGfx gfxMove){
@@ -59,8 +55,8 @@ bool movementMgr_checkPosition(Direction direction, MovementGfx movGfx){
 
     return (direction == DIRECTION_FORWARDS && (movementInfo[movGfx]->sprite->spriteEntry->x >= movementInfo[movGfx]->destinyPos.x
            && movementInfo[movGfx]->sprite->spriteEntry->y >= movementInfo[movGfx]->destinyPos.y)) ||
-           direction == DIRECTION_BACKWARDS && (movementInfo[movGfx]->sprite->spriteEntry->x <= movementInfo[movGfx]->destinyPos.x
-           && movementInfo[movGfx]->sprite->spriteEntry->y <= movementInfo[movGfx]->destinyPos.y);
+           (direction == DIRECTION_BACKWARDS && (movementInfo[movGfx]->sprite->spriteEntry->x <= movementInfo[movGfx]->destinyPos.x
+           && movementInfo[movGfx]->sprite->spriteEntry->y <= movementInfo[movGfx]->destinyPos.y));
 }
 
 bool movementMgr_nextPositionReached(MovementGfx movGfx){
@@ -76,6 +72,14 @@ bool movementMgr_nextPositionReached(MovementGfx movGfx){
     }
 
     return false;
+}
+
+uint8 movementMgr_getPositionX(){ return movementInfo[MOVEMENT_INATRIX_X]->posId; }
+uint8 movementMgr_getPositionY(){ return movementInfo[MOVEMENT_INATRIX_Y]->posId; }
+
+void movementMgr_setHomePosition(MovementGfx movGfx, uint8 x, uint8 y){
+    movementInfo[movGfx]->homePos.x = x;
+    movementInfo[movGfx]->homePos.y = y;
 }
 
 void movementMgr_destructor(){

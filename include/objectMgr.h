@@ -1,5 +1,5 @@
 //
-// Created by Eideann on 2/5/22.
+// Created by Geru on 2/5/22.
 //
 
 #ifndef INATRIX_OVERFLOW_OBJECTMGR_H

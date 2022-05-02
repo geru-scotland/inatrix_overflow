@@ -136,6 +136,14 @@ bool matrix_bitConjuctionEffect(){
     return true;
 }
 
+void matrix_activatePivot(){
+    // Test
+    sprites_displaySprite(matrix[pivot->i][pivot->j]->sprite->index,
+                          matrix[pivot->i][pivot->j]->sprite->spriteEntry->x,
+                          matrix[pivot->i][pivot->j]->sprite->spriteEntry->y,
+                          true);
+}
+
 /*
 *********************
 *********************
