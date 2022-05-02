@@ -11,6 +11,7 @@
 #define TIMER0_DAT  (*(vuint16*)0x04000100)
 
 #define TIMER0_FREQ 512
+#define EVENT_FREQ 100
 
 extern void timer_UpdateTimer();
 extern void timer_ConfigureTimer(int latch, int mask);
