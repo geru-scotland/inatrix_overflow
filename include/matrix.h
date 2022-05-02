@@ -49,6 +49,7 @@ extern uint8 matrix_getPositionX(uint8 axis);
 extern uint8 matrix_getPositionY(uint8 axis);
 extern void matrix_transposeMainMatrix();
 extern void matrix_permuteMatrix(MatrixElement* matrix[]);
+extern bool matrix_evalBitBlockOverflow();
 
 extern Binary baseMatrix[MATRIX_SIZE][MATRIX_SIZE];
 extern Binary baseBitBlockBuffer[BITBLOCK_SIZE][BITBLOCK_SIZE];

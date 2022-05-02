@@ -24,10 +24,10 @@ int tiempo;
 int SWITCH = 1;
 
 GameData gameData;
+PlayerData playerData;
 
 void game_Update(){
     input_UpdateKeyData();
-    // Aquí más updates que necesitemos.
 }
 
 int game_getNextPhase(){
@@ -41,14 +41,17 @@ int game_getNextPhase(){
 
     return PHASE_NULL;
 }
+
 void game_Loop()
 {
 	gameData.state = GAME_STATE_INTRO;
     gameData.phase = PHASE_INTRO_START;
+    playerData.overflowScore = 0;
 
 	while(SWITCH)
 	{
         game_Update();
+
 
         switch(gameData.state){
             case GAME_STATE_INTRO:
@@ -73,7 +76,7 @@ void game_Loop()
                     case PHASE_WAITING_PLAYER_INPUT:
                         if(keyData.isPressed){
                             switch(keyData.key){
-                                case INPUT_KEY_LEFT: // Mover izda, ahora sólo derecha.
+                                case INPUT_KEY_LEFT:
                                     movementMgr_updateDirection(MOVEMENT_INATRIX_X, DIRECTION_BACKWARDS);
                                     eventMgr_ScheduleEvent(EVENT_GAME_INATRIX_MOVE_X, NO_WAIT);
                                     break;
@@ -90,8 +93,7 @@ void game_Loop()
                                     eventMgr_ScheduleEvent(EVENT_GAME_INATRIX_MOVE_Y, NO_WAIT);
                                     break;
                                 case INPUT_KEY_A:
-                                    iprintf("\x1b[10;00H KEY A");
-                                    //Select pivot
+                                    eventMgr_ScheduleEvent(EVENT_GAME_EVALUATE_BITBLOCK, NO_WAIT);
                                     break;
                                 case INPUT_KEY_START:
                                     // Pause
@@ -119,7 +121,17 @@ void game_Loop()
     // De todos los arrays etc.
     // gfxInfo_freeMemory();
     // audioMgr_unloadSounds();
+}
 
+void game_manageScore(bool overflow){
+
+    if(overflow)
+        playerData.overflowScore++;
+    else{
+        if(playerData.overflowScore == 0){
+            // Game Over
+        }
+    }
 }
 
 

@@ -43,6 +43,7 @@ enum Events{
     EVENT_GAME_REGENERATE_MATRIX,
     EVENT_GAME_INATRIX_MOVE_X,
     EVENT_GAME_INATRIX_MOVE_Y,
+    EVENT_GAME_EVALUATE_BITBLOCK,
     EVENT_NEXT_PHASE,
     /*
      * No correspondiente a ningún evento en concreto
@@ -58,8 +59,7 @@ typedef struct {
 
 extern Event* eventList[MAX_EVENTS];
 extern int numEvents;
-extern int it, jt;
-//Funciones de Event Manager
+
 extern void eventMgr_InitEventSystem();
 extern void eventMgr_UpdateScheduledEvents();
 extern void eventMgr_AddEvent(Event *event);

@@ -49,7 +49,14 @@ typedef struct {
     int phase;
 } GameData;
 
-extern GameData gameData;
+typedef struct {
+    int overflowScore;
+} PlayerData;
 
+extern GameData gameData;
+extern PlayerData playerData;
+
+extern void game_Loop();
+extern void game_manageScore();
 extern int game_getNextPhase();
 #endif //GAME_H

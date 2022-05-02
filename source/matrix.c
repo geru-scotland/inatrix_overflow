@@ -237,7 +237,7 @@ void matrix_transposeMainMatrix(){
 
 void matrix_permuteMatrix(MatrixElement* matrix1D[]){
 
-    int upper = MATRIX_SIZE*MATRIX_SIZE -1;
+    int upper = (MATRIX_SIZE*MATRIX_SIZE) - 1;
     srand(time(0));
 
     while(upper > 10 ){
@@ -265,6 +265,13 @@ void matrix_updatePivot(uint8 i, uint8 j){
         pivot->i = i;
         pivot->j = j;
     }
+}
+
+bool matrix_evalBitBlockOverflow(){
+    /**
+     * 1. Recorrer el Bitblock [-1, 1]
+     * 2. De cada fila, la pos i determina la potencia
+     */
 }
 
 // Hacer puntero a función

@@ -15,9 +15,7 @@
 Event* eventList[MAX_EVENTS];
 
 int numEvents;
-// Test
-int pi = 3;
-int pj = 3;
+
 #ifdef DEBUG_MODE
 int lineDelete = 8;
 int lineAdd = 0;
@@ -178,7 +176,6 @@ void eventMgr_UpdateScheduledEvents(){
                     //eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_5_SECONDS);
                     break;
                 case EVENT_GAME_DROP_BITBLOCK:
-                    matrix_updatePivot(pi,pj);
                     gameData.phase = PHASE_BITBLOCK_FALLING;
                     break;
                 case EVENT_GAME_REGENERATE_BITBLOCK:
@@ -203,6 +200,11 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_GAME_INATRIX_MOVE_Y:
                     movementMgr_movePosition(MOVEMENT_INATRIX_Y);
                     gameData.phase = PHASE_MOVE_INATRIX_Y;
+                    break;
+                case EVENT_GAME_EVALUATE_BITBLOCK:
+                    // Cuando el usuario presiona tecla / p.táctil
+                    // Overflow o -1 overflow
+                    game_manageScore(matrix_evalBitBlockOverflow());
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
                     background_setBackground(BG_MATRIX);
