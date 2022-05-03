@@ -139,6 +139,7 @@ bool matrix_bitConjuctionEffect(){
 
 void matrix_bitShakeEffect(int8 state){
     matrix[pivot->i][pivot->j]->sprite->spriteEntry->x = (MATRIX_X_POS + (pivot->j * MATRIX_X_PADDING))+(state * 2);
+    //state == -1 ? matrix_deactivatePivot() : matrix_activatePivot();
 }
 
 void matrix_bitResetPosEffect(){

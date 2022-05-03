@@ -213,9 +213,9 @@ void eventMgr_UpdateScheduledEvents(){
                     bool ovf = matrix_evalBitBlockOverflow();
                     game_manageScore(ovf);
                     if(ovf)
-                        eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_5_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_2_SECONDS);
                     else
-                        eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_3_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_3_SECONDS);
 
                     // Si overflow, poner en no wait LETRAS PANTALLA ARRIBA
                     // Que ponga overflow! etc
@@ -249,7 +249,7 @@ void eventMgr_UpdateScheduledEvents(){
  * manera instantánea
  */
 void eventMgr_UpdatePhases(){
-    if(timer.ticks % 13 != 0)
+    if(timer.ticks % 10 != 0)
         return;
     switch(gameData.phase){
         case PHASE_BITBLOCK_FALLING:
@@ -288,7 +288,7 @@ void eventMgr_UpdatePhases(){
 }
 
 void eventMgr_UpdateAnimations(){
-    if(timer.ticks % 25 != 0)
+    if(timer.ticks % 10 != 0)
         return;
 
     // Comprobar si hay animaciones activas

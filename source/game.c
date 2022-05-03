@@ -125,8 +125,12 @@ void game_Loop()
 }
 
 void game_manageScore(bool overflow){
-    if(overflow)
+    if(overflow){
         playerData.overflowScore++;
+        if(playerData.overflowScore >= 2){
+            eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX, IN_4_SECONDS);
+        }
+    }
     else{
         playerData.overflowScore--;
         playerData.failScore++;
