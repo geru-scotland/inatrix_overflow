@@ -23,6 +23,9 @@ enum TimeMarks {
 };
 
 enum Events{
+    /**
+     * INTRO
+     */
     EVENT_INTRO_START = 0,
     EVENT_INTRO_TEXT1,
     EVENT_INTRO_TEXT2,
@@ -35,6 +38,10 @@ enum Events{
     EVENT_INTRO_SETBACKGROUND1,
     EVENT_INTRO_SETBACKGROUND2,
     EVENT_INTRO_FINISH,
+
+    /**
+     * GAME
+     */
     EVENT_GAME_START,
     EVENT_GAME_DROP_BITBLOCK,
     EVENT_GAME_HIDE_MATRIX,
@@ -44,10 +51,10 @@ enum Events{
     EVENT_GAME_INATRIX_MOVE_X,
     EVENT_GAME_INATRIX_MOVE_Y,
     EVENT_GAME_EVALUATE_BITBLOCK,
+    EVENT_GAME_UI_SHOW_OVERFLOW,
+    EVENT_GAME_UI_SHOW_BASE,
+    //
     EVENT_NEXT_PHASE,
-    /*
-     * No correspondiente a ningún evento en concreto
-     */
     EVENT_CLEAR_CONSOLE
 };
 

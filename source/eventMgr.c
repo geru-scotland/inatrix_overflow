@@ -11,6 +11,7 @@
 #include "../include/matrix.h"
 #include "../include/movementMgr.h"
 #include "../include/objectMgr.h"
+#include "../include/consoleUI.h"
 
 Event* eventList[MAX_EVENTS];
 
@@ -180,7 +181,8 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_GAME_REGENERATE_BITBLOCK:
                     matrix_regenerateBitBlock();
-                    eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_3_SECONDS);
+                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+                    //eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_3_SECONDS);
                     break;
                 case EVENT_GAME_HIDE_MATRIX:
                     matrix_displayMatrix(false);
@@ -202,9 +204,12 @@ void eventMgr_UpdateScheduledEvents(){
                     gameData.phase = PHASE_MOVE_INATRIX_Y;
                     break;
                 case EVENT_GAME_EVALUATE_BITBLOCK:
-                    // Cuando el usuario presiona tecla / p.táctil
-                    // Overflow o -1 overflow
                     game_manageScore(matrix_evalBitBlockOverflow());
+                    eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_3_SECONDS);
+
+                    // Si overflow, poner en no wait LETRAS PANTALLA ARRIBA
+                    // Que ponga overflow! etc
+                    // Y luego volver al texto base
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
                     background_setBackground(BG_MATRIX);
@@ -253,17 +258,17 @@ void eventMgr_UpdatePhases(){
             break;
         case PHASE_MOVE_INATRIX_X:
             if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_X)){
-                matrix_deactivatePivot();
+                //matrix_deactivatePivot();
                 matrix_updatePivot(movementMgr_getPositionY(), movementMgr_getPositionX());
-                matrix_activatePivot();
+                //matrix_activatePivot();
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
             }
             break;
         case PHASE_MOVE_INATRIX_Y:
             if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_Y)){
-                matrix_deactivatePivot();
+                //matrix_deactivatePivot();
                 matrix_updatePivot(movementMgr_getPositionY(), movementMgr_getPositionX());
-                matrix_activatePivot();
+                //matrix_activatePivot();
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
             }
             break;

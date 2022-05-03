@@ -277,6 +277,8 @@ bool matrix_evalBitBlockOverflow(){
             power--;
         }
     }
+    // TODO: Si una fila son todo 0s, da problemas. Revisar.
+    iprintf("\x1b[10;00H decValue = %i", decValue);
     return decValue > OVERFLOW_LIM;
 }
 
@@ -287,7 +289,6 @@ bool matrix_evalBitBlockOverflow(){
 *********************
 *********************
 */
-
 
 
 // Hacer puntero a función
