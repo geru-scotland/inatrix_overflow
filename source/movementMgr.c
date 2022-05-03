@@ -19,6 +19,7 @@ void movementMgr_initSystem(){
     movementMgr_allocateMovements(MOVEMENT_INATRIX_Y);
     movementInfo[MOVEMENT_INATRIX_X]->sprite = sprites[GFX_INATRIX_X];
     movementInfo[MOVEMENT_INATRIX_Y]->sprite = sprites[GFX_INATRIX_Y];
+    matrix_updatePivot(START_POS, START_POS);
 }
 
 void movementMgr_updateDirection(MovementGfx movGfx, Direction direction){

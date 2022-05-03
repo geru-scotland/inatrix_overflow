@@ -177,9 +177,9 @@ void matrix_regenerateBitBlock(){
     for(int i = -1; i <= 1; i++){
         for(int j = -1; j <= 1; j++){
             tmp[i+1][j+1] = matrix[pivot->i + i][pivot->j + j];
-            matrix[pivot->i + i][pivot->i + j] = bitBlockBuffer[i+1][j+1];
+            matrix[pivot->i + i][pivot->j + j] = bitBlockBuffer[i+1][j+1];
             bitBlockBuffer[i+1][j+1] = tmp[i+1][j+1];
-            sprites_displaySprite(matrix[pivot->i + i][pivot->i + j]->sprite->index,
+            sprites_displaySprite(matrix[pivot->i + i][pivot->j + j]->sprite->index,
                                   MATRIX_X_POS + ((pivot->j + j) * MATRIX_X_PADDING),
                                   MATRIX_Y_POS + ((pivot->i + i) * MATRIX_Y_PADDING),
                                   false);
