@@ -8,6 +8,7 @@
 #include "../include/defines.h"
 
 KeyData keyData;
+touchPosition screen;
 
 void input_ConfigureInput(int mask)
 {
@@ -75,4 +76,19 @@ int input_KeyPressed()
         default:
             return -1;
     }
+}
+
+bool input_touchScreenUsed() {
+    touchRead(&screen);
+    return (screen.px != 0 && screen.py != 0);
+}
+
+int input_getTouchScreenX() {
+    touchRead(&screen);
+    return screen.px;
+}
+
+int input_getTouchScreenY() {
+    touchRead(&screen);
+    return screen.py;
 }
