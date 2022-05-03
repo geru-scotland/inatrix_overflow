@@ -39,6 +39,7 @@ void timer_UpdateTimer()
     timer.ticks++;
     timer.totalTicks++;
     eventMgr_UpdateScheduledEvents();
+    eventMgr_UpdateAnimations();
     if(timer.ticks == TIMER0_FREQ){
         timer.time++; // Seconds++
         timer.ticks = 0;

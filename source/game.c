@@ -19,6 +19,7 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/backgrounds.h"
 #include "../include/game.h"
 #include "../include/timer.h"
+#include "../include/consoleUI.h"
 
 int tiempo;
 int SWITCH = 1;
@@ -57,7 +58,7 @@ void game_Loop()
             case GAME_STATE_INTRO:
                 switch(gameData.phase){
                     case PHASE_INTRO_START:
-                        eventMgr_ScheduleEvent(EVENT_INTRO_START, IN_5_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_GAME_START, IN_2_SECONDS);
                         eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND1, IN_2_SECONDS);
                         gameData.phase = PHASE_INTRO_SCENE_ACTIVE;
                         break;
@@ -124,18 +125,14 @@ void game_Loop()
 }
 
 void game_manageScore(bool overflow){
-
     if(overflow)
         playerData.overflowScore++;
     else{
-        if(playerData.overflowScore == 0){
+        playerData.overflowScore--;
+        playerData.failScore++;
+        if(playerData.overflowScore <= 0){
             // Game Over
         }
     }
+    consoleUI_showUI();
 }
-
-void game_consoleUI(){
-
-}
-
-

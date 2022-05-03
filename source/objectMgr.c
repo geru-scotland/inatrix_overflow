@@ -11,6 +11,12 @@ uint8 INATRIX_XHOME_POS_Y = INATRIX_X_POS_Y;
 uint8 INATRIX_YHOME_POS_X = MATRIX_X_POS-30;
 uint8 INATRIX_YHOME_POS_Y = MATRIX_Y_POS + MATRIX_Y_PADDING + 2;
 
+Animation* animations[ANIMATIONS_SIZE];
+
+void objectMgr_init(){
+    objectMgr_initAnimations();
+}
+
 void objectMgr_spawnInatrix(){
     sprites_displaySprite(GFX_INATRIX_X, INATRIX_XHOME_POS_X, INATRIX_XHOME_POS_Y, false);
     sprites_displaySprite(GFX_INATRIX_Y, INATRIX_YHOME_POS_X, INATRIX_YHOME_POS_Y, false);
@@ -20,4 +26,18 @@ void objectMgr_spawnInatrix(){
 
 void objectMgr_spawnCapsules(){
 
+}
+
+void objectMgr_initAnimations(){
+    animations[ANIMATION_BIT_SHAKE] = malloc(sizeof(Animation));
+    animations[ANIMATION_BIT_SHAKE]->active = false;
+    animations[ANIMATION_BIT_SHAKE]->state = -1;
+}
+
+void objectMgr_setAnimationActive(AnimID animID, bool active){
+    if(!active){
+        // matrix pivot set home position
+        matrix_bitResetPosEffect();
+    }
+    animations[ANIMATION_BIT_SHAKE]->active = active;
 }

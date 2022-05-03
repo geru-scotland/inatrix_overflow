@@ -174,6 +174,7 @@ void eventMgr_UpdateScheduledEvents(){
                     gameData.phase = PHASE_WAITING_PLAYER_INPUT;
                     matrix_displayMatrix(true);
                     objectMgr_spawnInatrix();
+                    consoleUI_showUI();
                     //eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_5_SECONDS);
                     break;
                 case EVENT_GAME_DROP_BITBLOCK:
@@ -185,27 +186,36 @@ void eventMgr_UpdateScheduledEvents(){
                     //eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_3_SECONDS);
                     break;
                 case EVENT_GAME_HIDE_MATRIX:
+                    gameData.phase = PHASE_REGENERATING_MATRIX;
                     matrix_displayMatrix(false);
                     eventMgr_ScheduleEvent(EVENT_GAME_REGENERATE_MATRIX, IN_5_SECONDS);
                     break;
                 case EVENT_GAME_REGENERATE_MATRIX:
                     matrix_regenerateMatrix();
                     matrix_displayMatrix(true);
+                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
                     break;
                 case EVENT_GAME_DESTROY_MATRIX:
                     gameData.phase = PHASE_DESTROYING_MATRIX;
                     break;
                 case EVENT_GAME_INATRIX_MOVE_X:
                     movementMgr_movePosition(MOVEMENT_INATRIX_X);
+                    objectMgr_setAnimationActive(ANIMATION_BIT_SHAKE, false);
                     gameData.phase = PHASE_MOVE_INATRIX_X;
                     break;
                 case EVENT_GAME_INATRIX_MOVE_Y:
                     movementMgr_movePosition(MOVEMENT_INATRIX_Y);
+                    objectMgr_setAnimationActive(ANIMATION_BIT_SHAKE, false);
                     gameData.phase = PHASE_MOVE_INATRIX_Y;
                     break;
                 case EVENT_GAME_EVALUATE_BITBLOCK:
-                    game_manageScore(matrix_evalBitBlockOverflow());
-                    eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_3_SECONDS);
+                    objectMgr_setAnimationActive(ANIMATION_BIT_SHAKE, false);
+                    bool ovf = matrix_evalBitBlockOverflow();
+                    game_manageScore(ovf);
+                    if(ovf)
+                        eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_5_SECONDS);
+                    else
+                        eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_3_SECONDS);
 
                     // Si overflow, poner en no wait LETRAS PANTALLA ARRIBA
                     // Que ponga overflow! etc
@@ -258,17 +268,15 @@ void eventMgr_UpdatePhases(){
             break;
         case PHASE_MOVE_INATRIX_X:
             if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_X)){
-                //matrix_deactivatePivot();
                 matrix_updatePivot(movementMgr_getPositionY(), movementMgr_getPositionX());
-                //matrix_activatePivot();
+                objectMgr_setAnimationActive(ANIMATION_BIT_SHAKE, true);
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
             }
             break;
         case PHASE_MOVE_INATRIX_Y:
             if(movementMgr_nextPositionReached(MOVEMENT_INATRIX_Y)){
-                //matrix_deactivatePivot();
                 matrix_updatePivot(movementMgr_getPositionY(), movementMgr_getPositionX());
-                //matrix_activatePivot();
+                objectMgr_setAnimationActive(ANIMATION_BIT_SHAKE, true);
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
             }
             break;
@@ -280,5 +288,18 @@ void eventMgr_UpdatePhases(){
 }
 
 void eventMgr_UpdateAnimations(){
+    if(timer.ticks % 25 != 0)
+        return;
 
+    // Comprobar si hay animaciones activas
+    for(int anim = 0; anim < ANIMATIONS_SIZE; anim++){
+        if(animations[anim]->active){
+            switch(anim){
+                case ANIMATION_BIT_SHAKE:
+                    animations[anim]->state *= -1;
+                    matrix_bitShakeEffect(animations[anim]->state);
+                    break;
+            }
+        }
+    }
 }

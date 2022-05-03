@@ -31,6 +31,7 @@ typedef enum {
     PHASE_MOVE_RED_CAPSULE,
     PHASE_BITBLOCK_FALLING,
     PHASE_DESTROYING_MATRIX,
+    PHASE_REGENERATING_MATRIX,
     /* MENU */
     /* GAME */
     PHASE_MOVE_INATRIX_X,
@@ -53,6 +54,7 @@ typedef struct {
 
 typedef struct {
     int overflowScore;
+    int failScore;
 } PlayerData;
 
 extern GameData gameData;

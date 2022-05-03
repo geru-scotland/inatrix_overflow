@@ -137,6 +137,14 @@ bool matrix_bitConjuctionEffect(){
     return true;
 }
 
+void matrix_bitShakeEffect(int8 state){
+    matrix[pivot->i][pivot->j]->sprite->spriteEntry->x = (MATRIX_X_POS + (pivot->j * MATRIX_X_PADDING))+(state * 2);
+}
+
+void matrix_bitResetPosEffect(){
+    matrix[pivot->i][pivot->j]->sprite->spriteEntry->x = (MATRIX_X_POS + (pivot->j * MATRIX_X_PADDING));
+}
+
 void matrix_deactivatePivot(){
     // Test
     sprites_displaySprite(matrix[pivot->i][pivot->j]->sprite->index,
@@ -270,15 +278,20 @@ void matrix_updatePivot(uint8 i, uint8 j){
 
 bool matrix_evalBitBlockOverflow(){
     int decValue = 0;
+    int line = 8;
     for(int i = -1; i <= 1; i++){
         double power = BITBLOCK_SIZE - 1;
         for(int j = -1; j <= 1; j++){
             decValue += matrix[pivot->i + i][pivot->j + j]->bit * pow(2, power);
             power--;
+            line+=2;
         }
     }
     // TODO: Si una fila son todo 0s, da problemas. Revisar.
-    iprintf("\x1b[10;00H decValue = %i", decValue);
+    // PONERTE DE MANERA EXPLICITA UNA LINEA POR BIT
+    // PONER EL VALOR DEL BIT ASOCIADO AL STRUCT ojo con el valor de power a ver.
+//    iprintf("\x1b[%i;00H m[%i,%i] = %i - p: %i - r: %i", line, pivot->i + i, pivot->j + j, matrix[pivot->i + i][pivot->j + j]->bit, power, pow(2, power));
+
     return decValue > OVERFLOW_LIM;
 }
 

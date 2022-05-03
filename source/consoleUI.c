@@ -11,6 +11,8 @@ void consoleUI_showUI(){
 }
 
 void consoleUI_showOverflow(){
+    // ASCII Text, que se active una secuencia y vaya recorriendo la consola
+    // que vaya llamando a funciones con el texto desplazado rollo, 1, 2.
     iprintf("\x1b[2J"); // Forzamos un clear console
     iprintf("\x1b[10;00H OOOOVERFLOOWWW!!!");
 }
