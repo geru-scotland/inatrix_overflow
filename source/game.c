@@ -47,6 +47,7 @@ void game_Loop()
 {
 	gameData.state = GAME_STATE_INTRO;
     gameData.phase = PHASE_INTRO_START;
+    gameData.mode = DIFFICULTY_NORMAL_MODE; // TODO: Quitar esto cuando implementes capsulas selection
     playerData.overflowScore = 0;
 
 	while(SWITCH)
@@ -139,4 +140,19 @@ void game_manageScore(bool overflow){
         }
     }
     consoleUI_showUI();
+}
+
+// Capsula Azul: Normal mode (Overflow @ 9)
+// Capsula Roja: Hard mode (Overflow @ 15)
+void game_setDifficulty(Difficulty difficulty){
+    gameData.mode = difficulty;
+}
+
+void game_setDestroyMatrix(bool active){
+    gameData.destroyMatrixActive = active;
+}
+
+void game_enableDestroyMatrix(){
+    gameData.destroyMatrixActive = true;
+    gameData.destroyMatrixTime = 30;
 }

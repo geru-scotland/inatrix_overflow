@@ -10,7 +10,6 @@ game.h
 void game_Loop();
 void game_Update();
 
-
 enum States {
     // Estados generales del juego
     GAME_STATE_INTRO,
@@ -38,6 +37,11 @@ typedef enum {
     PHASE_MOVE_INATRIX_Y
 } Phases;
 
+typedef enum {
+    DIFFICULTY_NORMAL_MODE = 0,
+    DIFFICULTY_EASY_MODE = 1
+} Difficulty;
+
 /*
  * Información general del juego.
  * state: estado actual del juego.
@@ -50,6 +54,9 @@ typedef enum {
 typedef struct {
     int state;
     int phase;
+    Difficulty mode;
+    bool destroyMatrixActive;
+    int destroyMatrixTime;
 } GameData;
 
 typedef struct {
@@ -62,5 +69,8 @@ extern PlayerData playerData;
 
 extern void game_Loop();
 extern void game_manageScore(bool overflow);
+extern void game_setDifficulty(Difficulty difficulty);
+extern void game_setDestroyMatrix(bool active);
+extern void game_enableDestroyMatrix();
 extern int game_getNextPhase();
 #endif //GAME_H

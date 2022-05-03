@@ -5,6 +5,7 @@
 #include "../include/matrix.h"
 #include "../include/gfxInfo.h"
 #include "../include/eventMgr.h"
+#include "../include/game.h"
 #include <math.h>
 #include <time.h>
 
@@ -279,13 +280,11 @@ void matrix_updatePivot(uint8 i, uint8 j){
 
 bool matrix_evalBitBlockOverflow(){
     int decValue = 0;
-    int line = 8;
     for(int i = -1; i <= 1; i++){
         double power = BITBLOCK_SIZE - 1;
         for(int j = -1; j <= 1; j++){
             decValue += matrix[pivot->i + i][pivot->j + j]->bit * pow(2, power);
             power--;
-            line+=2;
         }
     }
     // TODO: Si una fila son todo 0s, da problemas. Revisar.
@@ -293,7 +292,7 @@ bool matrix_evalBitBlockOverflow(){
     // PONER EL VALOR DEL BIT ASOCIADO AL STRUCT ojo con el valor de power a ver.
 //    iprintf("\x1b[%i;00H m[%i,%i] = %i - p: %i - r: %i", line, pivot->i + i, pivot->j + j, matrix[pivot->i + i][pivot->j + j]->bit, power, pow(2, power));
 
-    return decValue > OVERFLOW_LIM;
+    return decValue > matrix_getOverflowLimit();
 }
 
 /*
@@ -304,6 +303,9 @@ bool matrix_evalBitBlockOverflow(){
 *********************
 */
 
+uint8 matrix_getOverflowLimit(){
+    return gameData.mode == DIFFICULTY_EASY_MODE ? OVERFLOW_EM : OVERFLOW_HM;
+}
 
 // Hacer puntero a función
 uint8 matrix_getPositionX(uint8 axis){

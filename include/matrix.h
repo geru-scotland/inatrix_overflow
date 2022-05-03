@@ -18,7 +18,8 @@
 #define MATRIX_BLOCK 9
 #define BITBLOCK_SIZE 3
 
-#define OVERFLOW_LIM 9
+#define OVERFLOW_EM 9
+#define OVERFLOW_HM 15
 
 typedef bool Binary;
 
@@ -49,6 +50,7 @@ extern void matrix_deactivatePivot();
 extern void matrix_activatePivot();
 extern void matrix_regenerateBitBlock();
 extern void matrix_regenerateMatrix();
+extern uint8 matrix_getOverflowLimit();
 extern uint8 matrix_getPositionX(uint8 axis);
 extern uint8 matrix_getPositionY(uint8 axis);
 extern void matrix_transposeMainMatrix();

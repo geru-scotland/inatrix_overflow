@@ -175,15 +175,29 @@ void eventMgr_UpdateScheduledEvents(){
                     matrix_displayMatrix(true);
                     objectMgr_spawnInatrix();
                     consoleUI_showUI();
+                    game_enableDestroyMatrix();
+                    eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
                     //eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_5_SECONDS);
+                    break;
+                case EVENT_GAME_DESTROY_MATRIX_CHECK:
+                    if(gameData.destroyMatrixActive){
+                        gameData.destroyMatrixTime -= 1;
+                        consoleUI_showUI();
+                        if(gameData.destroyMatrixTime <= 0){
+                            game_setDestroyMatrix(false);
+                            eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX, NO_WAIT);
+                        }
+                        eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
+                    }
                     break;
                 case EVENT_GAME_DROP_BITBLOCK:
                     gameData.phase = PHASE_BITBLOCK_FALLING;
                     break;
                 case EVENT_GAME_REGENERATE_BITBLOCK:
                     matrix_regenerateBitBlock();
+                    game_setDestroyMatrix(true);
                     gameData.phase = PHASE_WAITING_PLAYER_INPUT;
-                    //eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
                     break;
                 case EVENT_GAME_HIDE_MATRIX:
                     gameData.phase = PHASE_REGENERATING_MATRIX;
@@ -194,6 +208,9 @@ void eventMgr_UpdateScheduledEvents(){
                     matrix_regenerateMatrix();
                     matrix_displayMatrix(true);
                     gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+                    game_enableDestroyMatrix();
+                    game_setDestroyMatrix(true);
+                    eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
                     break;
                 case EVENT_GAME_DESTROY_MATRIX:
                     gameData.phase = PHASE_DESTROYING_MATRIX;
@@ -212,14 +229,20 @@ void eventMgr_UpdateScheduledEvents(){
                     objectMgr_setAnimationActive(ANIMATION_BIT_SHAKE, false);
                     bool ovf = matrix_evalBitBlockOverflow();
                     game_manageScore(ovf);
-                    if(ovf)
-                        eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_2_SECONDS);
-                    else
-                        eventMgr_ScheduleEvent(EVENT_GAME_HIDE_MATRIX, IN_3_SECONDS);
-
-                    // Si overflow, poner en no wait LETRAS PANTALLA ARRIBA
-                    // Que ponga overflow! etc
-                    // Y luego volver al texto base
+                    if(ovf){
+                        game_setDestroyMatrix(false);
+                        consoleUI_showOverflow();
+                        eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_4_SECONDS);
+                    }else{
+                        game_setDestroyMatrix(false);
+                        consoleUI_showFail();
+                        eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_4_SECONDS);
+                    }
+                    eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_2_SECONDS);
+                    break;
+                case EVENT_GAME_UI_SHOW_BASE:
+                    gameData.destroyMatrixActive = true;
+                    consoleUI_showUI();
                     break;
                 case EVENT_INTRO_SETBACKGROUND1:
                     background_setBackground(BG_MATRIX);
