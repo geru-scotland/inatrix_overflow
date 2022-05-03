@@ -3,7 +3,9 @@ game.h
 ---------------------------------------------------------------------------------*/
 #ifndef GAME_H
 #define GAME_H
-#define GAME_FPS_CAP 1600
+#define GAME_FPS_CAP 16
+
+#include <stdbool.h>
 
 void game_Loop();
 void game_Update();
@@ -58,6 +60,5 @@ extern PlayerData playerData;
 
 extern void game_Loop();
 extern void game_manageScore(bool overflow);
-extern void game_consoleUI();
 extern int game_getNextPhase();
 #endif //GAME_H
