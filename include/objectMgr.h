@@ -31,5 +31,8 @@ extern void objectMgr_spawnInatrix();
 extern void objectMgr_spawnCapsules();
 extern void objectMgr_setAnimationActive(AnimID animID, bool active);
 
+extern int objectMgr_objectAreaClicked(int x, int y);
+extern void objectMgr_manageSelectedCapsule(int mode);
+
 extern Animation* animations[ANIMATIONS_SIZE];
 #endif //INATRIX_OVERFLOW_OBJECTMGR_H

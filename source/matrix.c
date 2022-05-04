@@ -112,7 +112,7 @@ bool matrix_destroyMatrixEffect(){
         for(int j = 0; j < MATRIX_SIZE; j++)
             if((matrix[i][j]->sprite != NULL)
             && (matrix[i][j]->sprite->spriteEntry->y <= WINDOW_HEIGHT))
-                matrix[i][j]->sprite->spriteEntry->y +=1;
+                matrix[i][j]->sprite->spriteEntry->y +=2;
 
     return matrix[MATRIX_FIRST][MATRIX_FIRST]->sprite->spriteEntry->y <= WINDOW_HEIGHT;
 }
@@ -129,7 +129,7 @@ bool matrix_dropBitBlockEffect(){
             if(matrix[pivot->i + i][pivot->j + j]->sprite->spriteEntry->y >= WINDOW_HEIGHT)
                 out++;
             else
-                matrix[pivot->i + i][pivot->j + j]->sprite->spriteEntry->y +=1;
+                matrix[pivot->i + i][pivot->j + j]->sprite->spriteEntry->y +=2;
     return out != MATRIX_BLOCK;
 }
 
@@ -304,7 +304,7 @@ bool matrix_evalBitBlockOverflow(){
 */
 
 uint8 matrix_getOverflowLimit(){
-    return gameData.mode == DIFFICULTY_EASY_MODE ? OVERFLOW_EM : OVERFLOW_HM;
+    return gameData.mode == DIFFICULTY_NORMAL_MODE ? OVERFLOW_NM : OVERFLOW_HM;
 }
 
 // Hacer puntero a función

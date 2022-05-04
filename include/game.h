@@ -23,23 +23,23 @@ enum States {
 
 typedef enum {
     PHASE_NULL = 0,
+    PHASE_WAITING_PLAYER_INPUT,
     /* INTRO */
     PHASE_INTRO_START,
     PHASE_INTRO_SCENE_ACTIVE,
-    PHASE_WAITING_PLAYER_INPUT,
-    PHASE_MOVE_RED_CAPSULE,
+    PHASE_MOVE_CAPSULE,
+    /* MENU */
+    /* GAME */
     PHASE_BITBLOCK_FALLING,
     PHASE_DESTROYING_MATRIX,
     PHASE_REGENERATING_MATRIX,
-    /* MENU */
-    /* GAME */
     PHASE_MOVE_INATRIX_X,
     PHASE_MOVE_INATRIX_Y
 } Phases;
 
 typedef enum {
     DIFFICULTY_NORMAL_MODE = 0,
-    DIFFICULTY_EASY_MODE = 1
+    DIFFICULTY_HARD_MODE = 1
 } Difficulty;
 
 /*
@@ -57,6 +57,7 @@ typedef struct {
     Difficulty mode;
     bool destroyMatrixActive;
     int destroyMatrixTime;
+    int matrixRegens;
 } GameData;
 
 typedef struct {
@@ -69,8 +70,10 @@ extern PlayerData playerData;
 
 extern void game_Loop();
 extern void game_manageScore(bool overflow);
+extern void game_initData();
 extern void game_setDifficulty(Difficulty difficulty);
 extern void game_setDestroyMatrix(bool active);
 extern void game_enableDestroyMatrix();
+extern void game_increaseMatrixRegens();
 extern int game_getNextPhase();
 #endif //GAME_H

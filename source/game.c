@@ -20,8 +20,8 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/game.h"
 #include "../include/timer.h"
 #include "../include/consoleUI.h"
+#include "../include/objectMgr.h"
 
-int tiempo;
 int SWITCH = 1;
 
 GameData gameData;
@@ -48,26 +48,33 @@ void game_Loop()
 	gameData.state = GAME_STATE_INTRO;
     gameData.phase = PHASE_INTRO_START;
     gameData.mode = DIFFICULTY_NORMAL_MODE; // TODO: Quitar esto cuando implementes capsulas selection
-    playerData.overflowScore = 0;
+    game_initData();
 
 	while(SWITCH)
 	{
         game_Update();
 
-
         switch(gameData.state){
             case GAME_STATE_INTRO:
                 switch(gameData.phase){
                     case PHASE_INTRO_START:
-                        eventMgr_ScheduleEvent(EVENT_GAME_START, IN_2_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_INTRO_TEXT4, IN_2_SECONDS);
                         eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND1, IN_2_SECONDS);
                         gameData.phase = PHASE_INTRO_SCENE_ACTIVE;
                         break;
                     case PHASE_WAITING_PLAYER_INPUT:
-                        if(keyData.isPressed && (keyData.key == INPUT_KEY_START)){
-                            eventMgr_ScheduleEvent(EVENT_INTRO_CAPSULE_RED, NO_WAIT);
-                            gameData.phase = PHASE_NULL;
-                        }
+                            if(input_touchScreenUsed()){
+                                int capsule = objectMgr_objectAreaClicked(input_getTouchScreenX(), input_getTouchScreenY());
+                                if(capsule != -1){
+                                    if(capsule == GFX_CAPSULE_RED){
+                                        gameData.mode = DIFFICULTY_HARD_MODE;
+                                    }else{
+                                        gameData.mode = DIFFICULTY_NORMAL_MODE;
+                                    }
+                                    gameData.phase = PHASE_NULL;
+                                    eventMgr_ScheduleEvent(EVENT_INTRO_CAPSULE_SELECTED, NO_WAIT);
+                                }
+                            }
                         break;
                     default:
                         break;
@@ -128,20 +135,24 @@ void game_Loop()
 void game_manageScore(bool overflow){
     if(overflow){
         playerData.overflowScore++;
-        if(playerData.overflowScore >= 2){
-            eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX, IN_4_SECONDS);
-        }
-    }
-    else{
+
+    }else{
         playerData.overflowScore--;
         playerData.failScore++;
         if(playerData.overflowScore <= 0){
             // Game Over
+            //gameData.state = GAME_STATE_GAME_OVER;
+            return;
         }
     }
     consoleUI_showUI();
 }
 
+void game_initData(){
+    playerData.overflowScore = 0;
+    playerData.failScore = 0;
+    gameData.matrixRegens = 0;
+}
 // Capsula Azul: Normal mode (Overflow @ 9)
 // Capsula Roja: Hard mode (Overflow @ 15)
 void game_setDifficulty(Difficulty difficulty){
@@ -155,4 +166,8 @@ void game_setDestroyMatrix(bool active){
 void game_enableDestroyMatrix(){
     gameData.destroyMatrixActive = true;
     gameData.destroyMatrixTime = 30;
+}
+
+void game_increaseMatrixRegens(){
+    gameData.matrixRegens++;
 }

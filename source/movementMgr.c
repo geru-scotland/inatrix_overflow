@@ -83,6 +83,20 @@ void movementMgr_setHomePosition(MovementGfx movGfx, uint8 x, uint8 y){
     movementInfo[movGfx]->homePos.y = y;
 }
 
+bool movementMgr_hasGfxReachedDest(GfxID gfxId){
+
+    // Cambiar esto, chapuza, pero estoy reventado. Generalizar.
+    if(gfxId == GFX_CAPSULE_RED){
+        sprites[gfxId]->spriteEntry->x -= 1;
+    }else
+        sprites[gfxId]->spriteEntry->x += 1;
+
+    sprites[gfxId]->spriteEntry->y -= 1;
+
+    return (gfxId == GFX_CAPSULE_RED && sprites[gfxId]->spriteEntry->x <= 120) ||
+            (gfxId == GFX_CAPSULE_BLUE && sprites[gfxId]->spriteEntry->x >= 120);
+}
+
 void movementMgr_destructor(){
     free(movementInfo[MOVEMENT_INATRIX_X]);
     free(movementInfo[MOVEMENT_INATRIX_Y]);

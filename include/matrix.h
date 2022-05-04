@@ -18,7 +18,7 @@
 #define MATRIX_BLOCK 9
 #define BITBLOCK_SIZE 3
 
-#define OVERFLOW_EM 9
+#define OVERFLOW_NM 9
 #define OVERFLOW_HM 15
 
 typedef bool Binary;
