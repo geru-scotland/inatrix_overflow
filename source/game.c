@@ -118,6 +118,7 @@ void game_Loop()
                 }
                 break;
             case GAME_STATE_GAME_OVER:
+                consoleUI_showGameOver();
                 break;
             case GAME_STATE_STATS:
                 break;
@@ -140,8 +141,7 @@ void game_manageScore(bool overflow){
         playerData.overflowScore--;
         playerData.failScore++;
         if(playerData.overflowScore <= 0){
-            // Game Over
-            //gameData.state = GAME_STATE_GAME_OVER;
+            eventMgr_ScheduleEvent(EVENT_GAME_OVER, IN_1_SECONDS);
             return;
         }
     }

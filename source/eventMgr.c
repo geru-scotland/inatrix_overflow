@@ -148,7 +148,6 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[10;00H I see... good choice.");
                     objectMgr_manageSelectedCapsule(gameData.mode);
                     gameData.phase = PHASE_MOVE_CAPSULE;
-                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT5, IN_2_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_2_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_FINISH1, IN_4_SECONDS); // Ojo, algo más introductorio rollo into the matrix.
                     break;
@@ -179,10 +178,10 @@ void eventMgr_UpdateScheduledEvents(){
                     consoleUI_showIntro2();
                     eventMgr_ScheduleEvent(EVENT_GAME_START_DEST_MATRIX, IN_5_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_5_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
                     break;
                 case EVENT_GAME_START_DEST_MATRIX:
                     game_enableDestroyMatrix();
+                    eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
                     break;
                 case EVENT_GAME_DESTROY_MATRIX_CHECK:
                     if(gameData.destroyMatrixActive){
@@ -261,6 +260,9 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_NEXT_PHASE:
                     gameData.phase = game_getNextPhase();
+                    break;
+                case EVENT_GAME_OVER:
+                    consoleUI_showGameOver();
                     break;
                 default:
                     break;
