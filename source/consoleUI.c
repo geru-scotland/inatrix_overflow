@@ -37,6 +37,12 @@ void consoleUI_showIntro2(){
     iprintf("\x1b[14;00H |___________________________");
 }
 
+// Para mostrar las teclas por interrupción
+// Enmascararlas como que son interferencias del Agente Smith
+// en el Matrix.
+// Por ejemplo, sustituir el showUI, solo la parte de **** the matrix****
+// Por algún texto.
+
 void consoleUI_showUI(){
     char nm[] = "Normal";
     char hm[] = "Hard";
@@ -86,6 +92,7 @@ void consoleUI_showOverflow(){
 
 }
 
+// Meter citas de Iñaki random.
 void consoleUI_showFail(){
     iprintf("\x1b[2J"); // Forzamos un clear console
     iprintf("\x1b[10;00H 'Me he columpiao!'");
