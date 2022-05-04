@@ -3,11 +3,12 @@ game.h
 ---------------------------------------------------------------------------------*/
 #ifndef GAME_H
 #define GAME_H
-#define GAME_FPS_CAP 1600
+#define GAME_FPS_CAP 16
+
+#include <stdbool.h>
 
 void game_Loop();
 void game_Update();
-
 
 enum States {
     // Estados generales del juego
@@ -22,18 +23,24 @@ enum States {
 
 typedef enum {
     PHASE_NULL = 0,
+    PHASE_WAITING_PLAYER_INPUT,
     /* INTRO */
     PHASE_INTRO_START,
     PHASE_INTRO_SCENE_ACTIVE,
-    PHASE_WAITING_PLAYER_INPUT,
-    PHASE_MOVE_RED_CAPSULE,
-    PHASE_BITBLOCK_FALLING,
-    PHASE_DESTROYING_MATRIX,
+    PHASE_MOVE_CAPSULE,
     /* MENU */
     /* GAME */
+    PHASE_BITBLOCK_FALLING,
+    PHASE_DESTROYING_MATRIX,
+    PHASE_REGENERATING_MATRIX,
     PHASE_MOVE_INATRIX_X,
     PHASE_MOVE_INATRIX_Y
 } Phases;
+
+typedef enum {
+    DIFFICULTY_NORMAL_MODE = 0,
+    DIFFICULTY_HARD_MODE = 1
+} Difficulty;
 
 /*
  * Información general del juego.
@@ -47,9 +54,26 @@ typedef enum {
 typedef struct {
     int state;
     int phase;
+    Difficulty mode;
+    bool destroyMatrixActive;
+    int destroyMatrixTime;
+    int matrixRegens;
 } GameData;
 
-extern GameData gameData;
+typedef struct {
+    int overflowScore;
+    int failScore;
+} PlayerData;
 
+extern GameData gameData;
+extern PlayerData playerData;
+
+extern void game_Loop();
+extern void game_manageScore(bool overflow);
+extern void game_initData();
+extern void game_setDifficulty(Difficulty difficulty);
+extern void game_setDestroyMatrix(bool active);
+extern void game_enableDestroyMatrix();
+extern void game_increaseMatrixRegens();
 extern int game_getNextPhase();
 #endif //GAME_H

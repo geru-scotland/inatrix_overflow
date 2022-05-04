@@ -24,9 +24,6 @@ defines.h
 //#define DEBUG_MODE
 typedef unsigned char uint8;
 
-//Acceso a los registros de la pantalla táctil
-extern touchPosition PANT_DAT;
-
 extern int SWITCH;
 
 // Importante el orden.

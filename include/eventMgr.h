@@ -16,6 +16,7 @@ enum TimeMarks {
     IN_3_SECONDS = 3,
     IN_4_SECONDS = 4,
     IN_5_SECONDS = 5,
+    IN_6_SECONDS = 6,
     IN_7_SECONDS = 7,
     IN_8_SECONDS = 8,
     IN_10_SECONDS = 10,
@@ -23,6 +24,9 @@ enum TimeMarks {
 };
 
 enum Events{
+    /**
+     * INTRO
+     */
     EVENT_INTRO_START = 0,
     EVENT_INTRO_TEXT1,
     EVENT_INTRO_TEXT2,
@@ -30,11 +34,15 @@ enum Events{
     EVENT_INTRO_TEXT4,
     EVENT_INTRO_TEXT5,
     EVENT_INTRO_SHOW_CAPSULES,
-    EVENT_INTRO_CAPSULE_RED,
-    EVENT_INTRO_CAPSULE_BLUE,
+    EVENT_INTRO_CAPSULE_SELECTED,
     EVENT_INTRO_SETBACKGROUND1,
     EVENT_INTRO_SETBACKGROUND2,
-    EVENT_INTRO_FINISH,
+    EVENT_INTRO_FINISH1,
+    EVENT_INTRO_FINISH2,
+
+    /**
+     * GAME
+     */
     EVENT_GAME_START,
     EVENT_GAME_DROP_BITBLOCK,
     EVENT_GAME_HIDE_MATRIX,
@@ -43,10 +51,14 @@ enum Events{
     EVENT_GAME_REGENERATE_MATRIX,
     EVENT_GAME_INATRIX_MOVE_X,
     EVENT_GAME_INATRIX_MOVE_Y,
+    EVENT_GAME_EVALUATE_BITBLOCK,
+    EVENT_GAME_START_DEST_MATRIX,
+    EVENT_GAME_UI_SHOW_BASE,
+    EVENT_GAME_UI_SHOW_OVERFLOW,
+    EVENT_GAME_UI_SHOW_FAIL,
+    EVENT_GAME_DESTROY_MATRIX_CHECK,
+    //
     EVENT_NEXT_PHASE,
-    /*
-     * No correspondiente a ningún evento en concreto
-     */
     EVENT_CLEAR_CONSOLE
 };
 
@@ -58,8 +70,7 @@ typedef struct {
 
 extern Event* eventList[MAX_EVENTS];
 extern int numEvents;
-extern int it, jt;
-//Funciones de Event Manager
+
 extern void eventMgr_InitEventSystem();
 extern void eventMgr_UpdateScheduledEvents();
 extern void eventMgr_AddEvent(Event *event);

@@ -38,6 +38,8 @@ void timer_UpdateTimer()
      */
     timer.ticks++;
     timer.totalTicks++;
+    eventMgr_UpdateScheduledEvents();
+    eventMgr_UpdateAnimations();
     if(timer.ticks == TIMER0_FREQ){
         timer.time++; // Seconds++
         timer.ticks = 0;
@@ -46,9 +48,6 @@ void timer_UpdateTimer()
          * TODO: Hacer esto de otra manera, que sea llamado
          * Desde el bucle principal cada X ms
          */
-    }else if(timer.ticks == EVENT_FREQ)
-    {
-        eventMgr_UpdateScheduledEvents();
     }
 }
 

@@ -1,5 +1,5 @@
 //
-// Created by Eideann on 19/4/22.
+// Created by Gerun on 19/4/22.
 //
 
 #include "../include/audioMgr.h"

@@ -1,10 +1,12 @@
 //
-// Created by Eideann on 18/4/22.
+// Created by Geru on 18/4/22.
 //
 
 #include "../include/matrix.h"
 #include "../include/gfxInfo.h"
 #include "../include/eventMgr.h"
+#include "../include/game.h"
+#include <math.h>
 #include <time.h>
 
 MatrixElement* matrix[MATRIX_SIZE][MATRIX_SIZE];
@@ -110,7 +112,7 @@ bool matrix_destroyMatrixEffect(){
         for(int j = 0; j < MATRIX_SIZE; j++)
             if((matrix[i][j]->sprite != NULL)
             && (matrix[i][j]->sprite->spriteEntry->y <= WINDOW_HEIGHT))
-                matrix[i][j]->sprite->spriteEntry->y +=1;
+                matrix[i][j]->sprite->spriteEntry->y +=2;
 
     return matrix[MATRIX_FIRST][MATRIX_FIRST]->sprite->spriteEntry->y <= WINDOW_HEIGHT;
 }
@@ -127,7 +129,7 @@ bool matrix_dropBitBlockEffect(){
             if(matrix[pivot->i + i][pivot->j + j]->sprite->spriteEntry->y >= WINDOW_HEIGHT)
                 out++;
             else
-                matrix[pivot->i + i][pivot->j + j]->sprite->spriteEntry->y +=1;
+                matrix[pivot->i + i][pivot->j + j]->sprite->spriteEntry->y +=2;
     return out != MATRIX_BLOCK;
 }
 
@@ -136,11 +138,28 @@ bool matrix_bitConjuctionEffect(){
     return true;
 }
 
+void matrix_bitShakeEffect(int8 state){
+    matrix[pivot->i][pivot->j]->sprite->spriteEntry->x = (MATRIX_X_POS + (pivot->j * MATRIX_X_PADDING))+(state * 2);
+    //state == -1 ? matrix_deactivatePivot() : matrix_activatePivot();
+}
+
+void matrix_bitResetPosEffect(){
+    matrix[pivot->i][pivot->j]->sprite->spriteEntry->x = (MATRIX_X_POS + (pivot->j * MATRIX_X_PADDING));
+}
+
+void matrix_deactivatePivot(){
+    // Test
+    sprites_displaySprite(matrix[pivot->i][pivot->j]->sprite->index,
+                          MATRIX_X_POS + (pivot->j * MATRIX_X_PADDING),
+                          MATRIX_Y_POS + (pivot->i * MATRIX_Y_PADDING),
+                          false);
+}
+
 void matrix_activatePivot(){
     // Test
     sprites_displaySprite(matrix[pivot->i][pivot->j]->sprite->index,
-                          matrix[pivot->i][pivot->j]->sprite->spriteEntry->x,
-                          matrix[pivot->i][pivot->j]->sprite->spriteEntry->y,
+                          MATRIX_X_POS + (pivot->j * MATRIX_X_PADDING),
+                          MATRIX_Y_POS + (pivot->i * MATRIX_Y_PADDING),
                           true);
 }
 
@@ -168,9 +187,9 @@ void matrix_regenerateBitBlock(){
     for(int i = -1; i <= 1; i++){
         for(int j = -1; j <= 1; j++){
             tmp[i+1][j+1] = matrix[pivot->i + i][pivot->j + j];
-            matrix[pivot->i + i][pivot->i + j] = bitBlockBuffer[i+1][j+1];
+            matrix[pivot->i + i][pivot->j + j] = bitBlockBuffer[i+1][j+1];
             bitBlockBuffer[i+1][j+1] = tmp[i+1][j+1];
-            sprites_displaySprite(matrix[pivot->i + i][pivot->i + j]->sprite->index,
+            sprites_displaySprite(matrix[pivot->i + i][pivot->j + j]->sprite->index,
                                   MATRIX_X_POS + ((pivot->j + j) * MATRIX_X_PADDING),
                                   MATRIX_Y_POS + ((pivot->i + i) * MATRIX_Y_PADDING),
                                   false);
@@ -229,7 +248,7 @@ void matrix_transposeMainMatrix(){
 
 void matrix_permuteMatrix(MatrixElement* matrix1D[]){
 
-    int upper = MATRIX_SIZE*MATRIX_SIZE -1;
+    int upper = (MATRIX_SIZE*MATRIX_SIZE) - 1;
     srand(time(0));
 
     while(upper > 10 ){
@@ -247,7 +266,7 @@ void matrix_permuteMatrix(MatrixElement* matrix1D[]){
 /*
 *********************
 *********************
-****** HELPERS ******
+******* PIVOT *******
 *********************
 *********************
 */
@@ -257,6 +276,35 @@ void matrix_updatePivot(uint8 i, uint8 j){
         pivot->i = i;
         pivot->j = j;
     }
+}
+
+bool matrix_evalBitBlockOverflow(){
+    int decValue = 0;
+    for(int i = -1; i <= 1; i++){
+        double power = BITBLOCK_SIZE - 1;
+        for(int j = -1; j <= 1; j++){
+            decValue += matrix[pivot->i + i][pivot->j + j]->bit * pow(2, power);
+            power--;
+        }
+    }
+    // TODO: Si una fila son todo 0s, da problemas. Revisar.
+    // PONERTE DE MANERA EXPLICITA UNA LINEA POR BIT
+    // PONER EL VALOR DEL BIT ASOCIADO AL STRUCT ojo con el valor de power a ver.
+//    iprintf("\x1b[%i;00H m[%i,%i] = %i - p: %i - r: %i", line, pivot->i + i, pivot->j + j, matrix[pivot->i + i][pivot->j + j]->bit, power, pow(2, power));
+
+    return decValue > matrix_getOverflowLimit();
+}
+
+/*
+*********************
+*********************
+****** HELPERS ******
+*********************
+*********************
+*/
+
+uint8 matrix_getOverflowLimit(){
+    return gameData.mode == DIFFICULTY_NORMAL_MODE ? OVERFLOW_NM : OVERFLOW_HM;
 }
 
 // Hacer puntero a función

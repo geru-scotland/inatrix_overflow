@@ -18,6 +18,7 @@ y en otro ejemplo de Jaeden Ameronen
 #include "../include/eventMgr.h"
 #include "../include/audioMgr.h"
 #include "../include/movementMgr.h"
+#include "../include/objectMgr.h"
 
 int main(void) {
     eventMgr_InitEventSystem();
@@ -26,6 +27,7 @@ int main(void) {
     //audioMgr_initAudio();
     matrix_initSystem();
     movementMgr_initSystem();
+    objectMgr_init();
 	game_Loop();
 	return(0);
 }

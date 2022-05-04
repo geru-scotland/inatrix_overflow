@@ -46,6 +46,7 @@ extern bool movementMgr_nextPositionReached(MovementGfx movGfx);
 extern uint8 movementMgr_getPositionX();
 extern uint8 movementMgr_getPositionY();
 extern void movementMgr_setHomePosition(MovementGfx movGfx, uint8 x, uint8 y);
+extern bool movementMgr_hasGfxReachedDest(GfxID gfxId);
 extern void movementMgr_destructor();
 
 extern Movement* movementInfo[MOVEMENT_INFO_SIZE];

@@ -19,6 +19,7 @@ void movementMgr_initSystem(){
     movementMgr_allocateMovements(MOVEMENT_INATRIX_Y);
     movementInfo[MOVEMENT_INATRIX_X]->sprite = sprites[GFX_INATRIX_X];
     movementInfo[MOVEMENT_INATRIX_Y]->sprite = sprites[GFX_INATRIX_Y];
+    matrix_updatePivot(START_POS, START_POS);
 }
 
 void movementMgr_updateDirection(MovementGfx movGfx, Direction direction){
@@ -80,6 +81,20 @@ uint8 movementMgr_getPositionY(){ return movementInfo[MOVEMENT_INATRIX_Y]->posId
 void movementMgr_setHomePosition(MovementGfx movGfx, uint8 x, uint8 y){
     movementInfo[movGfx]->homePos.x = x;
     movementInfo[movGfx]->homePos.y = y;
+}
+
+bool movementMgr_hasGfxReachedDest(GfxID gfxId){
+
+    // Cambiar esto, chapuza, pero estoy reventado. Generalizar.
+    if(gfxId == GFX_CAPSULE_RED){
+        sprites[gfxId]->spriteEntry->x -= 1;
+    }else
+        sprites[gfxId]->spriteEntry->x += 1;
+
+    sprites[gfxId]->spriteEntry->y -= 1;
+
+    return (gfxId == GFX_CAPSULE_RED && sprites[gfxId]->spriteEntry->x <= 120) ||
+            (gfxId == GFX_CAPSULE_BLUE && sprites[gfxId]->spriteEntry->x >= 120);
 }
 
 void movementMgr_destructor(){
