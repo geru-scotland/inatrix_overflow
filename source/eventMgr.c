@@ -114,7 +114,7 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[09;10H _");
                     iprintf("\x1b[10;00H Wake up, Inatrix...");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_GAME_START, IN_4_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_TEXT1, IN_4_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT1:
                     iprintf("\x1b[10;00H The Matrix has you...");
@@ -134,7 +134,7 @@ void eventMgr_UpdateScheduledEvents(){
                     eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND2, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT4:
-                    iprintf("\x1b[10;00H So, what is your choice?");
+                    iprintf("\x1b[10;00H So, blue pill or red pill?");
                     iprintf("\x1b[20;00H Blue - Normal");
                     iprintf("\x1b[20;18H Red - Hard");
                     eventMgr_ScheduleEvent(EVENT_INTRO_SHOW_CAPSULES, IN_2_SECONDS);
@@ -241,7 +241,7 @@ void eventMgr_UpdateScheduledEvents(){
                     }else{
                         game_setDestroyMatrix(false);
                         consoleUI_showFail();
-                        eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_4_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_5_SECONDS);
                     }
                     eventMgr_ScheduleEvent(EVENT_GAME_DROP_BITBLOCK, IN_2_SECONDS);
                     break;

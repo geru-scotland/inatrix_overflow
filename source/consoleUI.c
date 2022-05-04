@@ -10,15 +10,15 @@ void consoleUI_showIntro1(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           |");
-    iprintf("\x1b[8;00H |      _                    |");
-    iprintf("\x1b[9;00H |     Inatrix is captured   |");
-    iprintf("\x1b[10;00H |    within the Matrix!     |");
-    iprintf("\x1b[11;00H |                           |");
-    iprintf("\x1b[12;00H |                           |");
-    iprintf("\x1b[13;00H |                           |");
-    iprintf("\x1b[13;00H |                           |");
-    iprintf("\x1b[14;00H |___________________________|");
+    iprintf("\x1b[7;00H     _                       ");
+    iprintf("\x1b[8;00H    Inatrix, Lord of        ");
+    iprintf("\x1b[9;00H                            ");
+    iprintf("\x1b[10;00H     the Overflow enters   ");
+    iprintf("\x1b[11;00H                            ");
+    iprintf("\x1b[12;00H     the system!            ");
+    iprintf("\x1b[13;00H                            ");
+    iprintf("\x1b[13;00H                            ");
+    iprintf("\x1b[14;00H ___________________________");
 }
 
 void consoleUI_showIntro2(){
@@ -26,15 +26,15 @@ void consoleUI_showIntro2(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           |");
-    iprintf("\x1b[8;00H |                           |");
-    iprintf("\x1b[9;00H |     START OVERFLOWING!!   |");
-    iprintf("\x1b[10;00H |                          |");
-    iprintf("\x1b[11;00H |                           |");
-    iprintf("\x1b[12;00H |                           |");
-    iprintf("\x1b[13;00H |                           |");
-    iprintf("\x1b[13;00H |                           |");
-    iprintf("\x1b[14;00H |___________________________|");
+    iprintf("\x1b[7;00H |                           ");
+    iprintf("\x1b[8;00H |                           ");
+    iprintf("\x1b[9;00H |     START OVERFLOWING!!   ");
+    iprintf("\x1b[10;00H |                          ");
+    iprintf("\x1b[11;00H |                           ");
+    iprintf("\x1b[12;00H |                           ");
+    iprintf("\x1b[13;00H |                           ");
+    iprintf("\x1b[13;00H |                           ");
+    iprintf("\x1b[14;00H |___________________________");
 }
 
 void consoleUI_showUI(){
@@ -45,15 +45,15 @@ void consoleUI_showUI(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           |");
-    iprintf("\x1b[8;00H | Overflows        %i       |", playerData.overflowScore);
-    iprintf("\x1b[9;00H |                           |");
-    iprintf("\x1b[10;00H | Mode             %s       |", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm);
-    iprintf("\x1b[11;00H |                           |");
-    iprintf("\x1b[12;00H | Matrix regens    %i       |", gameData.matrixRegens);
-    iprintf("\x1b[13;00H |                           |");
-    iprintf("\x1b[13;00H | Destroy time:    %i       |", gameData.destroyMatrixTime);
-    iprintf("\x1b[14;00H |___________________________|");
+    iprintf("\x1b[7;00H |                           ");
+    iprintf("\x1b[8;00H | Overflows        %i       ", playerData.overflowScore);
+    iprintf("\x1b[9;00H |                           ");
+    iprintf("\x1b[10;00H | Mode             %s       ", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm);
+    iprintf("\x1b[11;00H |                           ");
+    iprintf("\x1b[12;00H | Matrix regens    %i       ", gameData.matrixRegens);
+    iprintf("\x1b[13;00H |                           ");
+    iprintf("\x1b[14;00H | Destroy time:    %i       ", gameData.destroyMatrixTime);
+    iprintf("\x1b[15;00H |___________________________");
 }
 
 void consoleUI_showGameOver(){
@@ -88,5 +88,8 @@ void consoleUI_showOverflow(){
 
 void consoleUI_showFail(){
     iprintf("\x1b[2J"); // Forzamos un clear console
-    iprintf("\x1b[10;00H FAIL! You shall be lost within the Matrix...");
+    iprintf("\x1b[10;00H 'Me he columpiao!'");
+    iprintf("\x1b[13;00H -Inatrix, Lord of the");
+    iprintf("\x1b[15;00H  Overlflow ");
+
 }

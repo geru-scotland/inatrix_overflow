@@ -58,7 +58,7 @@ void game_Loop()
             case GAME_STATE_INTRO:
                 switch(gameData.phase){
                     case PHASE_INTRO_START:
-                        eventMgr_ScheduleEvent(EVENT_INTRO_TEXT4, IN_2_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_INTRO_START, IN_2_SECONDS);
                         eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND1, IN_2_SECONDS);
                         gameData.phase = PHASE_INTRO_SCENE_ACTIVE;
                         break;
@@ -136,11 +136,10 @@ void game_Loop()
 void game_manageScore(bool overflow){
     if(overflow){
         playerData.overflowScore++;
-
     }else{
         playerData.overflowScore--;
         playerData.failScore++;
-        if(playerData.overflowScore <= 0){
+        if(playerData.overflowScore < 0){
             eventMgr_ScheduleEvent(EVENT_GAME_OVER, IN_1_SECONDS);
             return;
         }
@@ -165,7 +164,7 @@ void game_setDestroyMatrix(bool active){
 
 void game_enableDestroyMatrix(){
     gameData.destroyMatrixActive = true;
-    gameData.destroyMatrixTime = 30;
+    gameData.destroyMatrixTime = 15;
 }
 
 void game_increaseMatrixRegens(){
