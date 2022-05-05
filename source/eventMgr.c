@@ -69,6 +69,10 @@ void eventMgr_AddEvent(Event *event){
     }
 }
 
+void eventMgr_cancelAllEvents(){
+    for (int i = 0; i < numEvents; i++)
+        eventMgr_DeleteEvent(eventList[i]);
+}
 /**
  * Función "Pública".
  * Llamar a éste desde fuera. eventMgr_AddEvent se gestiona de manera privada
@@ -106,10 +110,38 @@ void eventMgr_UpdateScheduledEvents(){
                 /*
                 *********************
                 *********************
+                ***** MAIN MENU *****
+                *********************
+                *********************
+                */
+                case EVENT_MAIN_MENU_START:
+                    consoleUI_showMenu();
+                    eventMgr_ScheduleEvent(EVENT_MAIN_MENU_HIDE_UI, IN_1_SECONDS);
+                    break;
+                case EVENT_MAIN_MENU_HIDE_UI:
+                    if(gameData.state == GAME_STATE_MAIN_MENU){
+                        iprintf("\x1b[9;00H |                           |");
+                        eventMgr_ScheduleEvent(EVENT_MAIN_MENU_SHOW_UI, IN_1_SECONDS);
+                    }
+                    break;
+                case EVENT_MAIN_MENU_SHOW_UI:
+                    if(gameData.state == GAME_STATE_MAIN_MENU){
+                        iprintf("\x1b[9;00H |      <PRESS ANY KEY>      |");
+                        eventMgr_ScheduleEvent(EVENT_MAIN_MENU_HIDE_UI, IN_1_SECONDS);
+                    }
+                    break;
+                /*
+                *********************
+                *********************
                 ******* INTRO *******
                 *********************
                 *********************
                 */
+                case EVENT_INTRO_PRE_START:
+                    background_setBackground(BG_MATRIX);
+                    eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, NO_WAIT);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_START, IN_4_SECONDS);
+                    break;
                 case EVENT_INTRO_START:
                     iprintf("\x1b[09;10H _");
                     iprintf("\x1b[10;00H Wake up, Inatrix...");
@@ -131,7 +163,7 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[10;00H Knock, knock, Inatrix.");
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_TEXT4, IN_4_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND2, IN_3_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_INTRO_SETBG_3, IN_3_SECONDS);
                     break;
                 case EVENT_INTRO_TEXT4:
                     iprintf("\x1b[10;00H So, blue pill or red pill?");
@@ -159,6 +191,7 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_INTRO_FINISH2:
                     consoleUI_showIntro1();
+                    objectMgr_spawnInatrix();
                     // Hacer algo con fondo.
                     eventMgr_ScheduleEvent(EVENT_GAME_START, IN_4_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
@@ -174,7 +207,6 @@ void eventMgr_UpdateScheduledEvents(){
                     gameData.state = GAME_STATE_GAME;
                     gameData.phase = PHASE_WAITING_PLAYER_INPUT;
                     matrix_displayMatrix(true);
-                    objectMgr_spawnInatrix();
                     consoleUI_showIntro2();
                     eventMgr_ScheduleEvent(EVENT_GAME_START_DEST_MATRIX, IN_5_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_5_SECONDS);
@@ -218,6 +250,7 @@ void eventMgr_UpdateScheduledEvents(){
                     eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
                     break;
                 case EVENT_GAME_DESTROY_MATRIX:
+                    consoleUI_showRegeneratingMatrix();
                     gameData.phase = PHASE_DESTROYING_MATRIX;
                     break;
                 case EVENT_GAME_INATRIX_MOVE_X:
@@ -249,10 +282,13 @@ void eventMgr_UpdateScheduledEvents(){
                     game_setDestroyMatrix(true);
                     consoleUI_showUI();
                     break;
-                case EVENT_INTRO_SETBACKGROUND1:
+                case EVENT_INTRO_SETBG_MAIN:
+                    background_setBackground(BG_MAIN);
+                    break;
+                case EVENT_INTRO_SETBG_2:
                     background_setBackground(BG_MATRIX);
                     break;
-                case EVENT_INTRO_SETBACKGROUND2:
+                case EVENT_INTRO_SETBG_3:
                     background_setBackground(BG_MATRIX2);
                     break;
                 case EVENT_CLEAR_CONSOLE:
@@ -262,7 +298,16 @@ void eventMgr_UpdateScheduledEvents(){
                     gameData.phase = game_getNextPhase();
                     break;
                 case EVENT_GAME_OVER:
+                    eventMgr_cancelAllEvents();
                     consoleUI_showGameOver();
+                    matrix_displayMatrix(false);
+                    objectMgr_despawnInatrix();
+                    eventMgr_ScheduleEvent(EVENT_SHOW_STATS, IN_4_SECONDS);
+                    break;
+                case EVENT_SHOW_STATS:
+                    consoleUI_showStats();
+                    gameData.state = GAME_STATE_STATS;
+                    gameData.phase = PHASE_SHOW_STATS;
                     break;
                 default:
                     break;

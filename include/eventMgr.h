@@ -25,9 +25,16 @@ enum TimeMarks {
 
 enum Events{
     /**
+     * MENU
+     */
+    EVENT_MAIN_MENU_START = 0,
+    EVENT_MAIN_MENU_HIDE_UI,
+    EVENT_MAIN_MENU_SHOW_UI,
+    /**
      * INTRO
      */
-    EVENT_INTRO_START = 0,
+    EVENT_INTRO_PRE_START,
+    EVENT_INTRO_START,
     EVENT_INTRO_TEXT1,
     EVENT_INTRO_TEXT2,
     EVENT_INTRO_TEXT3,
@@ -35,8 +42,9 @@ enum Events{
     EVENT_INTRO_TEXT5,
     EVENT_INTRO_SHOW_CAPSULES,
     EVENT_INTRO_CAPSULE_SELECTED,
-    EVENT_INTRO_SETBACKGROUND1,
-    EVENT_INTRO_SETBACKGROUND2,
+    EVENT_INTRO_SETBG_MAIN,
+    EVENT_INTRO_SETBG_2,
+    EVENT_INTRO_SETBG_3,
     EVENT_INTRO_FINISH1,
     EVENT_INTRO_FINISH2,
 
@@ -57,8 +65,12 @@ enum Events{
     EVENT_GAME_UI_SHOW_OVERFLOW,
     EVENT_GAME_UI_SHOW_FAIL,
     EVENT_GAME_DESTROY_MATRIX_CHECK,
-
+    /**
+     * GAME OVER
+     */
     EVENT_GAME_OVER,
+    EVENT_SHOW_STATS,
+    EVENT_RESET, // Reset data y empezar de nuevo.
     //
     EVENT_NEXT_PHASE,
     EVENT_CLEAR_CONSOLE
@@ -80,5 +92,5 @@ extern void eventMgr_ScheduleEvent(uint8 eventId, int time);
 extern void eventMgr_DeleteEvent(Event* event);
 extern void eventMgr_UpdatePhases();
 extern void eventMgr_UpdateAnimations();
-
+extern void eventMgr_cancelAllEvents();
 #endif //EVENTMGR_H

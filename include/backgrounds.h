@@ -7,16 +7,19 @@ backgrounds.h
 //enum para los backgrounds:
 //IMPORTANTE: Actualizar cada vez que se añada un nuevo background
 typedef enum {
-    BG_PUERTA = 0,
-    BG_PUERTAABIERTA,
-    BG_MATRIX,
-    BG_MATRIX2
+    BG_MATRIX = 0,
+    BG_MATRIX2,
+    BG_MAIN,
+    BG_BLACK,
+    BG_GAME_OVER
 } Backgrounds;
 
-void visualizarPuerta();
-void visualizarPuertaAbierta();
 void background_SetMatrixBackground();
 void background_SetMatrixBackground2();
+void background_SetMainBackground();
+void background_SetBlackBackground();
+void background_SetGameOverBackground();
+
 extern void background_setBackground(Backgrounds bg);
 
 #endif //BACKGROUNDS_H
