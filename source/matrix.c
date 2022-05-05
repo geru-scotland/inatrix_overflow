@@ -2,10 +2,10 @@
 // Created by Geru on 18/4/22.
 //
 
-#include "../include/matrix.h"
-#include "../include/gfxInfo.h"
-#include "../include/eventMgr.h"
-#include "../include/game.h"
+#include "matrix.h"
+#include "gfxInfo.h"
+#include "eventMgr.h"
+#include "game.h"
 #include <math.h>
 #include <time.h>
 
@@ -202,7 +202,11 @@ void matrix_regenerateBitBlock(){
  * Permuto matriz con algoritmo de
  * Fisher-Yates algoritmo (1938), versión moderna
  * por Durstenfeld (1964).
- * Cambio de base a array 1D
+ *
+ * 1. Traspongo matriz.
+ * 2. Cambio de base a array 1D.
+ * 3. Permuto con algoritmo de Durstenfeld.
+ * 4. Cambio de base a 2D.
  */
 void matrix_regenerateMatrix(){
 

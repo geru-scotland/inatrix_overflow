@@ -1,5 +1,5 @@
 
-#include "../include/libnds/nds.h"
+#include "nds.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -58,6 +58,11 @@ void background_SetGameOverBackground() {
                      GameOverBackgroundBitmap);
 }
 
+/**
+ * Función auxiliar para establecer diferentes
+ * fondos.
+ * @param bg ID del Background
+ */
 void background_setBackground(Backgrounds bg){
     switch (bg) {
         case BG_MATRIX:

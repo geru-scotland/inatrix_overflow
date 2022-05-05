@@ -2,8 +2,11 @@
 // Created by Gerun on 19/4/22.
 //
 
-#include "../include/audioMgr.h"
+#include "audioMgr.h"
 
+/**
+ *
+ */
 void audioMgr_initAudio(){
     mmInitDefaultMem((mm_addr)soundbank_bin);
 

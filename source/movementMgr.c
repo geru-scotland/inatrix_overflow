@@ -4,8 +4,8 @@
 // Movimiento en bloque
 //
 
-#include "../include/movementMgr.h"
-#include "../include/sprites.h"
+#include "movementMgr.h"
+#include "sprites.h"
 
 Movement* movementInfo[MOVEMENT_INFO_SIZE];
 

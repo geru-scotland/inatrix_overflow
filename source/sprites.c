@@ -8,9 +8,9 @@ adibide batean oinarrituta.
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "../include/sprites.h"
-#include "../include/defines.h"
-#include "../include/gfxInfo.h"
+#include "sprites.h"
+#include "defines.h"
+#include "gfxInfo.h"
 
 Sprite* sprites[GFX_SIZE];
 

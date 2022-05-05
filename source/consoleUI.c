@@ -2,9 +2,21 @@
 // Created by Geru on 3/5/22.
 //
 
-#include "../include/consoleUI.h"
-#include "../include/game.h"
+#include "consoleUI.h"
+#include "game.h"
 
+/**
+ * Fichero en el que se definen las funciones encargadas
+ * de mostrar en la pantalla de arriba el texto oportuno.
+ * Emulando una "User Interface" con simplemente texto y
+ * símbolos. De ahora en adelante se les llamará Menús
+ * o UI.
+ */
+
+/**
+ * UI del menú principal, dando la posibilidad de que el
+ * usuario presione una tecla para ejecutar una acción.
+ */
 void consoleUI_showMenu(){
     iprintf("\x1b[2J");
     iprintf("\x1b[4;00H |***************************|");
@@ -21,6 +33,11 @@ void consoleUI_showMenu(){
     iprintf("\x1b[14;00H |___________________________|");
 }
 
+/**
+ * Menú que se mostrará en el proceso de comienzo de juego.
+ *
+ * Con objeto de dar un poco más de dinamicidad.
+ */
 void consoleUI_showIntro1(){
     iprintf("\x1b[2J");
     iprintf("\x1b[4;00H |***************************|");
@@ -37,6 +54,9 @@ void consoleUI_showIntro1(){
     iprintf("\x1b[14;00H ___________________________");
 }
 
+/**
+ *
+ */
 void consoleUI_showIntro2(){
     iprintf("\x1b[2J");
     iprintf("\x1b[4;00H |***************************|");
@@ -53,11 +73,6 @@ void consoleUI_showIntro2(){
     iprintf("\x1b[14;00H |___________________________");
 }
 
-// Para mostrar las teclas por interrupción
-// Enmascararlas como que son interferencias del Agente Smith
-// en el Matrix.
-// Por ejemplo, sustituir el showUI, solo la parte de **** the matrix****
-// Por algún texto.
 
 void consoleUI_showUI(){
     char nm[] = "Normal";
@@ -67,9 +82,9 @@ void consoleUI_showUI(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           ");
-    iprintf("\x1b[8;00H | Overflows        %i       ", playerData.overflowScore);
-    iprintf("\x1b[9;00H |                           ");
+    iprintf("\x1b[7;00H |          OVERFLOWS         ");
+    iprintf("\x1b[8;00H | Total: %i  ||  Current: %i ", playerData.overflowScore, playerData.runOverflows);
+    iprintf("\x1b[9;00H |                            ");
     iprintf("\x1b[10;00H | Mode             %s       ", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm);
     iprintf("\x1b[11;00H |                           ");
     iprintf("\x1b[12;00H | Matrix regens    %i       ", gameData.matrixRegens);
@@ -150,6 +165,23 @@ void consoleUI_showStats(){
     iprintf("\x1b[13;00H |                           ");
     iprintf("\x1b[14;00H | Fails:           %i       ", playerData.failScore);
     iprintf("\x1b[15;00H |                           ");
-    iprintf("\x1b[16;00H |     <PRESS ANY KEY>       ");
+    iprintf("\x1b[16;00H |  <PRESS ANY KEY TO QUIT>  ");
     iprintf("\x1b[17;00H |___________________________");
+}
+
+void consoleUI_showPauseUI(){
+        iprintf("\x1b[2J");
+        iprintf("\x1b[4;00H |***************************|");
+        iprintf("\x1b[5;00H |******* The Matrix  *******|");
+        iprintf("\x1b[6;00H |***************************|");
+        iprintf("\x1b[7;00H |                           ");
+        iprintf("\x1b[8;00H |                           ");
+        iprintf("\x1b[9;00H |                           ");
+        iprintf("\x1b[10;00H |      PAUSE                ");
+        iprintf("\x1b[11;00H |                           ");
+        iprintf("\x1b[12;00H |                           ");
+        iprintf("\x1b[13;00H |                           ");
+        iprintf("\x1b[13;00H |                           ");
+        iprintf("\x1b[14;00H |___________________________");
+
 }

@@ -13,6 +13,14 @@
 #define TIMER0_FREQ 512
 #define EVENT_FREQ 100
 
+typedef struct {
+    int ticks; // Temp
+    int time; // Tiempo en segundos desde que se ejecutó el juego (actualizar en cada tick)
+    int latch;
+    int conf;
+    int totalTicks; // Geru: Cambiar nombres de variables, estoy cansado.
+} TimerData;
+
 extern void timer_UpdateTimer();
 extern void timer_ConfigureTimer(int latch, int mask);
 
@@ -21,16 +29,7 @@ void timer_DisableInterruptions();
 
 extern void timer_StartTimer();
 extern void timer_StopTimer();
-
 extern bool timer_TicksHavePassed(int total, int prev);
-
-typedef struct {
-    int ticks; // Temp
-    int time; // Tiempo en segundos desde que se ejecutó el juego (actualizar en cada tick)
-    int latch;
-    int conf;
-    int totalTicks; // Geru: Cambiar nombres de variables, estoy cansado.
-} TimerData;
 
 extern TimerData timer;
 

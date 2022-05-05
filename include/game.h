@@ -4,6 +4,7 @@ game.h
 #ifndef GAME_H
 #define GAME_H
 #define GAME_FPS_CAP 16
+#define TIMER_REGEN 15
 
 #include <stdbool.h>
 
@@ -37,7 +38,8 @@ typedef enum {
     PHASE_REGENERATING_MATRIX,
     PHASE_MOVE_INATRIX_X,
     PHASE_MOVE_INATRIX_Y,
-    PHASE_SHOW_STATS
+    PHASE_SHOW_STATS,
+    PHASE_GAME_PAUSE
 } Phases;
 
 typedef enum {
@@ -66,6 +68,7 @@ typedef struct {
 typedef struct {
     int overflowScore;
     int totalOverflows;
+    int runOverflows;
     int failScore;
 } PlayerData;
 
@@ -81,4 +84,6 @@ extern void game_setDestroyMatrix(bool active);
 extern void game_enableDestroyMatrix();
 extern void game_increaseMatrixRegens();
 extern int game_getNextPhase();
+extern void game_manageGameOver();
+extern bool game_achievedMinimumOverflows();
 #endif //GAME_H

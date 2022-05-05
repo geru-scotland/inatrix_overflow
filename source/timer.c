@@ -2,9 +2,9 @@
 // Created by Geru on 31/3/22.
 //
 
-#include "../include/timer.h"
-#include "../include/defines.h"
-#include "../include/eventMgr.h"
+#include "timer.h"
+#include "defines.h"
+#include "eventMgr.h"
 
 TimerData timer;
 

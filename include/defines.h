@@ -4,7 +4,7 @@ defines.h
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#include "../include/libnds/nds.h" 		//librería de la nds
+#include "nds.h" 		//librería de la nds
 #include <stdio.h>		//librería de entrada/salida estandar de C
 #include <stdlib.h>		//librería estandar de C para reserva de memoria y conversiones númericas
 #include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos

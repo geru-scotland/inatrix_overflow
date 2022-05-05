@@ -2,12 +2,12 @@
 Definición del sistema de video, NO SE NECESITA CAMBIAR NADA AQUÍR
 ---------------------------------------------------------------------------------*/
 
-#include "../include/libnds/nds.h"
-#include <stdio.h>		
-#include <stdlib.h>		
-#include <unistd.h>		
-#include "../include/engine.h"
-#include "../include/sprites.h"
+#include "nds.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "engine.h"
+#include "sprites.h"
 
 // Geru: Ojo, no se está invocando. Unreachable calls.
 void inicializarVideo() {
@@ -71,7 +71,7 @@ void inicializarFondos() {
     REG_BG2X = -(SCREEN_WIDTH / 2 - 32) << 8;
     REG_BG2Y = -32 << 8;
 /*******************************************************************************************/
-   
+
     /*  Definir la afinidad del fondo 3 de la pantalla secundaria para colores de 16 bits.*/
     REG_BG3CNT_SUB = BG_BMP16_256x256 |
                      BG_BMP_BASE(0) | // Comienzo de direcciónn de memoria
@@ -85,7 +85,7 @@ void inicializarFondos() {
 
 /*******************************************************************************************/
     /*  Definir el estado del fondo 3 de la pantalla secundaria. */
-    /*  Cambiar lo siguiente si el grafiko se quiere establecer en otro lugar. */ 
+    /*  Cambiar lo siguiente si el grafiko se quiere establecer en otro lugar. */
     REG_BG3X_SUB = 0;
     REG_BG3Y_SUB = 0;
 /*******************************************************************************************/

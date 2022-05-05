@@ -4,23 +4,25 @@ y en otro ejemplo de Jaeden Ameronen
 ---------------------------------------------------------------------------------*/
 
 
-#include "../include/libnds/nds.h" 		//librería de la nds
+#include "nds.h" 		//librería de la nds
 #include <stdio.h>		//librería de entrada/salida estándar de C
 #include <stdlib.h>		//librería estándar de C para reserva de memoria y conversiones númericas
 #include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos
-#include "../include/movementMgr.h"
+#include "movementMgr.h"
 
 //librerías desarrolladas por nosotros para el proyecto
 
-#include "../include/defines.h"
-#include "../include/eventMgr.h"
-#include "../include/input.h"
-#include "../include/controllers.h"
-#include "../include/backgrounds.h"
-#include "../include/game.h"
-#include "../include/timer.h"
-#include "../include/consoleUI.h"
-#include "../include/objectMgr.h"
+#include "defines.h"
+#include "eventMgr.h"
+#include "input.h"
+#include "controllers.h"
+#include "backgrounds.h"
+#include "game.h"
+#include "timer.h"
+#include "consoleUI.h"
+#include "objectMgr.h"
+#include "gfxInfo.h"
+#include "sprites.h"
 
 int SWITCH = 1;
 
@@ -117,7 +119,11 @@ void game_Loop()
                                     eventMgr_ScheduleEvent(EVENT_GAME_EVALUATE_BITBLOCK, NO_WAIT);
                                     break;
                                 case INPUT_KEY_START:
-                                    // Pause
+                                    // Libnds mantiene por más de un tick datos de teclas
+                                    // Esto es para evitar los problemas que se generan por
+                                    // ello.
+                                    if(gameData.destroyMatrixTime > 2) // Temporal, para evitar problemas con la regen.
+                                        eventMgr_ScheduleEvent(EVENT_GAME_PAUSE, IN_1_SECONDS);
                                     break;
                                 default:
                                     break;
@@ -129,13 +135,19 @@ void game_Loop()
                         break;
                 }
                 break;
-            case GAME_STATE_GAME_OVER:
-
+            case GAME_STATE_PAUSE:
+                if(gameData.phase == PHASE_GAME_PAUSE){
+                    if(keyData.isPressed && (keyData.key == INPUT_KEY_START)){
+                        gameData.state = GAME_STATE_GAME;
+                        eventMgr_ScheduleEvent(EVENT_LISTEN_INPUT, IN_1_SECONDS);
+                    }
+                }
                 break;
             case GAME_STATE_STATS:
                 if((gameData.phase == PHASE_SHOW_STATS) && keyData.isPressed){
                     game_initData();
                     game_launch();
+                    SWITCH = 0;
                 }
                 break;
             default:
@@ -143,24 +155,20 @@ void game_Loop()
         }
 	}
 
-    // Liberar recursos de memoria aquí.
-    // De todos los arrays etc.
-    // gfxInfo_freeMemory();
-    // audioMgr_unloadSounds();
+    sprites_freeMemory();
+    gfxInfo_freeMemory();
 }
 
 void game_manageScore(bool overflow){
     if(overflow){
         playerData.overflowScore++;
         playerData.totalOverflows++;
+        playerData.runOverflows++;
     }else{
         playerData.overflowScore--;
         playerData.failScore++;
         if(playerData.overflowScore < 0){
-            gameData.state = GAME_STATE_GAME_OVER;
-            gameData.phase = PHASE_NULL;
-            eventMgr_cancelAllEvents();
-            eventMgr_ScheduleEvent(EVENT_GAME_OVER, IN_1_SECONDS);
+            game_manageGameOver();
             return;
         }
     }
@@ -172,9 +180,11 @@ void game_initData(){
     gameData.phase = PHASE_WAITING_PLAYER_INPUT;
     gameData.mode = DIFFICULTY_NORMAL_MODE;
     playerData.overflowScore = 0;
-    playerData.totalOverflows= 0;
+    playerData.totalOverflows = 0;
+    playerData.runOverflows = 0;
     playerData.failScore = 0;
     gameData.matrixRegens = 0;
+    gameData.destroyMatrixTime = TIMER_REGEN;
 }
 
 void game_launch(){
@@ -195,8 +205,20 @@ void game_setDestroyMatrix(bool active){
 void game_enableDestroyMatrix(){
     gameData.destroyMatrixActive = true;
     gameData.destroyMatrixTime = 15;
+    playerData.runOverflows = 0;
 }
 
 void game_increaseMatrixRegens(){
     gameData.matrixRegens++;
+}
+
+void game_manageGameOver(){
+    gameData.state = GAME_STATE_GAME_OVER;
+    gameData.phase = PHASE_NULL;
+    eventMgr_cancelAllEvents();
+    eventMgr_ScheduleEvent(EVENT_GAME_OVER, IN_1_SECONDS);
+}
+
+bool game_achievedMinimumOverflows(){
+    return playerData.runOverflows > 0;
 }

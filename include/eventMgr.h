@@ -72,7 +72,8 @@ enum Events{
     EVENT_SHOW_STATS,
     EVENT_RESET, // Reset data y empezar de nuevo.
     //
-    EVENT_NEXT_PHASE,
+    EVENT_LISTEN_INPUT,
+    EVENT_GAME_PAUSE,
     EVENT_CLEAR_CONSOLE
 };
 
