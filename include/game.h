@@ -4,6 +4,7 @@ game.h
 #ifndef GAME_H
 #define GAME_H
 #define GAME_FPS_CAP 16
+#define TIMER_REGEN 15
 
 #include <stdbool.h>
 
