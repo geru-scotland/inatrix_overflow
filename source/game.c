@@ -184,6 +184,7 @@ void game_initData(){
     playerData.runOverflows = 0;
     playerData.failScore = 0;
     gameData.matrixRegens = 0;
+    gameData.destroyMatrixTime = TIMER_REGEN;
 }
 
 void game_launch(){
