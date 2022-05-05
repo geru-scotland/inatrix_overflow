@@ -5,11 +5,14 @@
 #ifndef INATRIX_OVERFLOW_CONSOLEUI_H
 #define INATRIX_OVERFLOW_CONSOLEUI_H
 
+extern void consoleUI_showMenu();
 extern void consoleUI_showIntro1();
 extern void consoleUI_showIntro2();
 extern void consoleUI_showUI();
 extern void consoleUI_showOverflow();
+extern void consoleUI_showRegeneratingMatrix();
 extern void consoleUI_showFail();
 extern void consoleUI_showGameOver();
+extern void consoleUI_showStats();
 
 #endif //INATRIX_OVERFLOW_CONSOLEUI_H

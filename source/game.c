@@ -45,21 +45,33 @@ int game_getNextPhase(){
 
 void game_Loop()
 {
-	gameData.state = GAME_STATE_INTRO;
-    gameData.phase = PHASE_INTRO_START;
-    gameData.mode = DIFFICULTY_NORMAL_MODE; // TODO: Quitar esto cuando implementes capsulas selection
     game_initData();
+    game_launch();
 
 	while(SWITCH)
 	{
         game_Update();
 
         switch(gameData.state){
+            case GAME_STATE_MAIN_MENU:
+                switch(gameData.phase) {
+                    case PHASE_WAITING_PLAYER_INPUT:
+                        if (keyData.isPressed) {
+                            gameData.phase = PHASE_NULL;
+                            gameData.state = GAME_STATE_INTRO;
+                            eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, NO_WAIT); // Igual una pequeña transición en negro.
+                            eventMgr_ScheduleEvent(EVENT_INTRO_PRE_START, IN_2_SECONDS); // Igual una pequeña transición en negro.
+                        }
+                    break;
+                    default:
+                        break;
+                }
+                break;
             case GAME_STATE_INTRO:
                 switch(gameData.phase){
                     case PHASE_INTRO_START:
-                        eventMgr_ScheduleEvent(EVENT_INTRO_START, IN_2_SECONDS);
-                        eventMgr_ScheduleEvent(EVENT_INTRO_SETBACKGROUND1, IN_2_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_MAIN_MENU_START, IN_2_SECONDS);
+                        eventMgr_ScheduleEvent(EVENT_INTRO_SETBG_2, IN_2_SECONDS);
                         gameData.phase = PHASE_INTRO_SCENE_ACTIVE;
                         break;
                     case PHASE_WAITING_PLAYER_INPUT:
@@ -118,9 +130,13 @@ void game_Loop()
                 }
                 break;
             case GAME_STATE_GAME_OVER:
-                consoleUI_showGameOver();
+
                 break;
             case GAME_STATE_STATS:
+                if((gameData.phase == PHASE_SHOW_STATS) && keyData.isPressed){
+                    game_initData();
+                    game_launch();
+                }
                 break;
             default:
                 break;
@@ -136,10 +152,14 @@ void game_Loop()
 void game_manageScore(bool overflow){
     if(overflow){
         playerData.overflowScore++;
+        playerData.totalOverflows++;
     }else{
         playerData.overflowScore--;
         playerData.failScore++;
         if(playerData.overflowScore < 0){
+            gameData.state = GAME_STATE_GAME_OVER;
+            gameData.phase = PHASE_NULL;
+            eventMgr_cancelAllEvents();
             eventMgr_ScheduleEvent(EVENT_GAME_OVER, IN_1_SECONDS);
             return;
         }
@@ -148,10 +168,20 @@ void game_manageScore(bool overflow){
 }
 
 void game_initData(){
+    gameData.state = GAME_STATE_MAIN_MENU;
+    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+    gameData.mode = DIFFICULTY_NORMAL_MODE;
     playerData.overflowScore = 0;
+    playerData.totalOverflows= 0;
     playerData.failScore = 0;
     gameData.matrixRegens = 0;
 }
+
+void game_launch(){
+    background_SetMainBackground();
+    eventMgr_ScheduleEvent(EVENT_MAIN_MENU_START, IN_2_SECONDS);
+}
+
 // Capsula Azul: Normal mode (Overflow @ 9)
 // Capsula Roja: Hard mode (Overflow @ 15)
 void game_setDifficulty(Difficulty difficulty){

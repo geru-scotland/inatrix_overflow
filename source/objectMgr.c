@@ -25,6 +25,10 @@ void objectMgr_spawnInatrix(){
     movementMgr_setHomePosition(MOVEMENT_INATRIX_Y, INATRIX_YHOME_POS_X, INATRIX_YHOME_POS_Y);
 }
 
+void objectMgr_despawnInatrix(){
+    sprites_displaySprite(GFX_INATRIX_X, INATRIX_XHOME_POS_X, INATRIX_XHOME_POS_Y, true);
+    sprites_displaySprite(GFX_INATRIX_Y, INATRIX_YHOME_POS_X, INATRIX_YHOME_POS_Y, true);
+}
 void objectMgr_spawnCapsules(){
     sprites_displaySprite(GFX_CAPSULE_BLUE, 95, 80, false);
     sprites_displaySprite(GFX_CAPSULE_RED, 140, 80, false);

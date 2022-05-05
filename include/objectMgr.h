@@ -28,6 +28,7 @@ extern uint8 INATRIX_YHOME_POS_Y;
 extern void objectMgr_init();
 extern void objectMgr_initAnimations();
 extern void objectMgr_spawnInatrix();
+extern void objectMgr_despawnInatrix();
 extern void objectMgr_spawnCapsules();
 extern void objectMgr_setAnimationActive(AnimID animID, bool active);
 

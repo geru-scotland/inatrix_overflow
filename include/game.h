@@ -12,6 +12,7 @@ void game_Update();
 
 enum States {
     // Estados generales del juego
+    GAME_STATE_MAIN_MENU = 0,
     GAME_STATE_INTRO,
     GAME_STATE_MENU,
     GAME_STATE_GAME,
@@ -24,6 +25,7 @@ enum States {
 typedef enum {
     PHASE_NULL = 0,
     PHASE_WAITING_PLAYER_INPUT,
+    /* MAIN MENU */
     /* INTRO */
     PHASE_INTRO_START,
     PHASE_INTRO_SCENE_ACTIVE,
@@ -34,7 +36,8 @@ typedef enum {
     PHASE_DESTROYING_MATRIX,
     PHASE_REGENERATING_MATRIX,
     PHASE_MOVE_INATRIX_X,
-    PHASE_MOVE_INATRIX_Y
+    PHASE_MOVE_INATRIX_Y,
+    PHASE_SHOW_STATS
 } Phases;
 
 typedef enum {
@@ -62,6 +65,7 @@ typedef struct {
 
 typedef struct {
     int overflowScore;
+    int totalOverflows;
     int failScore;
 } PlayerData;
 
@@ -71,6 +75,7 @@ extern PlayerData playerData;
 extern void game_Loop();
 extern void game_manageScore(bool overflow);
 extern void game_initData();
+extern void game_launch();
 extern void game_setDifficulty(Difficulty difficulty);
 extern void game_setDestroyMatrix(bool active);
 extern void game_enableDestroyMatrix();
