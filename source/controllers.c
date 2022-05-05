@@ -12,8 +12,6 @@ controllers.cc
 #include "game.h"
 #include "timer.h"
 
-int seg3;
-int seg;
 /**
  * INTERRUPTION MASTER
  */
@@ -53,14 +51,23 @@ void controllers_DisableKeyInt(){
     IME=1;
 }
 
+/*
+*********************
+*********************
+***** HANDLERS ******
+*********************
+*********************
+*/
+
 /**
- * HANDLERS
+ * Esta rutina es la encargada de atender las interrupciones
+ * realizadas al timer.
+ *
+ * Ésta misma, a su vez, invocará:
+ * Timer: Calculará los segundos y en base a ello realizará cieras llamadas.
+ * EventMgr: Actualizará las fases y las animaciones.
  */
-
-
 void controllers_TimerHandler(){
-    // El handler será llamado por interrupción constantemente
-    // Movimientos, si reunen ciertas características, aquí.
     timer_UpdateTimer();
     eventMgr_UpdatePhases();
     eventMgr_UpdateAnimations();
@@ -86,13 +93,25 @@ void controllers_KeyPadHandler(){
 
 }
 
+/**
+ * Función que establece el vector de interrupciones.
+ * Especificamos las direcciones de memoria donde se alojan
+ * las rutina de atención para:
+ *
+ * 1. IRQ_KEYS: Cada vez que una tecla sea pulsada y se detecte por interrupción.
+ * 2. IRQ_TIMER0: Cada vez que el timer lance una interrupción.
+ */
 void controllers_SetInterruptionVector()
 {
     irqSet(IRQ_KEYS, controllers_KeyPadHandler);
     irqSet(IRQ_TIMER0, controllers_TimerHandler);
 }
 
-
+/**
+ * Función encargada de llamar a los controladores
+ * oportunos, configurando así nuestro sistema de
+ * Entrada y salida de manera modular.
+ */
 void controllers_InitSetup(){
     controllers_EnableIntMaster();
     controllers_EnableKeyPadInt();

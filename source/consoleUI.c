@@ -5,6 +5,18 @@
 #include "consoleUI.h"
 #include "game.h"
 
+/**
+ * Fichero en el que se definen las funciones encargadas
+ * de mostrar en la pantalla de arriba el texto oportuno.
+ * Emulando una "User Interface" con simplemente texto y
+ * símbolos. De ahora en adelante se les llamará Menús
+ * o UI.
+ */
+
+/**
+ * UI del menú principal, dando la posibilidad de que el
+ * usuario presione una tecla para ejecutar una acción.
+ */
 void consoleUI_showMenu(){
     iprintf("\x1b[2J");
     iprintf("\x1b[4;00H |***************************|");
@@ -21,6 +33,11 @@ void consoleUI_showMenu(){
     iprintf("\x1b[14;00H |___________________________|");
 }
 
+/**
+ * Menú que se mostrará en el proceso de comienzo de juego.
+ *
+ * Con objeto de dar un poco más de dinamicidad.
+ */
 void consoleUI_showIntro1(){
     iprintf("\x1b[2J");
     iprintf("\x1b[4;00H |***************************|");
@@ -37,6 +54,9 @@ void consoleUI_showIntro1(){
     iprintf("\x1b[14;00H ___________________________");
 }
 
+/**
+ *
+ */
 void consoleUI_showIntro2(){
     iprintf("\x1b[2J");
     iprintf("\x1b[4;00H |***************************|");
@@ -53,11 +73,6 @@ void consoleUI_showIntro2(){
     iprintf("\x1b[14;00H |___________________________");
 }
 
-// Para mostrar las teclas por interrupción
-// Enmascararlas como que son interferencias del Agente Smith
-// en el Matrix.
-// Por ejemplo, sustituir el showUI, solo la parte de **** the matrix****
-// Por algún texto.
 
 void consoleUI_showUI(){
     char nm[] = "Normal";
