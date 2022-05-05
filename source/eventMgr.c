@@ -99,7 +99,7 @@ void eventMgr_ScheduleEvent(uint8 eventId, int time){
  *
  */
 void eventMgr_UpdateScheduledEvents(){
-    if(numEvents == 0)
+    if(numEvents == 0 || gameData.state == GAME_STATE_PAUSE)
         return;
     for (int i = 0; i < numEvents; i++)
     {
@@ -209,7 +209,7 @@ void eventMgr_UpdateScheduledEvents(){
                     matrix_displayMatrix(true);
                     consoleUI_showIntro2();
                     eventMgr_ScheduleEvent(EVENT_GAME_START_DEST_MATRIX, IN_5_SECONDS);
-                    eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_4_SECONDS);
                     break;
                 case EVENT_GAME_START_DEST_MATRIX:
                     game_enableDestroyMatrix();
@@ -220,8 +220,15 @@ void eventMgr_UpdateScheduledEvents(){
                         gameData.destroyMatrixTime -= 1;
                         consoleUI_showUI();
                         if(gameData.destroyMatrixTime <= 0){
-                            game_setDestroyMatrix(false);
-                            eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX, NO_WAIT);
+                            if(game_achievedMinimumOverflows()){
+                                game_setDestroyMatrix(false);
+                                eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX, NO_WAIT);
+                            }
+                            else
+                            {
+                                game_manageGameOver();
+                                return;
+                            }
                         }
                         eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
                     }
@@ -294,9 +301,6 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_CLEAR_CONSOLE:
                     iprintf("\x1b[2J");
                     break;
-                case EVENT_NEXT_PHASE:
-                    gameData.phase = game_getNextPhase();
-                    break;
                 case EVENT_GAME_OVER:
                     eventMgr_cancelAllEvents();
                     consoleUI_showGameOver();
@@ -308,6 +312,14 @@ void eventMgr_UpdateScheduledEvents(){
                     consoleUI_showStats();
                     gameData.state = GAME_STATE_STATS;
                     gameData.phase = PHASE_SHOW_STATS;
+                    break;
+                case EVENT_LISTEN_INPUT:
+                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
+                    break;
+                case EVENT_GAME_PAUSE:
+                    gameData.state = GAME_STATE_PAUSE;
+                    gameData.phase = PHASE_GAME_PAUSE;
+                    consoleUI_showPauseUI();
                     break;
                 default:
                     break;
@@ -325,7 +337,7 @@ void eventMgr_UpdateScheduledEvents(){
  * manera instantánea
  */
 void eventMgr_UpdatePhases(){
-    if(timer.ticks % 15 != 0)
+    if((timer.ticks % 15 != 0) || gameData.state == GAME_STATE_PAUSE)
         return;
     switch(gameData.phase){
         case PHASE_BITBLOCK_FALLING:
@@ -370,7 +382,7 @@ void eventMgr_UpdatePhases(){
 }
 
 void eventMgr_UpdateAnimations(){
-    if(timer.ticks % 3 != 0)
+    if((timer.ticks % 3 != 0) || gameData.state == GAME_STATE_PAUSE)
         return;
 
     // Comprobar si hay animaciones activas

@@ -14,5 +14,5 @@ extern void consoleUI_showRegeneratingMatrix();
 extern void consoleUI_showFail();
 extern void consoleUI_showGameOver();
 extern void consoleUI_showStats();
-
+extern void consoleUI_showPauseUI();
 #endif //INATRIX_OVERFLOW_CONSOLEUI_H
