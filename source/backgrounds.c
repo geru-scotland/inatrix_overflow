@@ -1,5 +1,5 @@
 
-#include "../include/libnds/nds.h"
+#include "nds.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

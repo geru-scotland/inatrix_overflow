@@ -2,16 +2,16 @@
 // Created by Geru on 2/4/22.
 //
 
-#include "../include/eventMgr.h"
-#include "../include/timer.h"
-#include "../include/backgrounds.h"
-#include "../include/sprites.h"
+#include "eventMgr.h"
+#include "timer.h"
+#include "backgrounds.h"
+#include "sprites.h"
 #include "nds.h"
-#include "../include/game.h"
-#include "../include/matrix.h"
-#include "../include/movementMgr.h"
-#include "../include/objectMgr.h"
-#include "../include/consoleUI.h"
+#include "game.h"
+#include "matrix.h"
+#include "movementMgr.h"
+#include "objectMgr.h"
+#include "consoleUI.h"
 
 Event* eventList[MAX_EVENTS];
 

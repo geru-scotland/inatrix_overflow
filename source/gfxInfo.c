@@ -1,9 +1,9 @@
 //
 // Created by Geru on 15/4/22.
 //
-#include "../include/gfxInfo.h"
-#include "../include/utils.h"
-#include "../include/sprites.h"
+#include "gfxInfo.h"
+#include "utils.h"
+#include "sprites.h"
 
 GfxData* gfxList[GFX_SIZE];
 uint8 gfxGUID = 0;

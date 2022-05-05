@@ -4,25 +4,25 @@ y en otro ejemplo de Jaeden Ameronen
 ---------------------------------------------------------------------------------*/
 
 
-#include "../include/libnds/nds.h" 		//librería de la nds
+#include "nds.h" 		//librería de la nds
 #include <stdio.h>		//librería de entrada/salida estándar de C
 #include <stdlib.h>		//librería estándar de C para reserva de memoria y conversiones númericas
 #include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos
-#include "../include/movementMgr.h"
+#include "movementMgr.h"
 
 //librerías desarrolladas por nosotros para el proyecto
 
-#include "../include/defines.h"
-#include "../include/eventMgr.h"
-#include "../include/input.h"
-#include "../include/controllers.h"
-#include "../include/backgrounds.h"
-#include "../include/game.h"
-#include "../include/timer.h"
-#include "../include/consoleUI.h"
-#include "../include/objectMgr.h"
-#include "../include/gfxInfo.h"
-#include "../include/sprites.h"
+#include "defines.h"
+#include "eventMgr.h"
+#include "input.h"
+#include "controllers.h"
+#include "backgrounds.h"
+#include "game.h"
+#include "timer.h"
+#include "consoleUI.h"
+#include "objectMgr.h"
+#include "gfxInfo.h"
+#include "sprites.h"
 
 int SWITCH = 1;
 

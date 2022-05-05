@@ -2,10 +2,10 @@
         Keyboard and Screen
 -------------------------------------*/
 
-#include "../include/libnds/nds.h"
+#include "nds.h"
 #include <stdio.h>
-#include "../include/input.h"
-#include "../include/defines.h"
+#include "input.h"
+#include "defines.h"
 
 KeyData keyData;
 touchPosition screen;

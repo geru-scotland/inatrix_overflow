@@ -2,7 +2,7 @@
 // Created by Gerun on 18/4/22.
 //
 
-#include "../include/utils.h"
+#include "utils.h"
 
 unsigned utils_concatenate(int a, int b){
     int p = 10;

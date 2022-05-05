@@ -2,10 +2,10 @@
 // Created by Geru on 2/5/22.
 //
 
-#include "../include/objectMgr.h"
-#include "../include/movementMgr.h"
-#include "../include/sprites.h"
-#include "../include/game.h"
+#include "objectMgr.h"
+#include "movementMgr.h"
+#include "sprites.h"
+#include "game.h"
 
 uint8 INATRIX_XHOME_POS_X = MATRIX_X_POS + MATRIX_X_PADDING;
 uint8 INATRIX_XHOME_POS_Y = INATRIX_X_POS_Y;

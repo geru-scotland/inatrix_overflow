@@ -3,7 +3,7 @@ input.h
 -------------------------------------*/
 #ifndef INPUT_H
 #define INPUT_H
-#include "../include/libnds/nds.h"
+#include "nds.h"
 #include <stdbool.h>
 //registros del teclado
 #define TECLAS_DAT	(*(vu16*)0x4000130) //registro de datos

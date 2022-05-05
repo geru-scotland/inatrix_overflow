@@ -2,8 +2,8 @@
 // Created by Geru on 3/5/22.
 //
 
-#include "../include/consoleUI.h"
-#include "../include/game.h"
+#include "consoleUI.h"
+#include "game.h"
 
 void consoleUI_showMenu(){
     iprintf("\x1b[2J");
