@@ -92,8 +92,8 @@ void game_Loop()
                         if (keyData.isPressed) {
                             gameData.phase = PHASE_NULL;
                             gameData.state = GAME_STATE_INTRO;
-                            eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, NO_WAIT); // Igual una pequeña transición en negro.
-                            eventMgr_ScheduleEvent(EVENT_INTRO_PRE_START, IN_2_SECONDS); // Igual una pequeña transición en negro.
+                            eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, NO_WAIT);
+                            eventMgr_ScheduleEvent(EVENT_INTRO_PRE_START, IN_2_SECONDS);
                         }
                     break;
                     default:
