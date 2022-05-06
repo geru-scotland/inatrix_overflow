@@ -56,7 +56,6 @@ typedef struct{
 
 void matrix_hideMatrix(bool hide);
 void matrix_hideBitBlockBuffer(bool hide);
-//void matrix_genericToggle(MatrixElement* baseElement, uint8 size, bool hide);
 
 extern void matrix_initSystem();
 extern void matrix_displayMatrix(bool display);

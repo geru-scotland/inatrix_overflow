@@ -29,6 +29,10 @@
 
 #define MAX_EVENTS 20
 
+/**
+ * @enum TimeMarks
+ * @brief Marcas de tiempo para programar eventos.
+ */
 enum TimeMarks {
     NO_WAIT      = 0,
     IN_1_SECONDS = 1,
@@ -43,6 +47,10 @@ enum TimeMarks {
     IN_20_SECONDS = 20,
 };
 
+/**
+ * @enum Events
+ * @brief Listado de los eventos que pueden programarse.
+ */
 enum Events{
     /**
      * MENU
@@ -97,6 +105,12 @@ enum Events{
     EVENT_CLEAR_CONSOLE
 };
 
+/**
+ * @struct Event
+ * @brief Almacena información sobre el propio evento.
+ * @var id: ID única del evento en "cola"
+ * @var execTime: Indica cuándo el evento ha de ejecutarse.
+ */
 typedef struct {
     uint8 id;
     int execTime;

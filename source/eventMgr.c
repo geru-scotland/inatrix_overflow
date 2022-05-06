@@ -37,8 +37,11 @@
 #include "objectMgr.h"
 #include "consoleUI.h"
 
+/**
+ * @var eventList[MAX_EVENTS]: Array que contiene punteros a structs @struct Event.
+ * Ésta lista contendrá únicamente los eventos que han de ejecutarse aún.
+ */
 Event* eventList[MAX_EVENTS];
-
 int numEvents;
 
 #ifdef DEBUG_MODE
@@ -49,9 +52,10 @@ void eventMgr_InitEventSystem(){
     numEvents = 0;
 }
 /**
+ * @brief Función para borrar un evento en concreto de la lista.
  * Reorganizar el array en base al evento borrado
  * Liberar memoria del puntero al evento.
- * @param event puntero al evento.
+ * @param event puntero al @struct Event
  */
 void eventMgr_DeleteEvent(Event *event){
     uint8 i = event->pos;
@@ -77,8 +81,8 @@ void eventMgr_DeleteEvent(Event *event){
 }
 
 /**
- *
- * @param event
+ * @brief Agrega un evento a la lista para ser ejecutado.
+ * @param event puntero al @struct Event
  */
 void eventMgr_AddEvent(Event *event){
     if(numEvents < MAX_EVENTS)
@@ -93,17 +97,18 @@ void eventMgr_AddEvent(Event *event){
     }
 }
 
+/**
+ * Función que elimina todos los eventos de la lista.
+ */
 void eventMgr_cancelAllEvents(){
     for (int i = 0; i < numEvents; i++)
         eventMgr_DeleteEvent(eventList[i]);
 }
 /**
- * Función "Pública".
- * Llamar a éste desde fuera. eventMgr_AddEvent se gestiona de manera privada
- * o interna del eventMgr.
- * @param eventId
- * @param time
- * @return
+ * @brief Función "Pública" que es la que realmente se utiliza fuera del eventMgr
+ * para poder programar eventos en el tiempo.
+ * @param eventId ID del evento
+ * @param time Cuando el evento ha de ser ejecutado (con respecto al instante en el que se programe )
  */
 void eventMgr_ScheduleEvent(uint8 eventId, int time){
     /*
@@ -120,7 +125,16 @@ void eventMgr_ScheduleEvent(uint8 eventId, int time){
 }
 
 /**
+ * @brief Función principal del eventMgr, que se encarga de ir comprobando
+ * si alguno de los eventos almacenados en la lista ha de ser ejecutado.
+ * Si efectivamente ha de ejecutarse, entonces se gestiona como se considere
+ * oportuno.
  *
+ * Aquí es donde se va a desarrollar secuencialmente el juego. Separando el "guión"
+ * de la lógica.
+ *
+ * En la cadena de llamadas propiciada por la interrupción del timer, esta función
+ * será invocada.
  */
 void eventMgr_UpdateScheduledEvents(){
     if(numEvents == 0 || gameData.state == GAME_STATE_PAUSE)
@@ -354,15 +368,16 @@ void eventMgr_UpdateScheduledEvents(){
 }
 
 /**
- * Una idea simplemente, pensar esto bien
- * Esto sería trigueado por el handler del timer cada vez que
- * se produce una interrupción
- * Son los eventos que van ocurriendo en base al estado, de
- * manera instantánea
+ * @brief Son los eventos que van ocurriendo en base a la fase del estado, de
+ * manera instantánea.
+ *
+ * En la cadena de llamadas propiciada por la interrupción del timer, esta función
+ * será invocada.
  */
 void eventMgr_UpdatePhases(){
     if((timer.ticks % 15 != 0) || gameData.state == GAME_STATE_PAUSE)
         return;
+
     switch(gameData.phase){
         case PHASE_BITBLOCK_FALLING:
             if(!matrix_dropBitBlockEffect()){
@@ -392,7 +407,7 @@ void eventMgr_UpdatePhases(){
                 gameData.phase = PHASE_WAITING_PLAYER_INPUT;
             }
             break;
-        case PHASE_MOVE_CAPSULE: // Hacer con objectMgr y para ambas cápsulas
+        case PHASE_MOVE_CAPSULE:
             if(movementMgr_hasGfxReachedDest(
                     gameData.mode == DIFFICULTY_NORMAL_MODE ? GFX_CAPSULE_BLUE : GFX_CAPSULE_RED)){
                 gameData.phase = PHASE_NULL;
@@ -405,11 +420,15 @@ void eventMgr_UpdatePhases(){
     oamUpdate(&oamMain);
 }
 
+/**
+ * @brief Actualiza las animaciones en caso de haber alguna activa. Por ahora únicamente trata
+ * el movimiento en el eje X del bit seleccionado de manera pasiva por los dos Iñatrix.
+ * Pero será de ayuda con el bitConjunctionEffect
+ */
 void eventMgr_UpdateAnimations(){
     if((timer.ticks % 3 != 0) || gameData.state == GAME_STATE_PAUSE)
         return;
 
-    // Comprobar si hay animaciones activas
     for(int anim = 0; anim < ANIMATIONS_SIZE; anim++){
         if(animations[anim]->active){
             switch(anim){
