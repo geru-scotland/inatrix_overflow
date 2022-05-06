@@ -33,12 +33,22 @@
 #define TIMER0_FREQ 512
 #define EVENT_FREQ 100
 
+/**
+ * @struct TimerData
+ * @brief Estructura que contiene datos útiles relacionados al timer.
+ * @var ticks: Contador de ticks, ayudará a determinar cuando ha transcurrido un segundo
+ * @var time: tiempo en segundos desde que se ejecutó la aplicación
+ * @var latch: latch para configurar el timer
+ * @var conf: para configurar el timer
+ * @var totalTicks: ticks totales desde que se ejecutó la aplicación.
+ * @todo: totalTicks, hacer uint64 para que no haya overflow.
+ */
 typedef struct {
-    int ticks; // Temp
-    int time; // Tiempo en segundos desde que se ejecutó el juego (actualizar en cada tick)
+    int ticks;
+    int time;
     int latch;
     int conf;
-    int totalTicks; // Geru: Cambiar nombres de variables, estoy cansado.
+    int totalTicks;
 } TimerData;
 
 extern void timer_UpdateTimer();

@@ -29,6 +29,9 @@
 #define TECLAS_DAT	(*(vu16*)0x4000130) //registro de datos
 #define TECLAS_CNT	(*(vu16*)0x4000132) //registro de control
 
+/**
+ *
+ */
 enum KEYS {
     INPUT_KEY_A       = 0,
     INPUT_KEY_B		  = 1,

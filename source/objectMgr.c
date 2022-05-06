@@ -64,7 +64,6 @@ void objectMgr_initAnimations(){
 
 void objectMgr_setAnimationActive(AnimID animID, bool active){
     if(!active){
-        // matrix pivot set home position
         matrix_bitResetPosEffect();
     }
     animations[ANIMATION_BIT_SHAKE]->active = active;

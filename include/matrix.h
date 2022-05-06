@@ -42,13 +42,29 @@
 #define OVERFLOW_NM 9
 #define OVERFLOW_HM 15
 
+/**
+ * @typedef Binary
+ * @brief Tipo de dato Binary, para los dígitos binarios de las matrices.
+ */
 typedef bool Binary;
 
+/**
+ * @struct MatrixPivot
+ * @brief Struct actuando como vector posición en matriz
+ * @var i: fila
+ * @var j: columna
+ */
 typedef struct{
     uint8 i;
     uint8 j;
 } MatrixPivot;
 
+/**
+ * @struct MatrixElement
+ * @brief La/el matriz/bitblock están compuestos por punteros a este tipo de struct.
+ * @var sprite: dirección de memoria del struct @struct Sprite.
+ * @var bit: valor del digito binario, del tipo @typedef Binary.
+ */
 typedef struct{
     Sprite* sprite;
     Binary bit;
