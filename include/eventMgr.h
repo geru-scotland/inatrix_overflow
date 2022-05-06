@@ -1,6 +1,26 @@
-//
-// Created by Geru on 2/4/22.
-//
+/*
+ * This file is part of the Iñatrix Overflow Project.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Github: https://github.com/Geru-Scotland/inatrix_overflow
+ */
+
+/**
+ * @author Geru-Scotland.
+ * @file eventMgr.h
+ */
 
 #ifndef EVENTMGR_H
 #define EVENTMGR_H
@@ -9,6 +29,10 @@
 
 #define MAX_EVENTS 20
 
+/**
+ * @enum TimeMarks
+ * @brief Marcas de tiempo para programar eventos.
+ */
 enum TimeMarks {
     NO_WAIT      = 0,
     IN_1_SECONDS = 1,
@@ -23,6 +47,10 @@ enum TimeMarks {
     IN_20_SECONDS = 20,
 };
 
+/**
+ * @enum Events
+ * @brief Listado de los eventos que pueden programarse.
+ */
 enum Events{
     /**
      * MENU
@@ -77,6 +105,12 @@ enum Events{
     EVENT_CLEAR_CONSOLE
 };
 
+/**
+ * @struct Event
+ * @brief Almacena información sobre el propio evento.
+ * @var id: ID única del evento en "cola"
+ * @var execTime: Indica cuándo el evento ha de ejecutarse.
+ */
 typedef struct {
     uint8 id;
     int execTime;

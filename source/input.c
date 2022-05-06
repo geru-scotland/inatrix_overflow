@@ -1,6 +1,30 @@
-/*-------------------------------------
-        Keyboard and Screen
--------------------------------------*/
+/*
+ * This file is part of the Iñatrix Overflow Project.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+ * Github: https://github.com/Geru-Scotland/inatrix_overflow
+ */
+
+
+/**
+ * @author Geru-Scotland.
+ * @file input.c
+ * @brief Gestión y configuración de los registros correspondientes al
+ * sistema de entrada y salida de la NDS.
+ */
 
 #include "nds.h"
 #include <stdio.h>
@@ -10,11 +34,20 @@
 KeyData keyData;
 touchPosition screen;
 
+/**
+ * @brief Agrega la máscara al registro de control TECLAS_CNT.
+ * @param mask Bitmask utilizado para configurar TECLAS_DAT.
+ */
 void input_ConfigureInput(int mask)
 {
     TECLAS_CNT |= mask;
 }
 
+/**
+ * @brief Función encargada de actualizar el @struct KeyData con la información
+ * extraída de los registros apropidos.
+ * @return Devuelve 1 si detecta que se ha pulsado alguna tecla, -1 en caso contrario.
+ */
 void input_UpdateKeyData()
 {
     keyData.isPressed = input_KeyDetected();
@@ -25,33 +58,25 @@ void input_UpdateKeyData()
         keyData.key = -1;
 }
 
+/**
+ * @brief Control de pulsación de teclas.
+ * @return Devuelve TRUE si detecta que se ha pulsado alguna tecla.
+ */
 int input_KeyDetected()
 {
-	//Devuelve TRUE si detecta que se ha pulsado alguna tecla.
-    return (~TECLAS_DAT & 0x03ff)!=0 ? 1 : 0;
+    return (~TECLAS_DAT & 0x03ff) != 0 ? 1 : 0;
 }
 
+/**
+ * @brief Función para detectar qué tecla ha sido pulsada.
+ * @note Los registros de las teclas X e Y, al igual que los de la pantalla táctil, sólo son accesibles
+ * desde el procesador ARM7, por esa razón y puesto que en este caso tenemos disponibles
+ * el resto de las teclas, estas no las vamos a utilizar.
+ * @return Identificador de la tecla asociada correspondiente.
+ */
 int input_KeyPressed()
 {
-     /*
-     * Geru:
-     * Cadena de 10 bits (0 a 9) Se apaga el indicador
-     * Simplemente he calculado en binario los números
-     * y pasado a hexadecimal.
-     *
-     * E.g. Otra opción de implementación sería:
-     * if(~TECLAS_DAT & 0x0001) { return A; }
-     *
-     * De "defines.h":
-     * A=0;B=1;SELECT=2;START=3;IZQUIERDA=4;DERECHA=5;
-     * ARRIBA=6;ABAJO=7;R=8;L=9;
-     */
 
-    /*
-     * Los registros de las teclas X e Y, al igual que los de la pantalla táctil, sólo son accesibles
-     * desde el procesador ARM7, por esa razón y puesto que en este caso tenemos disponibles
-     * el resto de las teclas, estas no las vamos a utilizar.
-     */
     switch(TECLAS_DAT){
         case 0x03FE:
             return INPUT_KEY_A;
@@ -78,16 +103,29 @@ int input_KeyPressed()
     }
 }
 
+/**
+ * @brief Detecta si se ha utilizado la pantalla táctil (click izquierdo del ratón
+ * en el emulador).
+ * @return true si ha sido pulsada, false en caso contrario.
+ */
 bool input_touchScreenUsed() {
     touchRead(&screen);
     return (screen.px != 0 && screen.py != 0);
 }
 
+/**
+ * @brief Consulta la posición x del punto donde ha sido presionada la pantalla táctil.
+ * @return Entero que indica la posición en el eje X.
+ */
 int input_getTouchScreenX() {
     touchRead(&screen);
     return screen.px;
 }
 
+/**
+ * @brief Consulta la posición y del punto donde ha sido presionada la pantalla táctil.
+ * @return Entero que indica la posición en el eje y.
+ */
 int input_getTouchScreenY() {
     touchRead(&screen);
     return screen.py;
