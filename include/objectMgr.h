@@ -31,10 +31,20 @@
 #define ANIMATIONS_SIZE 1
 #define INATRIX_X_POS_Y 170
 
+/**
+ * @enum AnimID
+ * @brief Listado de animaciones.
+ */
 typedef enum{
     ANIMATION_BIT_SHAKE = 0
 } AnimID;
 
+/**
+ * @struct Animation
+ * @brief Información acerca del estado de la animación.
+ * @var active: Indica si la animación está activa o no.
+ * @var state: indica la posición con respecto al centro.
+ */
 typedef struct {
     bool active;
     int8 state;

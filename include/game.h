@@ -32,6 +32,11 @@
 void game_Loop();
 void game_Update();
 
+/**
+ * @enum States
+ * @brief Listado de los posibles estados generales del juego.
+ * Asociados al autómata o máquina de estados base.
+ */
 enum States {
     // Estados generales del juego
     GAME_STATE_MAIN_MENU = 0,
@@ -44,6 +49,10 @@ enum States {
     GAME_STATE_SURRENDER,
 };
 
+/**
+ * @enum Phases
+ * @brief Diferentes fases que pueden tener cada uno de los estados.
+ */
 typedef enum {
     PHASE_NULL = 0,
     PHASE_WAITING_PLAYER_INPUT,
@@ -63,20 +72,26 @@ typedef enum {
     PHASE_GAME_PAUSE
 } Phases;
 
+/**
+ * @enum Difficulty
+ * @brief Listado de las posibles dificultades del juego.
+ */
 typedef enum {
     DIFFICULTY_NORMAL_MODE = 0,
     DIFFICULTY_HARD_MODE = 1
 } Difficulty;
 
-/*
- * Información general del juego.
- * state: estado actual del juego.
- * phase: phase del estado.
- *
- * Desafortunadamente, switch no acepta otra
- * cosa más que int, así que no se pueden declarar
- * las variables como uint8 o similares.
- * */
+/**
+ * @struct GameData
+ * @brief Información general del juego.
+ * @var state: estado actual del juego.
+ * @var phase: phase del estado.
+ * @var mode: difficultad @enum Difficulty.
+ * @var destroyMatrixActive: indica si el sistema encargado de la gestión de
+ * la destrucción/regeneración de la matriz está actualmente activo.
+ * @var destroyMatrixTime: Indica el tiempo que falta para la siguiente destrucción de la matriz.
+ * @var matrixRegens: Número de regeneraciones total.
+*/
 typedef struct {
     int state;
     int phase;
@@ -86,6 +101,15 @@ typedef struct {
     int matrixRegens;
 } GameData;
 
+/**
+ * @struct PlayerData
+ * @brief Datos relacionados al jugador.
+ * @var overFlowScore: Número que contiene el resultado general - incluye aciertos
+ * y fallos, ambos lo modifican.
+ * @var totalOverflows: Número total de overflows desde el inicio del juego.
+ * @var runOverflows: Número de overflows desde la última regeneración de la matriz.
+ * @var failscore: Número de fallos total.
+ */
 typedef struct {
     int overflowScore;
     int totalOverflows;

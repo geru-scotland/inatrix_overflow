@@ -65,10 +65,13 @@ typedef struct{
  * @var posId: Asociación con la matriz. Hace referencia a la fila o columna asociada a
  * la posición del sprite en cada momento.
  * @var homePos: posición inicial o "home" de un sprite. Podría considerarse la posición de inicio "absoluta".
- * @var startPos: posición de inicio "relativa" a cada movimiento. Cada vez que se dé la orden de movimie
+ * @var startPos: posición de inicio "relativa" a cada movimiento. Cada vez que se dé la orden de movimiento
+ * @var destinyPos: posición destino "relativa" a cada movimiento. Cada vez que se dé la orden de movimiento.
+ * @var direction: Indica la dirección de movimiento establecida en @enum Direction
+ * @var sprite: Puntero a @struct Sprite.
  */
 typedef struct{
-    uint8 posId; // Columna / Fila - Max 0-MATRIX_SIZE
+    uint8 posId;
     Vector homePos;
     Vector startPos;
     Vector destinyPos;

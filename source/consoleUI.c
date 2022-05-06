@@ -25,15 +25,19 @@
  * Emulando una "User Interface" con simplemente texto y
  * símbolos. De ahora en adelante se les llamará Menús
  * o UI.
+ *
+ * Ésta manera no es que esté muy bien, pero durante el desarrollo
+ * he encontrado varios bugs con la gestión de libnds y su consola,
+ * así que he decidido el hacerlo de manera simple y, bastante troglodita.
+ *
  */
 
 #include "consoleUI.h"
 #include "game.h"
-
+#include "time.h"
 
 /**
- * @brief
- * UI del menú principal, dando la posibilidad de que el
+ * @brief UI del menú principal, dando la posibilidad de que el
  * usuario presione una tecla para ejecutar una acción.
  */
 void consoleUI_showMenu(){
@@ -53,8 +57,7 @@ void consoleUI_showMenu(){
 }
 
 /**
- * @brief
- * Menú que se mostrará en el proceso de comienzo de juego.
+ * @brief Menú que se mostrará en el proceso de comienzo de juego.
  * Con objeto de dar un poco más de dinamicidad.
  */
 void consoleUI_showIntro1(){
@@ -74,7 +77,7 @@ void consoleUI_showIntro1(){
 }
 
 /**
- *
+ * @brief Menú cada vez que haya Overflow.
  */
 void consoleUI_showIntro2(){
     iprintf("\x1b[2J");
@@ -92,7 +95,10 @@ void consoleUI_showIntro2(){
     iprintf("\x1b[14;00H |___________________________");
 }
 
-
+/**
+ * @brief Menú UI que aparece durante el juego mostrando datos y estádisticas
+ * a tiempo real.
+ */
 void consoleUI_showUI(){
     char nm[] = "Normal";
     char hm[] = "Hard";
@@ -102,15 +108,20 @@ void consoleUI_showUI(){
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
     iprintf("\x1b[7;00H |          OVERFLOWS         ");
-    iprintf("\x1b[8;00H | Total: %i  ||  Current: %i ", playerData.overflowScore, playerData.runOverflows);
-    iprintf("\x1b[9;00H |                            ");
-    iprintf("\x1b[10;00H | Mode             %s       ", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm);
-    iprintf("\x1b[11;00H |                           ");
-    iprintf("\x1b[12;00H | Matrix regens    %i       ", gameData.matrixRegens);
-    iprintf("\x1b[13;00H |                           ");
-    iprintf("\x1b[14;00H | Destroy time:    %i       ", gameData.destroyMatrixTime);
-    iprintf("\x1b[15;00H |___________________________");
+    iprintf("\x1b[8;00H |                            ");
+    iprintf("\x1b[9;00H | Total: %i  ||  Current: %i ", playerData.overflowScore, playerData.runOverflows);
+    iprintf("\x1b[10;00H |                            ");
+    iprintf("\x1b[11;00H | Mode             %s       ", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm);
+    iprintf("\x1b[12;00H |                           ");
+    iprintf("\x1b[13;00H | Matrix regens    %i       ", gameData.matrixRegens);
+    iprintf("\x1b[14;00H |                           ");
+    iprintf("\x1b[15;00H | Destroy time:    %i       ", gameData.destroyMatrixTime);
+    iprintf("\x1b[16;00H |___________________________");
 }
+
+/**
+ * @brief Menú para el Game Over
+ */
 
 void consoleUI_showGameOver(){
     iprintf("\x1b[2J");
@@ -128,6 +139,9 @@ void consoleUI_showGameOver(){
     iprintf("\x1b[14;00H |___________________________|");
 }
 
+/**
+ * Menú para el Overflow.
+ */
 void consoleUI_showOverflow(){
     // ASCII Text, que se active una secuencia y vaya recorriendo la consola
     // que vaya llamando a funciones con el texto desplazado rollo, 1, 2.
@@ -142,6 +156,9 @@ void consoleUI_showOverflow(){
 
 }
 
+/**
+ * @brief Menú UI para la fase de regeneración de la matriz.
+ */
 void consoleUI_showRegeneratingMatrix(){
     iprintf("\x1b[2J");
     iprintf("\x1b[4;00H |***************************|");
@@ -158,15 +175,24 @@ void consoleUI_showRegeneratingMatrix(){
     iprintf("\x1b[14;00H |___________________________");
 }
 
-// Meter citas de Iñaki random.
+/**
+ * @brief Menú que mostrará una frase de Iñaki aleatoria cada vez
+ * que se falle.
+ */
 void consoleUI_showFail(){
-    iprintf("\x1b[2J"); // Forzamos un clear console
-    iprintf("\x1b[10;00H 'Me he columpiao!'");
+    char f1[] = "\x1b[10;00H 'Me he columpiao!'";
+    char f2[] = "\x1b[10;00H 'Socorroooo!'";
+
+    srand(time(0));
+    iprintf("\x1b[2J");
+    iprintf(rand() % 2 == 0 ? f1 : f2);
     iprintf("\x1b[13;00H -Inatrix, Lord of the");
     iprintf("\x1b[15;00H  Overflow ");
-
 }
 
+/**
+ * @brief Menú UI para la muestra de estadísticas al final de la partida.
+ */
 void consoleUI_showStats(){
     char nm[] = "Normal";
     char hm[] = "Hard";
@@ -188,6 +214,9 @@ void consoleUI_showStats(){
     iprintf("\x1b[17;00H |___________________________");
 }
 
+/**
+ * @brief Menú UI para el pause.
+ */
 void consoleUI_showPauseUI(){
         iprintf("\x1b[2J");
         iprintf("\x1b[4;00H |***************************|");
@@ -202,5 +231,4 @@ void consoleUI_showPauseUI(){
         iprintf("\x1b[13;00H |                           ");
         iprintf("\x1b[13;00H |                           ");
         iprintf("\x1b[14;00H |___________________________");
-
 }
