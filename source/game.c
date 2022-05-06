@@ -44,18 +44,26 @@
 
 int SWITCH = 1;
 
+
 GameData gameData;
 PlayerData playerData;
 
+/**
+ * @brief Actualiza en cada loop las diferentes funciones (por ahora, únicamente la encargada
+ * de actualizar el estado de las teclas).
+ */
 void game_Update(){
     input_UpdateKeyData();
 }
-
+/**
+ * @brief Función auxiliar para obtener la siguiente fase.
+ * @return Número de fase, del tipo @enum Phases
+ */
 int game_getNextPhase(){
 
     switch(gameData.state){
         case GAME_STATE_INTRO:
-            return gameData.phase + 1; // Geru: Ojo con las declaraciones
+            return gameData.phase + 1;
         default:
             break;
     }
@@ -63,6 +71,11 @@ int game_getNextPhase(){
     return PHASE_NULL;
 }
 
+/**
+ * @brief Game loop principal, la función principal es la de analizar y gestionar el estado
+ * actual del juego y sus posibles fases, abstrayendo lógica de contenido y adquiriendo
+ * un rol de "director".
+ */
 void game_Loop()
 {
     game_initData();
@@ -177,6 +190,11 @@ void game_Loop()
     gfxInfo_freeMemory();
 }
 
+/**
+ * @brief Fnción auxiliar encargada de gestionar de manera oportuna cada selección
+ * de bitblock.
+ * @param overflow Si se ha producido overflow o no.
+ */
 void game_manageScore(bool overflow){
     if(overflow){
         playerData.overflowScore++;
@@ -193,6 +211,9 @@ void game_manageScore(bool overflow){
     consoleUI_showUI();
 }
 
+/**
+ * @brief Inicialización de las diferentes variables en relación al juego, jugador...etc.
+ */
 void game_initData(){
     gameData.state = GAME_STATE_MAIN_MENU;
     gameData.phase = PHASE_WAITING_PLAYER_INPUT;
@@ -205,31 +226,60 @@ void game_initData(){
     gameData.destroyMatrixTime = TIMER_REGEN;
 }
 
+/**
+ * @brief Establecer en qué estado debe de comenzar el juego exactamente. Ésta función
+ * ha tenido principalmente una funcionalidad de testeo, pero considero que no hace daño
+ * dejarla.
+ */
 void game_launch(){
     background_SetMainBackground();
     eventMgr_ScheduleEvent(EVENT_MAIN_MENU_START, IN_2_SECONDS);
 }
 
-// Capsula Azul: Normal mode (Overflow @ 9)
-// Capsula Roja: Hard mode (Overflow @ 15)
+/**
+ * @brief Establecer la dificultad del juego, una vez haya sido seleccionada por el
+ * jugador.
+ *
+ * 1. Capsula Azul: Normal mode (Overflow @ 9)
+ * 2. Capsula Roja: Hard mode (Overflow @ 15)
+ * @param difficulty modo de dificultad, @enum Difficulty.
+ */
 void game_setDifficulty(Difficulty difficulty){
     gameData.mode = difficulty;
 }
 
+/**
+ * @brief Establece si el sistema encargado de la gestión de
+ * la destrucción/regeneración de la matriz está actualmente activo.
+ * @param active
+ */
 void game_setDestroyMatrix(bool active){
     gameData.destroyMatrixActive = active;
 }
 
+/**
+ * Habilita el sistema encargado de la gestión de
+ * la destrucción/regeneración de la matriz.
+ */
 void game_enableDestroyMatrix(){
     gameData.destroyMatrixActive = true;
     gameData.destroyMatrixTime = 15;
     playerData.runOverflows = 0;
 }
 
+/**
+ * @brief Incrementar el contador de regeneraciones.
+ */
 void game_increaseMatrixRegens(){
     gameData.matrixRegens++;
 }
 
+/**
+ * Gestiona el game over, se encarga de borrar todos los eventos en cola y de
+ * programar el evento de game over con 1 segundo de retraso, para evitar los problemas
+ * que se pueden genera con la libnds y la actualización por tick de los bit
+ * de los registros oportunos en cuanto a la detección de teclas.
+ */
 void game_manageGameOver(){
     gameData.state = GAME_STATE_GAME_OVER;
     gameData.phase = PHASE_NULL;
@@ -237,6 +287,12 @@ void game_manageGameOver(){
     eventMgr_ScheduleEvent(EVENT_GAME_OVER, IN_1_SECONDS);
 }
 
+/**
+ * @brief Comprueba si el jugador ha consegudo al menos 1 overflow
+ * durante éste "run". Siendo "run" el tiempo entre una regeneración de la matriz
+ * principal y la siguiente.
+ * @return TRUE si ha conseguido al menos 1 overflow - FALSE en caso contrario.
+ */
 bool game_achievedMinimumOverflows(){
     return playerData.runOverflows > 0;
 }
