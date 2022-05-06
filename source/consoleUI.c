@@ -29,7 +29,7 @@
 
 #include "consoleUI.h"
 #include "game.h"
-
+#include "time.h"
 
 /**
  * @brief
@@ -158,10 +158,14 @@ void consoleUI_showRegeneratingMatrix(){
     iprintf("\x1b[14;00H |___________________________");
 }
 
-// Meter citas de Iñaki random.
+/**
 void consoleUI_showFail(){
-    iprintf("\x1b[2J"); // Forzamos un clear console
-    iprintf("\x1b[10;00H 'Me he columpiao!'");
+    char f1[] = "\x1b[10;00H 'Me he columpiao!'";
+    char f2[] = "\x1b[10;00H 'Socorroooo!'";
+
+    srand(time(0));
+    iprintf("\x1b[2J");
+    iprintf(rand() % 2 == 0 ? f1 : f2);
     iprintf("\x1b[13;00H -Inatrix, Lord of the");
     iprintf("\x1b[15;00H  Overflow ");
 
