@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['screen_0',['screen',['../input_8c.html#ab981df2aa07c68d90d50986737cdb59d',1,'input.c']]],
+  ['sprite_1',['Sprite',['../struct_sprite.html',1,'']]],
+  ['sprites_2',['sprites',['../sprites_8c.html#abc728c2c340b918eb4ef36d12119d96d',1,'sprites.c']]],
+  ['sprites_2ec_3',['sprites.c',['../sprites_8c.html',1,'']]],
+  ['sprites_5fallocatememory_4',['sprites_allocateMemory',['../sprites_8c.html#ae3184defd832374e7b49916abe3e0db7',1,'sprites.c']]],
+  ['sprites_5fcreatesprite_5',['sprites_createSprite',['../sprites_8c.html#a6f74179087096a2cfa21d4fcf1ce134c',1,'sprites.c']]],
+  ['sprites_5fdisplaysprite_6',['sprites_displaySprite',['../sprites_8c.html#a516fbba4c8c7235d7cd101388ff2ac08',1,'sprites.c']]],
+  ['sprites_5fdumptomemory_7',['sprites_dumpToMemory',['../sprites_8c.html#aa63191ba09dddaeb96cc05ce0194760a',1,'sprites.c']]],
+  ['sprites_5ffreememory_8',['sprites_freeMemory',['../sprites_8c.html#ac606819e200a1574ac4f84f0d810639e',1,'sprites.c']]],
+  ['sprites_5finitspritesystem_9',['sprites_initSpriteSystem',['../sprites_8c.html#a66c18ad008ae7a8e95e90dbd67fa7318',1,'sprites.c']]],
+  ['sprites_5fmemorysetup_10',['sprites_memorySetup',['../sprites_8c.html#a14834bcaf88b335e29b0848bb66fe5fa',1,'sprites.c']]],
+  ['sprites_5freallocatememory_11',['sprites_reAllocateMemory',['../sprites_8c.html#ad0f6d702bc9df6e1e652dafbb05fe1e7',1,'sprites.c']]],
+  ['sprites_5fsetmainpalette_12',['sprites_setMainPalette',['../sprites_8c.html#acc1c244abc7d5242899943872f35f32d',1,'sprites.c']]],
+  ['sprites_5fsetnextmemoryaddress_13',['sprites_setNextMemoryAddress',['../sprites_8c.html#a6edb6488d6ba90abfdbabba6aaf7bfa6',1,'sprites.c']]],
+  ['sprites_5fupdatesprite_14',['sprites_updateSprite',['../sprites_8c.html#a3d48bea72b7fcd41d89890b7cdcc689a',1,'sprites.c']]],
+  ['switch_15',['SWITCH',['../game_8c.html#af7c633825bfbe88390900b4c499deb72',1,'game.c']]]
+];
