@@ -89,7 +89,7 @@ void sprites_setNextMemoryAddress(GfxData* gfx){
  */
 void sprites_createSprite(GfxData* gfx){
     sprites[gfx->GUID] = malloc(sizeof(Sprite));
-    sprites[gfx->GUID]->index = gfx->GUID; // TODO: cambiar
+    sprites[gfx->GUID]->index = gfx->GUID; // @todo: cambiar
     sprites[gfx->GUID]->speed = DEFAULT_SPRITE_SPEED;
     sprites[gfx->GUID]->gfx = gfx;
 }

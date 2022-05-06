@@ -56,7 +56,7 @@ void movementMgr_movePosition(MovementGfx gfxMove){
     movementInfo[gfxMove]->startPos.x = movementInfo[gfxMove]->sprite->spriteEntry->x;
     movementInfo[gfxMove]->startPos.y = movementInfo[gfxMove]->sprite->spriteEntry->y;
     int mul = movementMgr_getMultiplier(movementInfo[gfxMove]->direction, movementInfo[gfxMove]->posId);
-    // TODO: Rehacer esto, chapuza.
+    // @todo: Rehacer esto, chapuza.
     if(gfxMove == MOVEMENT_INATRIX_X){
         movementInfo[gfxMove]->destinyPos.x =
                 movementInfo[gfxMove]->startPos.x +

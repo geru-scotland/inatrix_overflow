@@ -67,8 +67,6 @@ extern bool matrix_dropBitBlockEffect();
 extern bool matrix_bitConjuctionEffect();
 extern void matrix_bitShakeEffect(int8 state);
 extern void matrix_bitResetPosEffect();
-extern void matrix_deactivatePivot();
-extern void matrix_activatePivot();
 extern void matrix_regenerateBitBlock();
 extern void matrix_regenerateMatrix();
 extern uint8 matrix_getOverflowLimit();

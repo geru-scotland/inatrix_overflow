@@ -329,7 +329,7 @@ void gfxInfo_allocateMatrixElement(GfxID gfxId){
  * @param i: fila
  * @param j: columna
  * @param bit: indica el valor del dígito binario del tipo @typedef Binary
- * TODO: Mejorar esta chapuza.
+ * @todo: Mejorar esta chapuza.
  */
 void gfxInfo_linkToMatrix(uint8 size, uint8 i, uint8 j, Binary bit) {
     if(size == BITBLOCK_SIZE){

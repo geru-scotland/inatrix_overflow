@@ -97,7 +97,7 @@ void controllers_TimerHandler(){
 }
 
 void controllers_KeyPadHandler(){
-    // TODO: Geru: Hacer esto bien con el nuevo gestor de eventos.
+    // @todo: Geru: Hacer esto bien con el nuevo gestor de eventos.
     /**
      *
      * Esto se llama cada vez que una tecla sea pulsada POR INTERRUPCIÓN.

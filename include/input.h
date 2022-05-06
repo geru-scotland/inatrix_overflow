@@ -49,7 +49,7 @@ typedef struct {
 
 extern KeyData keyData;
 
-// TODO: Poner extern solo las que realmente vayan a ser linkadas
+// @todo: Poner extern solo las que realmente vayan a ser linkadas
 // En otros archivos, no en el c
 
 extern void input_ConfigureInput(int mask);
