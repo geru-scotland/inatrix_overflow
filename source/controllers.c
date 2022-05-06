@@ -1,6 +1,27 @@
-/*-------------------------------------
-controllers.cc
--------------------------------------*/
+/*
+ * This file is part of the Iñatrix Overflow Project.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Github: https://github.com/Geru-Scotland/inatrix_overflow
+ */
+
+/**
+ * @file controllers.c
+ * @brief Invocar y gestionar los controladores oportunos, permitiendo una
+ * configuración modular del sistema de entrada-salida.
+ */
 
 #include "nds.h"
 #include <stdio.h>
@@ -12,9 +33,14 @@ controllers.cc
 #include "game.h"
 #include "timer.h"
 
-/**
- * INTERRUPTION MASTER
- */
+/*
+*********************
+*********************
+** REGISTER CONFIG **
+*********************
+*********************
+*/
+
 void controllers_EnableIntMaster(){
     IME = 1;
 }
@@ -25,17 +51,14 @@ void controllers_DisableIntMaster(){
 
 void controllers_ConfigureTimer(){
     timer_ConfigureTimer(0, 0x0000);
-    // Deshabilitado para poder hacer muestra 2Actividad:
-    //timer_StartTimer();
 }
 
+/**
+ * @brief Establece el latch y la máscara
+ * para los registros TIMER0_CNT y
+ * TIMER0_DAT
+ */
 void controllers_ConfigureInput(){
-    /*
-     * Geru: el bit número 14 de este registro (TECLAS_CNT), pero aquí parece
-     * ser Conf_tec (registro control del teclado), determina si es por
-     * interrupción o no. Así que le hago un and con el bitmask 0xB111 (B = 1011)
-     * Con lo que apago el bit 14 (tercer bit de B) con esta operación.
-    */
     input_ConfigureInput(0x4000 | 0x0001);
 }
 
@@ -60,7 +83,7 @@ void controllers_DisableKeyInt(){
 */
 
 /**
- * Esta rutina es la encargada de atender las interrupciones
+ * @brief Esta rutina es la encargada de atender las interrupciones
  * realizadas al timer.
  *
  * Ésta misma, a su vez, invocará:
@@ -94,7 +117,7 @@ void controllers_KeyPadHandler(){
 }
 
 /**
- * Función que establece el vector de interrupciones.
+ * @brief Función que establece el vector de interrupciones.
  * Especificamos las direcciones de memoria donde se alojan
  * las rutina de atención para:
  *
@@ -108,7 +131,7 @@ void controllers_SetInterruptionVector()
 }
 
 /**
- * Función encargada de llamar a los controladores
+ * @brief Función encargada de llamar a los controladores
  * oportunos, configurando así nuestro sistema de
  * Entrada y salida de manera modular.
  */

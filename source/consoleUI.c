@@ -1,19 +1,38 @@
-//
-// Created by Geru on 3/5/22.
-//
-
-#include "consoleUI.h"
-#include "game.h"
+/*
+ * This file is part of the Iñatrix Overflow Project.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  Github: https://github.com/Geru-Scotland/inatrix_overflow
+ */
 
 /**
- * Fichero en el que se definen las funciones encargadas
+ * @author Geru-Scotland.
+ * @file consoleUI.c
+ * @brief Fichero en el que se definen las funciones encargadas
  * de mostrar en la pantalla de arriba el texto oportuno.
  * Emulando una "User Interface" con simplemente texto y
  * símbolos. De ahora en adelante se les llamará Menús
  * o UI.
  */
 
+#include "consoleUI.h"
+#include "game.h"
+
+
 /**
+ * @brief
  * UI del menú principal, dando la posibilidad de que el
  * usuario presione una tecla para ejecutar una acción.
  */
@@ -34,8 +53,8 @@ void consoleUI_showMenu(){
 }
 
 /**
+ * @brief
  * Menú que se mostrará en el proceso de comienzo de juego.
- *
  * Con objeto de dar un poco más de dinamicidad.
  */
 void consoleUI_showIntro1(){

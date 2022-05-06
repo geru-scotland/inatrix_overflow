@@ -1,17 +1,35 @@
-/*---------------------------------------------------------------------------------
-Este código se ha desarrollado basándose en el código de dovoto "Simple sprite demo"
-y en otro ejemplo de Jaeden Ameronen
----------------------------------------------------------------------------------*/
+/*
+ * This file is part of the Iñatrix Overflow Project.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+ * Github: https://github.com/Geru-Scotland/inatrix_overflow
+ */
 
+/**
+ * @author Geru-Scotland.
+ * @file game.c
+ * @brief Game loop principal, así como la gestión de algunas funcionalidades
+ * intrínsecas a la lógica del juego.
+ */
 
-#include "nds.h" 		//librería de la nds
-#include <stdio.h>		//librería de entrada/salida estándar de C
-#include <stdlib.h>		//librería estándar de C para reserva de memoria y conversiones númericas
-#include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos
+#include "nds.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "movementMgr.h"
-
-//librerías desarrolladas por nosotros para el proyecto
-
 #include "defines.h"
 #include "eventMgr.h"
 #include "input.h"

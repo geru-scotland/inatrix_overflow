@@ -4,14 +4,14 @@ defines.h
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#include "nds.h" 		//librería de la nds
-#include <stdio.h>		//librería de entrada/salida estandar de C
-#include <stdlib.h>		//librería estandar de C para reserva de memoria y conversiones númericas
-#include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos
+#include "nds.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#define IME		(*(vuint32*)0x04000208) //Interrupt Master Enable -- Habilitar-deshabilitar todas las interrupciones
-#define IE		(*(vuint32*)0x04000210) //Interrupt Enable -- Habilitar-deshabilitar las interrupciones de forma individual
-#define IF		(*(vuint32*)0x04000214) //Interrupt Flag -- Registro de solicitud de interrupción
+#define IME		(*(vuint32*)0x04000208) //Interrupt Master Enable
+#define IE		(*(vuint32*)0x04000210) //Interrupt Enable
+#define IF		(*(vuint32*)0x04000214) //Interrupt Flag
 
 #define CONSOLE_ROWS 23
 #define CONSOLE_COLUMNS 31
@@ -27,8 +27,12 @@ typedef unsigned char uint8;
 extern int SWITCH;
 
 // Importante el orden.
-// Introducir nuevos GFX previo a DIGIT_ONE
-typedef enum{
+/**
+ * @enum GfxID
+ * @brief Identificadores de los GFX.
+ *
+ */
+typedef enum {
     GFX_CAPSULE_BLUE = 0,
     GFX_CAPSULE_RED,
     GFX_INATRIX_X,
@@ -37,7 +41,14 @@ typedef enum{
     GFX_DIGIT_ZERO,
 } GfxID;
 
-
+/**
+ * @struct GfxData
+ * @brief Aúna los datos más relevantes y exclusivos a GFX.
+ * @var memAddress: Primera posición del bloque de memoria reservado por oamMain (libnds)
+ * @var GUID: Global unique identifier.
+ * @var gfxId: Identificador del GFX.
+ * @var bitmap: referencia al bitmap.
+ */
 typedef struct {
     u16* memAddress;
     uint8 GUID;
@@ -47,6 +58,14 @@ typedef struct {
     SpriteColorFormat colorFormat;
 } GfxData;
 
+/**
+ * @struct Sprite
+ * @brief Sirve para asociar un sprite a los GFX.
+ * @var index: índice del sprite.
+ * @var spriteEntry: puntero a SpriteEntry (libnds). Sirve para obtener/modificar vector posición.
+ * @var speed: velocidad de movimiento.
+ * @var gfx: Puntero a @struct GfxData asociado.
+ */
 typedef struct {
     uint8 index;
     SpriteEntry* spriteEntry;
