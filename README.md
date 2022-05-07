@@ -5,5 +5,5 @@ Es un juego que hemos decidido desarrollar en honor a Iñaki Morlan, nuestro pro
 
 ## Créditos
 
-* Estamos agradecidos por la plantilla base que nos han proporcionado los profesores de la asignatura de Estructuras de computadores de la Facultad de Informática de Donostia. Dicha plantilla se puede encontrar en el directorio /base_template/ de este repositorio.
+* Estamos agradecidos por la plantilla base que nos han proporcionado los profesores de la asignatura de Estructuras de computadores de la Facultad de Informática de Donostia. Dicha plantilla se puede encontrar en el directorio [/base_template/](https://github.com/Geru-Scotland/inatrix_overflow/tree/master/base_template) de este repositorio.
 * Guía sugerida por los mismos, escrita por [Jaeden Amero](https://patater.com/files/projects/manual/manual.html)
