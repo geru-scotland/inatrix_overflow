@@ -35,4 +35,5 @@ extern void consoleUI_showFail();
 extern void consoleUI_showGameOver();
 extern void consoleUI_showStats();
 extern void consoleUI_showPauseUI();
+extern void consoleUI_showSurrender();
 #endif //INATRIX_OVERFLOW_CONSOLEUI_H

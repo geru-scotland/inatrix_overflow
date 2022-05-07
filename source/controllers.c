@@ -32,6 +32,21 @@
 #include "eventMgr.h"
 #include "game.h"
 #include "timer.h"
+#include "consoleUI.h"
+
+
+/**
+ * @brief Función encargada de llamar a los controladores
+ * oportunos, configurando así nuestro sistema de
+ * Entrada y salida de manera modular.
+ */
+void controllers_InitSetup(){
+    controllers_EnableIntMaster();
+    controllers_EnableKeyPadInt();
+    controllers_ConfigureTimer();
+    controllers_ConfigureInput();
+    controllers_SetInterruptionVector();
+}
 
 /*
 *********************
@@ -56,10 +71,11 @@ void controllers_ConfigureTimer(){
 /**
  * @brief Establece el latch y la máscara
  * para los registros TIMER0_CNT y
- * TIMER0_DAT
+ * TIMER0_DAT.
+ * B y Select por interrupción.
  */
 void controllers_ConfigureInput(){
-    input_ConfigureInput(0x4000 | 0x0001);
+    input_ConfigureInput(0x4000 | 0x0006);
 }
 
 void controllers_EnableKeyPadInt(){
@@ -96,24 +112,15 @@ void controllers_TimerHandler(){
     eventMgr_UpdateAnimations();
 }
 
+/**
+ * @brief Rutina de atención para el teclado.
+ * Cada vez que haya una interrupción, genera
+ * una "interferencia en Matrix".
+ * Select y B son las teclas que generarán
+ * la interrupción.
+ */
 void controllers_KeyPadHandler(){
-    // @todo: Geru: Hacer esto bien con el nuevo gestor de eventos.
-    /**
-     *
-     * Esto se llama cada vez que una tecla sea pulsada POR INTERRUPCIÓN.
-     * Con lo que, el pulsar una tecla lo activaría.
-     *
-     * Tendría que llamar a la función de la actividad 2, de abrir la puerta
-     * tras varios segundos etc.
-     *
-     * Como estamos implementando un gestor de eventos, aquí habría que programar
-     * o schedulear dicho evento, lo cual agregará a una cola y ejecutará
-     * cuando corresponda (tiempo actual + tiempo del evento).
-     */
-
-    // Mostrar por pantalla la tecla que ha sido pulsada
-    // Tanto por interrupción como por encuesta.
-
+    game_surrender();
 }
 
 /**
@@ -129,17 +136,3 @@ void controllers_SetInterruptionVector()
     irqSet(IRQ_KEYS, controllers_KeyPadHandler);
     irqSet(IRQ_TIMER0, controllers_TimerHandler);
 }
-
-/**
- * @brief Función encargada de llamar a los controladores
- * oportunos, configurando así nuestro sistema de
- * Entrada y salida de manera modular.
- */
-void controllers_InitSetup(){
-    controllers_EnableIntMaster();
-    controllers_EnableKeyPadInt();
-    controllers_ConfigureTimer();
-    controllers_ConfigureInput();
-    controllers_SetInterruptionVector();
-}
-

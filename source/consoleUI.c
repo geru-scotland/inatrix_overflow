@@ -232,3 +232,22 @@ void consoleUI_showPauseUI(){
         iprintf("\x1b[13;00H |                           ");
         iprintf("\x1b[14;00H |___________________________");
 }
+
+/**
+ * @brief Menú de interrupción/interferencia.
+ */
+void consoleUI_showSurrenderUI(){
+    iprintf("\x1b[2J");
+    iprintf("\x1b[4;00H |***************************|");
+    iprintf("\x1b[5;00H |******* The Matrix  *******|");
+    iprintf("\x1b[6;00H |***************************|");
+    iprintf("\x1b[7;00H |                           ");
+    iprintf("\x1b[8;00H |                           ");
+    iprintf("\x1b[9;00H | Something is interfering  ");
+    iprintf("\x1b[10;00H |                           ");
+    iprintf("\x1b[11;00H |   with the Matrix,        ");
+    iprintf("\x1b[12;00H |                           ");
+    iprintf("\x1b[13;00H |        YOU DIED.          ");
+    iprintf("\x1b[13;00H |                           ");
+    iprintf("\x1b[14;00H |___________________________");
+}

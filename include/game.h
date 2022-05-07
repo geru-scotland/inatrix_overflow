@@ -129,6 +129,7 @@ extern void game_setDestroyMatrix(bool active);
 extern void game_enableDestroyMatrix();
 extern void game_increaseMatrixRegens();
 extern int game_getNextPhase();
-extern void game_manageGameOver();
+extern void game_manageGameOver(bool surrender);
 extern bool game_achievedMinimumOverflows();
+extern void game_surrender();
 #endif //GAME_H

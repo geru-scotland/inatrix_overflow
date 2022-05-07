@@ -67,7 +67,6 @@ int game_getNextPhase(){
         default:
             break;
     }
-
     return PHASE_NULL;
 }
 
@@ -205,7 +204,7 @@ void game_manageScore(bool overflow){
         playerData.overflowScore--;
         playerData.failScore++;
         if(playerData.overflowScore < 0){
-            game_manageGameOver();
+            game_manageGameOver(false);
             return;
         }
     }
@@ -281,19 +280,28 @@ void game_increaseMatrixRegens(){
  * que se pueden genera con la libnds y la actualización por tick de los bit
  * de los registros oportunos en cuanto a la detección de teclas.
  */
-void game_manageGameOver(){
+void game_manageGameOver(bool surrender){
+    eventMgr_cancelAllEvents();
     gameData.state = GAME_STATE_GAME_OVER;
     gameData.phase = PHASE_NULL;
-    eventMgr_cancelAllEvents();
+
+    if(!surrender)
+        consoleUI_showGameOver();
+    else
+        consoleUI_showSurrenderUI();
+
     eventMgr_ScheduleEvent(EVENT_GAME_OVER, IN_1_SECONDS);
 }
 
 /**
- * @brief Comprueba si el jugador ha consegudo al menos 1 overflow
+ * @brief Comprueba si el jugador ha conseguido al menos 1 overflow
  * durante éste "run". Siendo "run" el tiempo entre una regeneración de la matriz
  * principal y la siguiente.
  * @return TRUE si ha conseguido al menos 1 overflow - FALSE en caso contrario.
  */
 bool game_achievedMinimumOverflows(){
     return playerData.runOverflows > 0;
+}
+void game_surrender(){
+    game_manageGameOver(true);
 }

@@ -264,7 +264,7 @@ void eventMgr_UpdateScheduledEvents(){
                             }
                             else
                             {
-                                game_manageGameOver();
+                                game_manageGameOver(false);
                                 return;
                             }
                         }
@@ -340,8 +340,7 @@ void eventMgr_UpdateScheduledEvents(){
                     iprintf("\x1b[2J");
                     break;
                 case EVENT_GAME_OVER:
-                    eventMgr_cancelAllEvents();
-                    consoleUI_showGameOver();
+                    //eventMgr_cancelAllEvents();
                     matrix_displayMatrix(false);
                     objectMgr_despawnInatrix();
                     eventMgr_ScheduleEvent(EVENT_SHOW_STATS, IN_4_SECONDS);
