@@ -81,8 +81,8 @@ void game_Loop()
     game_initData();
     game_launch();
 
-	while(SWITCH)
-	{
+    while(SWITCH)
+    {
         game_Update();
 
         switch(gameData.state){
@@ -150,9 +150,10 @@ void game_Loop()
                                     eventMgr_ScheduleEvent(EVENT_GAME_EVALUATE_BITBLOCK, NO_WAIT);
                                     break;
                                 case INPUT_KEY_START:
-                                    // Libnds mantiene por más de un tick datos de teclas
-                                    // Esto es para evitar los problemas que se generan por
-                                    // ello.
+                                    /*Libnds mantiene por más de un tick datos de teclas
+                                     *Esto es para evitar los problemas que se generan por
+                                     *ello.
+                                     */
                                     if(gameData.destroyMatrixTime > 2) // Temporal, para evitar problemas con la regen.
                                         eventMgr_ScheduleEvent(EVENT_GAME_PAUSE, IN_1_SECONDS);
                                     break;
@@ -184,7 +185,7 @@ void game_Loop()
             default:
                 break;
         }
-	}
+    }
 
     sprites_freeMemory();
     gfxInfo_freeMemory();

@@ -23,11 +23,11 @@ y en otro ejemplo de Jaeden Ameronen
 int main(void) {
     eventMgr_InitEventSystem();
     controllers_InitSetup();
-	inicializarGraficosSprites();
+    inicializarGraficosSprites();
     //audioMgr_initAudio();
-    matrix_initSystem();
+    // matrix_initSystem();
     movementMgr_initSystem();
     objectMgr_init();
-	game_Loop();
-	return(0);
+    game_Loop();
+    return(0);
 }
