@@ -64,7 +64,7 @@ void input_UpdateKeyData()
  */
 int input_KeyDetected()
 {
-    return (~TECLAS_DAT & 0x03ff) != 0 ? 1 : 0;
+    return (~TECLAS_DAT & 0x03FF) != 0 ? 1 : 0;
 }
 
 /**
