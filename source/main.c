@@ -25,7 +25,7 @@ int main(void) {
     controllers_InitSetup();
     inicializarGraficosSprites();
     //audioMgr_initAudio();
-    // matrix_initSystem();
+    matrix_initSystem();
     movementMgr_initSystem();
     objectMgr_init();
     game_Loop();
