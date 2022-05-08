@@ -120,7 +120,8 @@ void controllers_TimerHandler(){
  * la interrupción.
  */
 void controllers_KeyPadHandler(){
-    game_surrender();
+    if(gameData.state == GAME_STATE_GAME)
+        game_surrender();
 }
 
 /**
