@@ -46,7 +46,7 @@ void background_SetBlackBackground() {
     dmaCopyHalfWords(DMA_CHANNEL,
                      BlackBackgroundBitmap,
                      (uint16 *)BG_BMP_RAM(0),
-                     BlackBackgroundBitmap);
+                     BlackBackgroundBitmapLen);
 }
 
 
@@ -55,7 +55,7 @@ void background_SetGameOverBackground() {
     dmaCopyHalfWords(DMA_CHANNEL,
                      GameOverBackgroundBitmap,
                      (uint16 *)BG_BMP_RAM(0),
-                     GameOverBackgroundBitmap);
+                     GameOverBackgroundBitmapLen);
 }
 
 /**

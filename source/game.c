@@ -320,6 +320,7 @@ void game_increaseMatrixRegens(){
  */
 void game_manageGameOver(bool surrender){
 
+    background_setBackground(BG_GAME_OVER);
     game_setDestroyMatrix(false);
     gameData.state = GAME_STATE_GAME_OVER;
     gameData.phase = PHASE_NULL;

@@ -98,7 +98,7 @@ void eventMgr_AddEvent(Event *event){
 }
 
 /**
- * Función que elimina todos los eventos de la lista.
+ * @brief Función que elimina todos los eventos de la lista.
  */
 void eventMgr_cancelAllEvents(){
     for (int i = 0; i < numEvents; i++)
