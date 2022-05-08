@@ -51,7 +51,7 @@ enum TimeMarks {
  * @enum Events
  * @brief Listado de los eventos que pueden programarse.
  */
-enum Events{
+typedef enum {
     /**
      * MENU
      */
@@ -103,8 +103,11 @@ enum Events{
     EVENT_LISTEN_INPUT,
     EVENT_GAME_PAUSE,
     EVENT_SHOW_CONTROLS,
+    EVENT_SHOW_GAMEPLAY,
+    EVENT_SHOW_LORE,
+    EVENT_SHOW_LORE_2,
     EVENT_CLEAR_CONSOLE
-};
+} Events;
 
 /**
  * @struct Event

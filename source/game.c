@@ -96,14 +96,33 @@ void game_Loop()
                             eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, NO_WAIT);
                             eventMgr_ScheduleEvent(EVENT_INTRO_PRE_START, IN_2_SECONDS);
                             break;
+                        case INPUT_KEY_UP:
+                        case INPUT_KEY_LEFT:
                         case INPUT_KEY_RIGHT:
                             switch(gameData.phase){
                                 case PHASE_NULL:
                                     break;
                                 case PHASE_SHOW_MENU:
-                                    gameData.phase = PHASE_NULL;
-                                    eventMgr_ScheduleEvent(EVENT_SHOW_CONTROLS, IN_1_SECONDS);
+                                    switch(keyData.key){
+                                        case INPUT_KEY_LEFT:
+                                            eventMgr_ScheduleEvent(EVENT_SHOW_GAMEPLAY, IN_1_SECONDS);
+                                            break;
+                                        case INPUT_KEY_RIGHT:
+                                            eventMgr_ScheduleEvent(EVENT_SHOW_CONTROLS, IN_1_SECONDS);
+                                            break;
+                                        case INPUT_KEY_UP:
+                                            eventMgr_ScheduleEvent(EVENT_SHOW_LORE, IN_1_SECONDS);
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                     break;
+                                case PHASE_SHOW_LORE:
+                                    gameData.phase = PHASE_NULL;
+                                    eventMgr_ScheduleEvent(EVENT_SHOW_LORE_2, IN_1_SECONDS);
+                                    break;
+                                case PHASE_SHOW_GAMEPLAY:
+                                case PHASE_SHOW_LORE_2:
                                 case PHASE_SHOW_CONTROLS:
                                     gameData.phase = PHASE_NULL;
                                     eventMgr_ScheduleEvent(EVENT_MAIN_MENU_START, IN_1_SECONDS);
@@ -213,7 +232,7 @@ void game_Loop()
  * de bitblock.
  * @param overflow Si se ha producido overflow o no.
  */
-void game_manageScore(bool overflow){
+bool game_manageScore(bool overflow){
     if(overflow){
         playerData.overflowScore++;
         playerData.totalOverflows++;
@@ -223,10 +242,11 @@ void game_manageScore(bool overflow){
         playerData.failScore++;
         if(playerData.overflowScore < 0){
             game_manageGameOver(false);
-            return;
+            return false;
         }
     }
     consoleUI_showUI();
+    return true;
 }
 
 /**
@@ -293,22 +313,26 @@ void game_increaseMatrixRegens(){
 }
 
 /**
- * Gestiona el game over, se encarga de borrar todos los eventos en cola y de
- * programar el evento de game over con 1 segundo de retraso, para evitar los problemas
+ * @brief Gestiona el game over, se encarga de borrar todos los eventos en cola y de
+ * programar el evento de game over con unos segundos de retraso, para evitar los problemas
  * que se pueden genera con la libnds y la actualización por tick de los bit
  * de los registros oportunos en cuanto a la detección de teclas.
  */
 void game_manageGameOver(bool surrender){
-    eventMgr_cancelAllEvents();
+
+    game_setDestroyMatrix(false);
     gameData.state = GAME_STATE_GAME_OVER;
     gameData.phase = PHASE_NULL;
+
+    matrix_displayMatrix(false);
+    objectMgr_despawnInatrix();
+    eventMgr_ScheduleEvent(EVENT_SHOW_STATS, IN_4_SECONDS);
 
     if(!surrender)
         consoleUI_showGameOver();
     else
         consoleUI_showSurrenderUI();
 
-    eventMgr_ScheduleEvent(EVENT_GAME_OVER, IN_1_SECONDS);
 }
 
 /**

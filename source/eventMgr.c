@@ -173,6 +173,18 @@ void eventMgr_UpdateScheduledEvents(){
                     gameData.phase = PHASE_SHOW_CONTROLS;
                     consoleUI_showControls();
                     break;
+                case EVENT_SHOW_GAMEPLAY:
+                    gameData.phase = PHASE_SHOW_GAMEPLAY;
+                    consoleUI_showGameplay();
+                    break;
+                case EVENT_SHOW_LORE:
+                    gameData.phase = PHASE_SHOW_LORE;
+                    consoleUI_showLore();
+                    break;
+                case EVENT_SHOW_LORE_2:
+                    gameData.phase = PHASE_SHOW_LORE_2;
+                    consoleUI_showLore2();
+                    break;
                 /*
                 *********************
                 *********************
@@ -220,14 +232,18 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_INTRO_CAPSULE_SELECTED:
                     iprintf("\x1b[2J");
-                    iprintf("\x1b[10;00H I see... good choice.");
+                    char ht1[] = "\x1b[10;00H I see... good choice.";
+                    char nt1[] = "\x1b[10;00H You are weak.";
+                    iprintf(gameData.mode == DIFFICULTY_HARD_MODE ? ht1 : nt1);
                     objectMgr_manageSelectedCapsule(gameData.mode);
                     gameData.phase = PHASE_MOVE_CAPSULE;
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_2_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_FINISH1, IN_4_SECONDS); // Ojo, algo más introductorio rollo into the matrix.
                     break;
                 case EVENT_INTRO_FINISH1:
-                    iprintf("\x1b[10;00H Or not? haha...");
+                    char ht2[] = "\x1b[10;00H or not? hahaha...";
+                    char nt2[] = "\x1b[10;00H The Matrix will end you.";
+                    iprintf(gameData.mode == DIFFICULTY_HARD_MODE ? ht2 : nt2);
                     objectMgr_manageSelectedCapsule(gameData.mode == DIFFICULTY_NORMAL_MODE ? GFX_CAPSULE_RED : GFX_CAPSULE_BLUE);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_INTRO_FINISH2, IN_4_SECONDS);
@@ -316,7 +332,8 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_GAME_EVALUATE_BITBLOCK:
                     objectMgr_setAnimationActive(ANIMATION_BIT_SHAKE, false);
                     bool ovf = matrix_evalBitBlockOverflow();
-                    game_manageScore(ovf);
+                    if(!game_manageScore(ovf))
+                        break;
                     if(ovf){
                         game_setDestroyMatrix(false);
                         consoleUI_showOverflow();
@@ -343,12 +360,6 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_CLEAR_CONSOLE:
                     iprintf("\x1b[2J");
-                    break;
-                case EVENT_GAME_OVER:
-                    //eventMgr_cancelAllEvents();
-                    matrix_displayMatrix(false);
-                    objectMgr_despawnInatrix();
-                    eventMgr_ScheduleEvent(EVENT_SHOW_STATS, IN_4_SECONDS);
                     break;
                 case EVENT_SHOW_STATS:
                     consoleUI_showStats();

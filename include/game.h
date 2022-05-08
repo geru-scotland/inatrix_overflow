@@ -71,6 +71,9 @@ typedef enum {
     PHASE_SHOW_STATS,
     PHASE_SHOW_MENU,
     PHASE_SHOW_CONTROLS,
+    PHASE_SHOW_GAMEPLAY,
+    PHASE_SHOW_LORE,
+    PHASE_SHOW_LORE_2,
     PHASE_GAME_PAUSE
 } Phases;
 
@@ -123,7 +126,7 @@ extern GameData gameData;
 extern PlayerData playerData;
 
 extern void game_Loop();
-extern void game_manageScore(bool overflow);
+extern bool game_manageScore(bool overflow);
 extern void game_initData();
 extern void game_launch();
 extern void game_setDifficulty(Difficulty difficulty);
