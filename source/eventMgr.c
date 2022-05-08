@@ -267,7 +267,7 @@ void eventMgr_UpdateScheduledEvents(){
                     gameData.phase = PHASE_WAITING_PLAYER_INPUT;
                     matrix_displayMatrix(true);
                     consoleUI_showIntro2();
-                    eventMgr_ScheduleEvent(EVENT_GAME_START_DEST_MATRIX, IN_5_SECONDS);
+                    eventMgr_ScheduleEvent(EVENT_GAME_START_DEST_MATRIX, IN_4_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_GAME_UI_SHOW_BASE, IN_4_SECONDS);
                     break;
                 case EVENT_GAME_START_DEST_MATRIX:
