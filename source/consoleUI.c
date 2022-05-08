@@ -34,6 +34,7 @@
 
 #include "consoleUI.h"
 #include "game.h"
+#include "matrix.h"
 #include "time.h"
 
 /**
@@ -70,15 +71,18 @@ void consoleUI_showIntro1(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H     _                       ");
-    iprintf("\x1b[8;00H    Inatrix, Lord of        ");
+    iprintf("\x1b[7;00H                            ");
+    iprintf("\x1b[8;00H                            ");
     iprintf("\x1b[9;00H                            ");
-    iprintf("\x1b[10;00H     the Overflow enters   ");
-    iprintf("\x1b[11;00H                            ");
-    iprintf("\x1b[12;00H     the system!            ");
-    iprintf("\x1b[13;00H                            ");
-    iprintf("\x1b[13;00H                            ");
-    iprintf("\x1b[14;00H ___________________________");
+    iprintf("\x1b[10;00H     _                       ");
+    iprintf("\x1b[11;00H    Inatrix, Lord of        ");
+    iprintf("\x1b[12;00H                            ");
+    iprintf("\x1b[13;00H     the Overflow enters   ");
+    iprintf("\x1b[14;00H                            ");
+    iprintf("\x1b[15;00H     the system!            ");
+    iprintf("\x1b[16;00H                            ");
+    iprintf("\x1b[17;00H                            ");
+    iprintf("\x1b[18;00H ___________________________");
 }
 
 /**
@@ -89,15 +93,18 @@ void consoleUI_showIntro2(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           ");
-    iprintf("\x1b[8;00H |                           ");
-    iprintf("\x1b[9;00H |     START OVERFLOWING!!   ");
-    iprintf("\x1b[10;00H |                          ");
-    iprintf("\x1b[11;00H |                           ");
-    iprintf("\x1b[12;00H |                           ");
-    iprintf("\x1b[13;00H |                           ");
-    iprintf("\x1b[13;00H |                           ");
-    iprintf("\x1b[14;00H |___________________________");
+    iprintf("\x1b[7;00H |                           |");
+    iprintf("\x1b[8;00H |                           |");
+    iprintf("\x1b[9;00H |                           |");
+    iprintf("\x1b[10;00H |                           |");
+    iprintf("\x1b[11;00H |                           |");
+    iprintf("\x1b[12;00H |    START OVERFLOWING!!    |");
+    iprintf("\x1b[13;00H |                           |");
+    iprintf("\x1b[14;00H |                           |");
+    iprintf("\x1b[15;00H |                           |");
+    iprintf("\x1b[16;00H |                           |");
+    iprintf("\x1b[17;00H |                           |");
+    iprintf("\x1b[18;00H |___________________________|");
 }
 
 /**
@@ -112,16 +119,21 @@ void consoleUI_showUI(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |          OVERFLOWS         ");
-    iprintf("\x1b[8;00H |                            ");
-    iprintf("\x1b[9;00H | Total: %i  ||  Current: %i ", playerData.overflowScore, playerData.runOverflows);
-    iprintf("\x1b[10;00H |                            ");
-    iprintf("\x1b[11;00H | Mode             %s       ", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm);
-    iprintf("\x1b[12;00H |                           ");
-    iprintf("\x1b[13;00H | Matrix regens    %i       ", gameData.matrixRegens);
-    iprintf("\x1b[14;00H |                           ");
-    iprintf("\x1b[15;00H | Destroy time:    %i       ", gameData.destroyMatrixTime);
-    iprintf("\x1b[16;00H |___________________________");
+    iprintf("\x1b[7;00H                            ");
+    iprintf("\x1b[8;00H           ---------         ");
+    iprintf("\x1b[9;00H          |OVERFLOWS|        ");
+    iprintf("\x1b[10;00H           ---------         ");
+    iprintf("\x1b[11;00H                            ");
+    iprintf("\x1b[12;00H  Total: %i  ||  Current: %i  ", playerData.overflowScore, playerData.runOverflows);
+    iprintf("\x1b[13;00H                            ");
+    iprintf("\x1b[14;00H                            ");
+    iprintf("\x1b[15;00H  Mode: %s (Ovf@ %i)       ", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm, gameData.mode == DIFFICULTY_HARD_MODE ? OVERFLOW_HM : OVERFLOW_NM);
+    iprintf("\x1b[16;00H                            ");
+    iprintf("\x1b[17;00H                            ");
+    iprintf("\x1b[18;00H  Matrix regenerations:  %i  ", gameData.matrixRegens);
+    iprintf("\x1b[19;00H                            ");
+    iprintf("\x1b[20;00H  Destroy time:    %i       ", gameData.destroyMatrixTime);
+    iprintf("\x1b[21;00H ___________________________");
 }
 
 /**
@@ -134,14 +146,17 @@ void consoleUI_showGameOver(){
     iprintf("\x1b[5;00H |******** GAME OVER ********|");
     iprintf("\x1b[6;00H |***************************|");
     iprintf("\x1b[7;00H |                           |");
-    iprintf("\x1b[8;00H |      _                    |");
-    iprintf("\x1b[9;00H | May Inatrix be with you.  |");
-    iprintf("\x1b[10;00H |                          |");
-    iprintf("\x1b[11;00H |                           |");
-    iprintf("\x1b[12;00H |                           |");
+    iprintf("\x1b[8;00H |                           |");
+    iprintf("\x1b[9;00H |                           |");
+    iprintf("\x1b[10;00H |                           |");
+    iprintf("\x1b[11;00H |      _                    |");
+    iprintf("\x1b[12;00H | May Inatrix be with you.  |");
     iprintf("\x1b[13;00H |                           |");
     iprintf("\x1b[14;00H |                           |");
-    iprintf("\x1b[15;00H |___________________________|");
+    iprintf("\x1b[15;00H |                           |");
+    iprintf("\x1b[16;00H |                           |");
+    iprintf("\x1b[17;00H |                           |");
+    iprintf("\x1b[18;00H |___________________________|");
 }
 
 /**
@@ -151,12 +166,12 @@ void consoleUI_showOverflow(){
     // ASCII Text, que se active una secuencia y vaya recorriendo la consola
     // que vaya llamando a funciones con el texto desplazado rollo, 1, 2.
     iprintf("\x1b[2J"); // Forzamos un clear console
-    iprintf("\x1b[12;00H .----.-..-.---..---. ");
-    iprintf("\x1b[13;00H | || |\\ /| |- | |-< ");
-    iprintf("\x1b[14;00H `----' `' `---'`-'`-'");
+    iprintf("\x1b[12;00H .----.-..-.---..---- ");
+    iprintf("\x1b[13;00H | || |\\ /| |-- | |-< ");
+    iprintf("\x1b[14;00H `----' `' `---'`-'`-");
 
     iprintf("\x1b[15;00H .---- .-.   .----..-.-.-.");
-    iprintf("\x1b[16;00H | |-- | |__ | || || | | |");
+    iprintf("\x1b[16;00H | |-| | |__ | || || | | |");
     iprintf("\x1b[17;00H `-'   `----'`----'`-----'");
 
 }
@@ -169,15 +184,15 @@ void consoleUI_showRegeneratingMatrix(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           ");
-    iprintf("\x1b[8;00H |                           ");
-    iprintf("\x1b[9;00H |  THE MATRIX IS            ");
-    iprintf("\x1b[10;00H |                           ");
-    iprintf("\x1b[11;00H |   REGENERATING ITSELF!    ");
-    iprintf("\x1b[12;00H |                           ");
-    iprintf("\x1b[13;00H |                           ");
-    iprintf("\x1b[14;00H |                           ");
-    iprintf("\x1b[15;00H |___________________________");
+    iprintf("\x1b[7;00H |                           |");
+    iprintf("\x1b[8;00H |                           |");
+    iprintf("\x1b[9;00H |  THE MATRIX IS            |");
+    iprintf("\x1b[10;00H |                           |");
+    iprintf("\x1b[11;00H |   REGENERATING ITSELF!    |");
+    iprintf("\x1b[12;00H |                           |");
+    iprintf("\x1b[13;00H |                           |");
+    iprintf("\x1b[14;00H |                           |");
+    iprintf("\x1b[15;00H |___________________________|");
 }
 
 /**
@@ -206,17 +221,17 @@ void consoleUI_showStats(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |***** GENERAL STATS *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           ");
-    iprintf("\x1b[8;00H | Overflows        %i       ", playerData.totalOverflows);
-    iprintf("\x1b[9;00H |                           ");
-    iprintf("\x1b[10;00H | Mode             %s       ", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm);
-    iprintf("\x1b[11;00H |                           ");
-    iprintf("\x1b[12;00H | Matrix regens    %i       ", gameData.matrixRegens);
-    iprintf("\x1b[13;00H |                           ");
-    iprintf("\x1b[14;00H | Fails:           %i       ", playerData.failScore);
-    iprintf("\x1b[15;00H |                           ");
-    iprintf("\x1b[16;00H |  <PRESS ANY KEY TO QUIT>  ");
-    iprintf("\x1b[17;00H |___________________________");
+    iprintf("\x1b[7;00H                            ");
+    iprintf("\x1b[8;00H  Overflows:        %i  ", playerData.totalOverflows);
+    iprintf("\x1b[9;00H                            ");
+    iprintf("\x1b[10;00H  Mode:  %s    ", gameData.mode == DIFFICULTY_NORMAL_MODE ? nm : hm);
+    iprintf("\x1b[11;00H                            ");
+    iprintf("\x1b[12;00H  Matrix regenerations: %i", gameData.matrixRegens);
+    iprintf("\x1b[13;00H                            ");
+    iprintf("\x1b[14;00H  Fails: %i  ", playerData.failScore);
+    iprintf("\x1b[15;00H                            ");
+    iprintf("\x1b[16;00H   <PRESS ANY KEY TO QUIT>  ");
+    iprintf("\x1b[17;00H ___________________________");
 }
 
 /**
@@ -227,15 +242,15 @@ void consoleUI_showPauseUI(){
         iprintf("\x1b[4;00H |***************************|");
         iprintf("\x1b[5;00H |******* The Matrix  *******|");
         iprintf("\x1b[6;00H |***************************|");
-        iprintf("\x1b[7;00H |                           ");
-        iprintf("\x1b[8;00H |                           ");
-        iprintf("\x1b[9;00H |                           ");
-        iprintf("\x1b[10;00H |      PAUSE                ");
-        iprintf("\x1b[11;00H |                           ");
-        iprintf("\x1b[12;00H |                           ");
-        iprintf("\x1b[13;00H |                           ");
-        iprintf("\x1b[14;00H |                           ");
-        iprintf("\x1b[15;00H |___________________________");
+        iprintf("\x1b[7;00H |                           |");
+        iprintf("\x1b[8;00H |                           |");
+        iprintf("\x1b[9;00H |                           |");
+        iprintf("\x1b[10;00H |          <PAUSE>          |");
+        iprintf("\x1b[11;00H |                           |");
+        iprintf("\x1b[12;00H |                           |");
+        iprintf("\x1b[13;00H |                           |");
+        iprintf("\x1b[14;00H |                           |");
+        iprintf("\x1b[15;00H |___________________________|");
 }
 
 /**
@@ -246,15 +261,16 @@ void consoleUI_showSurrenderUI(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******* The Matrix  *******|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           ");
-    iprintf("\x1b[8;00H |                           ");
-    iprintf("\x1b[9;00H | Something is interfering  ");
-    iprintf("\x1b[10;00H |                           ");
-    iprintf("\x1b[11;00H |   with the Matrix,        ");
-    iprintf("\x1b[12;00H |                           ");
-    iprintf("\x1b[13;00H |        YOU DIED.          ");
-    iprintf("\x1b[14;00H |                           ");
-    iprintf("\x1b[15;00H |___________________________");
+    iprintf("\x1b[7;00H |                           |");
+    iprintf("\x1b[8;00H |                           |");
+    iprintf("\x1b[9;00H | Something is interfering  |");
+    iprintf("\x1b[10;00H |                           |");
+    iprintf("\x1b[11;00H |   with the Matrix,        |");
+    iprintf("\x1b[12;00H |                           |");
+    iprintf("\x1b[13;00H |                           |");
+    iprintf("\x1b[14;00H |        YOU DIED.          |");
+    iprintf("\x1b[15;00H |                           |");
+    iprintf("\x1b[16;00H |___________________________|");
 }
 
 /**
@@ -265,21 +281,22 @@ void consoleUI_showControls(){
     iprintf("\x1b[4;00H |***************************|");
     iprintf("\x1b[5;00H |******** CONTROLS *********|");
     iprintf("\x1b[6;00H |***************************|");
-    iprintf("\x1b[7;00H |                           ");
-    iprintf("\x1b[8;00H |          <UP>             ");
-    iprintf("\x1b[9;00H |                           ");
-    iprintf("\x1b[10;00H |    <LEFT>    <RIGHT>      ");
-    iprintf("\x1b[11;00H |                           ");
-    iprintf("\x1b[12;00H |         <DOWN>            ");
-    iprintf("\x1b[13;00H |                           ");
-    iprintf("\x1b[14;00H |                           ");
-    iprintf("\x1b[15;00H |  <A> - Select Bitblock    ");
-    iprintf("\x1b[16;00H |                           ");
-    iprintf("\x1b[17;00H |  <SELECT><B> Surrender    ");
-    iprintf("\x1b[18;00H |                           ");
-    iprintf("\x1b[19;00H |**************************|");
-    iprintf("\x1b[20;00H                             ");
-    iprintf("\x1b[21;00H      <RIGHT> Main menu      ");
+    iprintf("\x1b[7;00H |                           |");
+    iprintf("\x1b[8;00H |           <UP>            |");
+    iprintf("\x1b[9;00H |                           |");
+    iprintf("\x1b[10;00H |     <LEFT>    <RIGHT>     |");
+    iprintf("\x1b[11;00H |                           |");
+    iprintf("\x1b[12;00H |          <DOWN>           |");
+    iprintf("\x1b[13;00H |                           |");
+    iprintf("\x1b[14;00H |                           |");
+    iprintf("\x1b[15;00H |  <A> - Select BitBlock    |");
+    iprintf("\x1b[16;00H |                           |");
+    iprintf("\x1b[17;00H |  <START> Pause            |");
+    iprintf("\x1b[18;00H |                           |");
+    iprintf("\x1b[19;00H |  <SELECT><B> Surrender    |");
+    iprintf("\x1b[20;00H |                           |");
+    iprintf("\x1b[21;00H |***************************|");
+    iprintf("\x1b[22;00H                             ");
 }
 
 /**
@@ -357,8 +374,9 @@ void consoleUI_showLore2(){
     iprintf("\x1b[15;00H                            ");
     iprintf("\x1b[16;00H                            ");
     iprintf("\x1b[17;00H     -Archive XXIV,12,052 GE");
-    iprintf("\x1b[18;00H      Encyclopedia Galactica,");
-    iprintf("\x1b[19;00H      Galactic Library.");
-    iprintf("\x1b[20;00H                             ");
+    iprintf("\x1b[18;00H                            ");
+    iprintf("\x1b[19;00H      Encyclopedia Galactica,");
+    iprintf("\x1b[20;00H      Galactic Library.");
     iprintf("\x1b[21;00H                             ");
+    iprintf("\x1b[22;00H                             ");
 }

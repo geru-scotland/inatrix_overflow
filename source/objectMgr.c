@@ -103,7 +103,7 @@ void objectMgr_setAnimationActive(AnimID animID, bool active){
 int objectMgr_objectAreaClicked(int x, int y){
     if(x >= 99 && x <= 108 && y >= 81 && y <= 95)
         return GFX_CAPSULE_BLUE;
-    else if(x >= 148 && x <= 159 && y >= 81 && y <= 95)
+    else if(x >= 140 && x <= 159 && y >= 81 && y <= 95)
         return GFX_CAPSULE_RED;
 
     return -1;
