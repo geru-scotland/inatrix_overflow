@@ -154,19 +154,24 @@ void eventMgr_UpdateScheduledEvents(){
                 */
                 case EVENT_MAIN_MENU_START:
                     consoleUI_showMenu();
+                    gameData.phase = PHASE_SHOW_MENU;
                     eventMgr_ScheduleEvent(EVENT_MAIN_MENU_HIDE_UI, IN_1_SECONDS);
                     break;
                 case EVENT_MAIN_MENU_HIDE_UI:
-                    if(gameData.state == GAME_STATE_MAIN_MENU){
+                    if(gameData.phase == PHASE_SHOW_MENU) {
                         iprintf("\x1b[9;00H |                           |");
                         eventMgr_ScheduleEvent(EVENT_MAIN_MENU_SHOW_UI, IN_1_SECONDS);
                     }
                     break;
                 case EVENT_MAIN_MENU_SHOW_UI:
-                    if(gameData.state == GAME_STATE_MAIN_MENU){
-                        iprintf("\x1b[9;00H |      <PRESS ANY KEY>      |");
+                    if(gameData.phase == PHASE_SHOW_MENU) {
+                        iprintf("\x1b[9;00H |  <PRESS START TO BEGIN>   |");
                         eventMgr_ScheduleEvent(EVENT_MAIN_MENU_HIDE_UI, IN_1_SECONDS);
                     }
+                    break;
+                case EVENT_SHOW_CONTROLS:
+                    gameData.phase = PHASE_SHOW_CONTROLS;
+                    consoleUI_showControls();
                     break;
                 /*
                 *********************

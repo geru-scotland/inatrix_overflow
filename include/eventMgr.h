@@ -102,6 +102,7 @@ enum Events{
     //
     EVENT_LISTEN_INPUT,
     EVENT_GAME_PAUSE,
+    EVENT_SHOW_CONTROLS,
     EVENT_CLEAR_CONSOLE
 };
 

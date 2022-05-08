@@ -47,7 +47,7 @@ void consoleUI_showMenu(){
     iprintf("\x1b[6;00H |***************************|");
     iprintf("\x1b[7;00H |                           |");
     iprintf("\x1b[8;00H |                           |");
-    iprintf("\x1b[9;00H |      <PRESS ANY KEY>      |");
+    iprintf("\x1b[9;00H |  <PRESS START TO BEGIN>   |");
     iprintf("\x1b[10;00H |                           |");
     iprintf("\x1b[11;00H |                           |");
     iprintf("\x1b[12;00H |                           |");
@@ -248,6 +248,25 @@ void consoleUI_showSurrenderUI(){
     iprintf("\x1b[11;00H |   with the Matrix,        ");
     iprintf("\x1b[12;00H |                           ");
     iprintf("\x1b[13;00H |        YOU DIED.          ");
+    iprintf("\x1b[13;00H |                           ");
+    iprintf("\x1b[14;00H |___________________________");
+}
+
+/**
+ * @brief Menú de controles
+ */
+void consoleUI_showControls(){
+    iprintf("\x1b[2J");
+    iprintf("\x1b[4;00H |***************************|");
+    iprintf("\x1b[5;00H |******** CONTROLS *********|");
+    iprintf("\x1b[6;00H |***************************|");
+    iprintf("\x1b[7;00H |                           ");
+    iprintf("\x1b[8;00H |MOVE UP                         ");
+    iprintf("\x1b[9;00H |  ^                        ");
+    iprintf("\x1b[10;00H | |                          ");
+    iprintf("\x1b[11;00H |                            ");
+    iprintf("\x1b[12;00H |                           ");
+    iprintf("\x1b[13;00H |                           ");
     iprintf("\x1b[13;00H |                           ");
     iprintf("\x1b[14;00H |___________________________");
 }

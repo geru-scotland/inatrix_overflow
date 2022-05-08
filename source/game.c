@@ -86,17 +86,35 @@ void game_Loop()
 
         switch(gameData.state){
             case GAME_STATE_MAIN_MENU:
-                switch(gameData.phase) {
-                    case PHASE_WAITING_PLAYER_INPUT:
-                        if (keyData.isPressed) {
+                if (keyData.isPressed){
+                    switch (keyData.key) {
+                        case INPUT_KEY_START:
+                            if(gameData.phase != PHASE_SHOW_MENU)
+                                break;
                             gameData.phase = PHASE_NULL;
                             gameData.state = GAME_STATE_INTRO;
                             eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, NO_WAIT);
                             eventMgr_ScheduleEvent(EVENT_INTRO_PRE_START, IN_2_SECONDS);
-                        }
-                    break;
-                    default:
-                        break;
+                            break;
+                        case INPUT_KEY_RIGHT:
+                            switch(gameData.phase){
+                                case PHASE_NULL:
+                                    break;
+                                case PHASE_SHOW_MENU:
+                                    gameData.phase = PHASE_NULL;
+                                    eventMgr_ScheduleEvent(EVENT_SHOW_CONTROLS, IN_1_SECONDS);
+                                    break;
+                                case PHASE_SHOW_CONTROLS:
+                                    gameData.phase = PHASE_NULL;
+                                    eventMgr_ScheduleEvent(EVENT_MAIN_MENU_START, IN_1_SECONDS);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 break;
             case GAME_STATE_INTRO:
