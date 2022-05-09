@@ -271,7 +271,6 @@ void eventMgr_UpdateScheduledEvents(){
                 */
                 case EVENT_GAME_START:
                     gameData.state = GAME_STATE_GAME;
-                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
                     matrix_displayMatrix(true);
                     consoleUI_showIntro2();
                     eventMgr_ScheduleEvent(EVENT_GAME_START_DEST_MATRIX, IN_4_SECONDS);
@@ -279,6 +278,7 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_GAME_START_DEST_MATRIX:
                     game_enableDestroyMatrix();
+                    gameData.phase = PHASE_WAITING_PLAYER_INPUT;
                     eventMgr_ScheduleEvent(EVENT_GAME_DESTROY_MATRIX_CHECK, IN_1_SECONDS);
                     break;
                 case EVENT_GAME_DESTROY_MATRIX_CHECK:
