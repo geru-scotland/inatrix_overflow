@@ -94,7 +94,7 @@ void game_Loop()
                             gameData.phase = PHASE_NULL;
                             gameData.state = GAME_STATE_INTRO;
                             eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, NO_WAIT);
-                            eventMgr_ScheduleEvent(EVENT_INTRO_PRE_START, IN_2_SECONDS);
+                            eventMgr_ScheduleEvent(EVENT_INTRO_PRE_START, IN_3_SECONDS);
                             break;
                         case INPUT_KEY_UP:
                         case INPUT_KEY_LEFT:
@@ -271,7 +271,7 @@ void game_initData(){
  */
 void game_launch(){
     background_SetMainBackground();
-    eventMgr_ScheduleEvent(EVENT_MAIN_MENU_START, IN_2_SECONDS);
+    eventMgr_ScheduleEvent(EVENT_MAIN_MENU_START, IN_3_SECONDS);
 }
 
 /**

@@ -39,6 +39,7 @@ typedef enum {
     GFX_INATRIX_Y,
     GFX_DIGIT_ONE,
     GFX_DIGIT_ZERO,
+    GFX_INATRIX_SPELL_X,
 } GfxID;
 
 /**

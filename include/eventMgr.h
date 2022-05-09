@@ -75,6 +75,7 @@ typedef enum {
     EVENT_INTRO_SETBG_3,
     EVENT_INTRO_FINISH1,
     EVENT_INTRO_FINISH2,
+    EVENT_INTRO_RABBIT2,
 
     /**
      * GAME

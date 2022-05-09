@@ -14,6 +14,10 @@
 #include "MainBackground.h"
 #include "BlackBackground.h"
 #include "GameOverBackground.h"
+#include "MatrixBackgroundInatrix.h"
+#include "MatrixBackgroundRabbit.h"
+#include "MatrixBackgroundRabbit2.h"
+#include "MatrixBackgroundRabbit3.h"
 
 
 static const int DMA_CHANNEL = 3;
@@ -58,6 +62,39 @@ void background_SetGameOverBackground() {
                      GameOverBackgroundBitmapLen);
 }
 
+void background_SetMatrixBackgroundInatrix() {
+
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     MatrixBackgroundInatrixBitmap,
+                     (uint16 *)BG_BMP_RAM(0),
+                     MatrixBackgroundInatrixBitmapLen);
+}
+
+void background_SetMatrixBackgroundRabbit() {
+
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     MatrixBackgroundRabbitBitmap,
+                     (uint16 *)BG_BMP_RAM(0),
+                     MatrixBackgroundRabbitBitmapLen);
+}
+
+void background_SetMatrixBackgroundRabbit2() {
+
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     MatrixBackgroundRabbit2Bitmap,
+                     (uint16 *)BG_BMP_RAM(0),
+                     MatrixBackgroundRabbit2BitmapLen);
+}
+
+void background_SetMatrixBackgroundRabbit3() {
+
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     MatrixBackgroundRabbit3Bitmap,
+                     (uint16 *)BG_BMP_RAM(0),
+                     MatrixBackgroundRabbit3BitmapLen);
+}
+
+
 /**
  * Función auxiliar para establecer diferentes
  * fondos.
@@ -79,6 +116,18 @@ void background_setBackground(Backgrounds bg){
             break;
         case BG_GAME_OVER:
             background_SetGameOverBackground();
+            break;
+        case BG_MATRIX_INATRIX:
+            background_SetMatrixBackgroundInatrix();
+            break;
+        case BG_RABBIT:
+            background_SetMatrixBackgroundRabbit();
+            break;
+        case BG_RABBIT2:
+            background_SetMatrixBackgroundRabbit2();
+            break;
+        case BG_RABBIT3:
+            background_SetMatrixBackgroundRabbit3();
             break;
         default:
             break;
