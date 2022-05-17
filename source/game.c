@@ -261,7 +261,7 @@ void game_initData(){
     playerData.runOverflows = 0;
     playerData.failScore = 0;
     gameData.matrixRegens = 0;
-    gameData.destroyMatrixTime = TIMER_REGEN;
+    gameData.destroyMatrixTime = TIMER_REGEN_NM;
 }
 
 /**
@@ -301,7 +301,7 @@ void game_setDestroyMatrix(bool active){
  */
 void game_enableDestroyMatrix(){
     gameData.destroyMatrixActive = true;
-    gameData.destroyMatrixTime = 15;
+    gameData.destroyMatrixTime = (gameData.mode == DIFFICULTY_HARD_MODE ? TIMER_REGEN_HM : TIMER_REGEN_NM);
     playerData.runOverflows = 0;
 }
 

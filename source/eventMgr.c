@@ -249,7 +249,7 @@ void eventMgr_UpdateScheduledEvents(){
                     break;
                 case EVENT_INTRO_FINISH1:
                     char ht2[] = "\x1b[10;00H or not? hahaha...";
-                    char nt2[] = "\x1b[10;00H The Matrix will end you.";
+                    char nt2[] = "\x1b[10;00H You will be lost in the Matrix.";
                     iprintf(gameData.mode == DIFFICULTY_HARD_MODE ? ht2 : nt2);
                     objectMgr_manageSelectedCapsule(gameData.mode == DIFFICULTY_NORMAL_MODE ? GFX_CAPSULE_RED : GFX_CAPSULE_BLUE);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
@@ -258,7 +258,6 @@ void eventMgr_UpdateScheduledEvents(){
                 case EVENT_INTRO_FINISH2:
                     consoleUI_showIntro1();
                     objectMgr_spawnInatrix();
-                    // Hacer algo con fondo.
                     eventMgr_ScheduleEvent(EVENT_GAME_START, IN_4_SECONDS);
                     eventMgr_ScheduleEvent(EVENT_CLEAR_CONSOLE, IN_3_SECONDS);
                     break;

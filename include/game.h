@@ -25,7 +25,8 @@
 #ifndef GAME_H
 #define GAME_H
 #define GAME_FPS_CAP 16
-#define TIMER_REGEN 15
+#define TIMER_REGEN_HM 15
+#define TIMER_REGEN_NM 25
 
 #include <stdbool.h>
 

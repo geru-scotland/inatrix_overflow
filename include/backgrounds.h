@@ -5,7 +5,6 @@ backgrounds.h
 #define BACKGROUNDS_H
 
 //enum para los backgrounds:
-//IMPORTANTE: Actualizar cada vez que se añada un nuevo background
 typedef enum {
     BG_MATRIX = 0,
     BG_MATRIX2,
