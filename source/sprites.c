@@ -162,7 +162,6 @@ void sprites_setMainPalette() {
  * @param isHidden
  */
 void sprites_displaySprite(uint8 index, int x, int y, bool isHidden){
-    // Ahora se define el nuevo sprite
     oamSet(&oamMain,
            index,
            x, y,

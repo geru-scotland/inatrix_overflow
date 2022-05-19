@@ -228,7 +228,7 @@ void game_Loop()
 }
 
 /**
- * @brief Fnción auxiliar encargada de gestionar de manera oportuna cada selección
+ * @brief Función auxiliar encargada de gestionar de manera oportuna cada selección
  * de bitblock.
  * @param overflow Si se ha producido overflow o no.
  */

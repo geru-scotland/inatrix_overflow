@@ -39,7 +39,6 @@ void game_Update();
  * Asociados al autómata o máquina de estados base.
  */
 enum States {
-    // Estados generales del juego
     GAME_STATE_MAIN_MENU = 0,
     GAME_STATE_INTRO,
     GAME_STATE_MENU,
