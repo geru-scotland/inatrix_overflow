@@ -206,6 +206,7 @@ void consoleUI_showFail(){
     srand(time(0));
     iprintf("\x1b[2J");
     iprintf(rand() % 2 == 0 ? f1 : f2);
+    iprintf("\x1b[12;00H   _");
     iprintf("\x1b[13;00H -Inatrix, Lord of the");
     iprintf("\x1b[15;00H  Overflow ");
 }
