@@ -27,11 +27,7 @@ Pero Iñatrix todopoderoso no está solo; nosotros le ayudaremos a identificar l
 
 ## El mini-motor
 
-Durante el desarrollo de éste juego, hemos ido creando un 'mini-motor' para la NDS. Durante los próximos meses separaremos el contenido Iñatrix Overflow de dicho motor, y éste será publicado en el siguiente repositorio bajo licencia , para que cualquier persona lo pueda utilizar y/o contribuir:
-
-<p align="center">
-  <a target="_blank" href="https://www.youtube.com/watch?v=ibOBxk2QBKM&feature=youtu.be](https://github.com/Geru-Scotland/libnds-mini-engine)">Libnds mini-engine.</a>
-</p>
+Durante el desarrollo de éste juego, hemos ido creando un 'mini-motor' para la NDS. Durante los próximos meses separaremos el contenido Iñatrix Overflow de dicho motor, y éste será publicado en el siguiente repositorio bajo licencia , para que cualquier persona lo pueda utilizar y/o contribuir: <a target="_blank" href="https://www.youtube.com/watch?v=ibOBxk2QBKM&feature=youtu.be](https://github.com/Geru-Scotland/libnds-mini-engine)">Libnds mini-engine.</a>
 
 
 ## Créditos
