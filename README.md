@@ -25,6 +25,13 @@ Para ello, Iñatrix será capaz de duplicarse e ir destruyendo desde lo más pro
 
 Pero Iñatrix todopoderoso no está solo; nosotros le ayudaremos a identificar los bits infectos. El tiempo juega en nuestra contra; tendremos que poner en marcha nuestros cerebros para calcular lo más rápidamente posible y poder así salvar la realidad...
 
+## El mini-motor
+
+Durante el desarrollo de éste juego, hemos ido creando un 'mini-motor' para la NDS. Durante los próximos meses separaremos el contenido Iñatrix Overflow de dicho motor, y éste será publicado en el siguiente repositorio bajo licencia , para que cualquier persona lo pueda utilizar y/o contribuir:
+
+<p align="center">
+  <a target="_blank" href="https://www.youtube.com/watch?v=ibOBxk2QBKM&feature=youtu.be](https://github.com/Geru-Scotland/libnds-mini-engine)">Libnds mini-engine.</a>
+</p>
 
 
 ## Créditos
