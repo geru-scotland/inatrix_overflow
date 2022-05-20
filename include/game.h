@@ -41,12 +41,10 @@ void game_Update();
 enum States {
     GAME_STATE_MAIN_MENU = 0,
     GAME_STATE_INTRO,
-    GAME_STATE_MENU,
     GAME_STATE_GAME,
     GAME_STATE_PAUSE,
     GAME_STATE_GAME_OVER,
     GAME_STATE_STATS,
-    GAME_STATE_SURRENDER,
 };
 
 /**
