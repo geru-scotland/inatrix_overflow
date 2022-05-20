@@ -3,6 +3,8 @@
 
 Es un juego que hemos decidido desarrollar en honor a Iñaki Morlan, nuestro profesor de la asignatura de Principios de Sistemas Digitales que se jubiló este pasado Diciembre y hacia el cual hemos desarrollado un afecto bastante grande. Iñaki se convertirá en Iñatrix, el protagonista; dueño y señ̃or del mundo binario. Éste juego ha sido desarrollado para la asignatura de Estructuras de computadores.
 
+Para más información, se pude consultar la <a href="https://github.com/Geru-Scotland/inatrix_overflow/blob/master/doc/memoria/Memoria.pdf">memoria del proyecto</a>.
+
 <p align="center">
   <img alt="Main Menu" src="resources/StartingMenu.png" />
 </p>
@@ -13,7 +15,6 @@ Video demostración:
   <a href="https://www.youtube.com/watch?v=ibOBxk2QBKM&feature=youtu.be"><img alt="Main Menu" src="resources/Game.png" /></a>
 </p>
 
-Para más información, se pude consultar la <a href="https://github.com/Geru-Scotland/inatrix_overflow/blob/master/doc/memoria/Memoria.pdf">memoria del proyecto</a>.
 
 ## Lore y Gameplay
 
