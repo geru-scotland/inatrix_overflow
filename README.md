@@ -13,6 +13,11 @@ Video demostración:
   <a href="https://www.youtube.com/watch?v=ibOBxk2QBKM&feature=youtu.be"><img alt="Main Menu" src="resources/Game.png" /></a>
 </p>
 
+Para más información, se pude consultar la <a href="https://github.com/Geru-Scotland/inatrix_overflow/blob/master/doc/memoria/Memoria.pdf">memoria del proyecto</a>.
+
+## Lore y Gameplay
+
+
 ## Créditos
 
 * Estamos agradecidos por la plantilla base que nos han proporcionado los profesores de la asignatura de Estructuras de computadores de la Facultad de Informática de Donostia. Dicha plantilla se puede encontrar en el directorio [/base_template/](https://github.com/Geru-Scotland/inatrix_overflow/tree/master/base_template) de este repositorio.
