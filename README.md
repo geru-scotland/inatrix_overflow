@@ -16,7 +16,15 @@ Video demostración:
 </p>
 
 
-## Lore y Gameplay
+## Lore
+
+
+Iñatrix es el super héroe que colabora analizando el sistema que tiene la función de 'realidad' en éste mundo, gracias a un exhaustivo análisis es capaz de proporcionar estabilidad con su superpoder de identificación de \texttt{overflows} en la estructura de \textbf{Matrix}. La realidad que rige éste universo, está en constante decadencia y la única manera de conseguir que no se exista un \texttt{fatal system failure} es eliminando los bits incongruentes de su estructura intrínseca.
+
+Para ello, Iñatrix será capaz de duplicarse e ir identificando de raíz matricial bidimensional los bits que hacen de centro del \texttt{overflow}.
+
+Pero Iñatrix todopoderoso no está solo; nosotros le ayudaremos a encontrar los bits infectos. El tiempo juega en nuestra contra; tendremos que poner en marcha nuestros cerebros para calcular lo más rápidamente posible y poder así salvar la realidad.
+
 
 
 ## Créditos
