@@ -12,7 +12,7 @@ Para más información, se pude consultar la <a href="https://github.com/Geru-Sc
 
 Video demostración:
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=ibOBxk2QBKM&feature=youtu.be"><img alt="Main Menu" src="resources/Game.png" /></a>
+  <a target="_blank" href="https://www.youtube.com/watch?v=ibOBxk2QBKM&feature=youtu.be"><img alt="Main Menu" src="resources/Game.png" /></a>
 </p>
 
 
