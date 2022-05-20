@@ -19,7 +19,7 @@ Video demostración:
 ## Lore
 
 
-Iñatrix es el super héroe que colabora analizando el sistema que tiene la función de 'realidad' en éste mundo, gracias a un exhaustivo análisis es capaz de proporcionar estabilidad con su superpoder de eliminación de overflows en la estructura de Matrix. La realidad que rige éste universo, está en constante decadencia y la única manera de conseguir que no exista un fatal system failure es eliminando los bits incongruentes de su estructura intrínseca.
+Iñatrix es el super héroe que colabora analizando el sistema que tiene la función de 'realidad' en éste mundo, gracias a un exhaustivo análisis es capaz de proporcionar estabilidad con su superpoder de eliminación de overflows en la estructura de Matrix. La realidad que rige éste universo, está en constante decadencia y la única manera de conseguir que no ocurra un fatal system failure es eliminando los bits incongruentes de su estructura intrínseca.
 
 Para ello, Iñatrix será capaz de duplicarse e ir destruyendo desde lo más profundo de la raíz matricial bidimensional los bits que hacen de centro del overflow.
 
